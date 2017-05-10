@@ -13,4 +13,7 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
+   <FileRef
+      location = "group:MaterialShowcase.podspec">
+   </FileRef>
 </Workspace>
