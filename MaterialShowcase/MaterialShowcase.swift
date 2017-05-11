@@ -25,6 +25,11 @@ public class MaterialShowcase: UIView {
   fileprivate let PRIMARY_DEFAULT_TEXT = "Awesome action"
   fileprivate let SECONDARY_DEFAULT_TEXT = "Tap here to do some awesome thing"
   
+  // MARK: Animation properties
+  fileprivate var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
+  fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5 // second
+  fileprivate var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
+  
   // MARK: Public Properties
   
   // Background
@@ -46,6 +51,7 @@ public class MaterialShowcase: UIView {
   fileprivate var targetView: UIView!
   fileprivate var backgroundView: UIView!
   fileprivate var targetHolderView: UIView!
+  fileprivate var targetAniSupportView: UIView!
   fileprivate var targetCopyView: UIView!
   fileprivate var primaryLabel: UILabel!
   fileprivate var secondaryLabel: UILabel!
@@ -102,7 +108,7 @@ extension MaterialShowcase {
   public func show(completion handler: (()-> Void)?) {
     alpha = 0.0
     containerView.addSubview(self)
-    UIView.animate(withDuration: 0.5, delay: 0,
+    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
                    options: [.curveEaseInOut],
                    animations: { self.alpha = 1.0 },
                    completion: nil)
@@ -133,6 +139,15 @@ extension MaterialShowcase {
     for subView in subviews {
       subView.isUserInteractionEnabled = false
     }
+    
+    // Animation here
+//    UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
+//      self.targetHolderView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+//      UIView.animate(withDuration: 0.1, delay: 0, options: [.repeat, .autoreverse, .curveEaseIn], animations: {
+//        self.targetAniSupportView.alpha = 0.1
+//        self.targetAniSupportView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+//      }, completion: nil)
+//    }, completion: nil)
   }
   
   // Initializes default view properties
@@ -156,7 +171,7 @@ extension MaterialShowcase {
     secondaryTextSize = SECONDARY_TEXT_SIZE
   }
   
-  // Add background which is circle
+  // Add background which is a big circle
   private func addBackground(at center: CGPoint) {
     let radius: CGFloat!
     
@@ -166,21 +181,47 @@ extension MaterialShowcase {
       radius = containerView.frame.width
     }
     
-    backgroundView = UIView(frame: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2,height: radius * 2))
+    backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
+    backgroundView.frame.size.width = backgroundView.frame.width / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
+    backgroundView.frame.size.height = backgroundView.frame.height / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
+    backgroundView.center = center
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     backgroundView.asCircle()
-    
     addSubview(backgroundView)
+    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+                   options: [.curveLinear],
+                   animations: {
+                    self.backgroundView.transform = CGAffineTransform(scaleX: self.ANI_TARGET_HOLDER_SCALE, y: self.ANI_TARGET_HOLDER_SCALE)},
+                   completion: nil)
   }
   
   private func addTarget(at center: CGPoint) {
     // Add target holder which is a circle view
-    targetHolderView = UIView(frame: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2,height: radius * 2))
+    targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
+    targetHolderView.frame.size.width = targetHolderView.frame.width / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
+    targetHolderView.frame.size.height = targetHolderView.frame.height / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
+    targetHolderView.center = center
     targetHolderView.backgroundColor = UIColor.white
     targetHolderView.asCircle()
     addSubview(targetHolderView)
+    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+                   options: [.curveLinear],
+                   animations: {
+                    self.targetHolderView.transform = CGAffineTransform(scaleX: self.ANI_TARGET_HOLDER_SCALE, y: self.ANI_TARGET_HOLDER_SCALE)
+    },
+                   completion: {
+    _ in
+    })
     
-    // Copy target view to show it on target holder view
+    // Add another holder view which supports fadding animation when showing
+    targetAniSupportView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
+    targetAniSupportView.center = center
+    targetAniSupportView.backgroundColor = UIColor.white
+    targetAniSupportView.alpha = 0.0 //set it invisible
+    targetAniSupportView.asCircle()
+    addSubview(targetAniSupportView)
+    
+    // Copy target view to modify its copy but not the original target view
     targetCopyView = targetView.copyView() as! UIView
     targetCopyView.tintColor = targetTintColor
     let width = targetCopyView.frame.width
@@ -253,12 +294,11 @@ extension MaterialShowcase {
   
   // Default action when dimissing showcase
   func completeShowcase() {
-    UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut],
+    UIView.animate(withDuration: ANI_GOOUT_DURATION, delay: 0, options: [.curveEaseOut],
                    animations: {
                     self.alpha = 0 },
                    completion: {
                     _ in
-                    
                     // Recycle subviews
                     self.recycleSubviews()
                     // Remove it from current screen
@@ -266,11 +306,9 @@ extension MaterialShowcase {
   }
   
   private func recycleSubviews() {
-    backgroundView.removeFromSuperview()
-    targetHolderView.removeFromSuperview()
-    targetCopyView.removeFromSuperview()
-    primaryLabel.removeFromSuperview()
-    secondaryLabel.removeFromSuperview()
+    for subview in subviews {
+      subview.removeFromSuperview()
+    }
   }
 }
 
