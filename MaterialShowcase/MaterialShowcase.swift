@@ -27,7 +27,7 @@ public class MaterialShowcase: UIView {
   
   // MARK: Animation properties
   fileprivate var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
-  fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5 // second
+  fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5  // second
   fileprivate var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
   
   // MARK: Public Properties
@@ -140,14 +140,11 @@ extension MaterialShowcase {
       subView.isUserInteractionEnabled = false
     }
     
-    // Animation here
-//    UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
-//      self.targetHolderView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-//      UIView.animate(withDuration: 0.1, delay: 0, options: [.repeat, .autoreverse, .curveEaseIn], animations: {
-//        self.targetAniSupportView.alpha = 0.1
-//        self.targetAniSupportView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-//      }, completion: nil)
-//    }, completion: nil)
+    // Animation while displaying.
+    UIView.animate(withDuration: 0.5, delay: ANI_COMEIN_DURATION, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
+      self.targetAniSupportView.alpha = 0.1
+      self.targetAniSupportView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+    }, completion: nil)
   }
   
   // Initializes default view properties
@@ -182,35 +179,33 @@ extension MaterialShowcase {
     }
     
     backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
-    backgroundView.frame.size.width = backgroundView.frame.width / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
-    backgroundView.frame.size.height = backgroundView.frame.height / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
     backgroundView.center = center
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     backgroundView.asCircle()
+    backgroundView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
     addSubview(backgroundView)
     UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
                    options: [.curveLinear],
                    animations: {
-                    self.backgroundView.transform = CGAffineTransform(scaleX: self.ANI_TARGET_HOLDER_SCALE, y: self.ANI_TARGET_HOLDER_SCALE)},
+                    self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)},
                    completion: nil)
   }
   
   private func addTarget(at center: CGPoint) {
     // Add target holder which is a circle view
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
-    targetHolderView.frame.size.width = targetHolderView.frame.width / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
-    targetHolderView.frame.size.height = targetHolderView.frame.height / ANI_TARGET_HOLDER_SCALE // Initial set to support animation
     targetHolderView.center = center
     targetHolderView.backgroundColor = UIColor.white
     targetHolderView.asCircle()
+    targetHolderView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
     addSubview(targetHolderView)
     UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
                    options: [.curveLinear],
                    animations: {
-                    self.targetHolderView.transform = CGAffineTransform(scaleX: self.ANI_TARGET_HOLDER_SCALE, y: self.ANI_TARGET_HOLDER_SCALE)
+                    self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
     },
                    completion: {
-    _ in
+                    _ in
     })
     
     // Add another holder view which supports fadding animation when showing
@@ -369,6 +364,7 @@ public extension UIColor {
     default:
       return UIColor.clear
     }
+    
     return UIColor(
       red: CGFloat(r) / 255,
       green: CGFloat(g) / 255,
