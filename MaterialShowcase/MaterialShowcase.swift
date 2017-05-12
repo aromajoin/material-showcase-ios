@@ -29,6 +29,7 @@ public class MaterialShowcase: UIView {
   fileprivate var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
   fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5  // second
   fileprivate var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
+  fileprivate var ANI_TARGET_HOLDER_ALPHA: CGFloat = 0.2
   
   // MARK: Public Properties
   
@@ -142,7 +143,7 @@ extension MaterialShowcase {
     
     // Animation while displaying.
     UIView.animate(withDuration: 0.5, delay: ANI_COMEIN_DURATION, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
-      self.targetAniSupportView.alpha = 0.1
+      self.targetAniSupportView.alpha = self.ANI_TARGET_HOLDER_ALPHA
       self.targetAniSupportView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
     }, completion: nil)
   }
