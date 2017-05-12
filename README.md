@@ -5,7 +5,7 @@
 
 **An elegant and beautiful showcase for iOS apps based on Material Design Guidelines.**  
 
-
+![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif)  
 
 ## Requirement
 * iOS 8.0+
