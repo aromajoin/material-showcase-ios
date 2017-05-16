@@ -11,7 +11,7 @@ public class MaterialShowcase: UIView {
   
   // MARK: Material design guideline constant
   fileprivate let BACKGROUND_ALPHA: CGFloat = 0.96
-  fileprivate let TARGET_RADIUS: CGFloat = 44
+  fileprivate let TARGET_HOLDER_RADIUS: CGFloat = 44
   fileprivate let TEXT_CENTER_OFFSET: CGFloat = 44 + 20
   fileprivate let PRIMARY_TEXT_SIZE: CGFloat = 20
   fileprivate let SECONDARY_TEXT_SIZE: CGFloat = 16
@@ -22,6 +22,7 @@ public class MaterialShowcase: UIView {
   fileprivate let PRIMARY_TEXT_COLOR = UIColor.white
   fileprivate let SECONDARY_TEXT_COLOR = UIColor.white.withAlphaComponent(0.87)
   fileprivate let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
+  fileprivate let TARGET_HOLDER_COLOR = UIColor.white
   fileprivate let PRIMARY_DEFAULT_TEXT = "Awesome action"
   fileprivate let SECONDARY_DEFAULT_TEXT = "Tap here to do some awesome thing"
   
@@ -29,16 +30,30 @@ public class MaterialShowcase: UIView {
   fileprivate var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
   fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5  // second
   fileprivate var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
-  fileprivate var ANI_TARGET_HOLDER_ALPHA: CGFloat = 0.2
+  fileprivate let ANI_RIPPLE_COLOR = UIColor.white
+  fileprivate let ANI_RIPPLE_ALPHA: CGFloat = 0.2
+  fileprivate let ANI_RIPPLE_SCALE: CGFloat = 1.4
+  
+  // MARK: Private view properties
+  fileprivate var containerView: UIView!
+  fileprivate var targetView: UIView!
+  fileprivate var backgroundView: UIView!
+  fileprivate var targetHolderView: UIView!
+  fileprivate var targetRippleView: UIView!
+  fileprivate var targetCopyView: UIView!
+  fileprivate var primaryLabel: UILabel!
+  fileprivate var secondaryLabel: UILabel!
   
   // MARK: Public Properties
   
   // Background
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
-  public var targetTintColor: UIColor!
   // Target
-  public var radius: CGFloat!
+  public var targetTintColor: UIColor!
+  public var targetHolderRadius: CGFloat!
+  public var targetHolderColor: UIColor!
+  
   // Text
   public var primaryText: String!
   public var secondaryText: String!
@@ -46,16 +61,12 @@ public class MaterialShowcase: UIView {
   public var secondaryTextColor: UIColor!
   public var primaryTextSize: CGFloat!
   public var secondaryTextSize: CGFloat!
-  
-  // MARK: Private view properties
-  fileprivate var containerView: UIView!
-  fileprivate var targetView: UIView!
-  fileprivate var backgroundView: UIView!
-  fileprivate var targetHolderView: UIView!
-  fileprivate var targetAniSupportView: UIView!
-  fileprivate var targetCopyView: UIView!
-  fileprivate var primaryLabel: UILabel!
-  fileprivate var secondaryLabel: UILabel!
+  // Animation
+  public var aniComeInDuration: TimeInterval!
+  public var aniGoOutDuration: TimeInterval!
+  public var aniRippleScale: CGFloat!
+  public var aniRippleColor: UIColor!
+  public var aniRippleAlpha: CGFloat!
   
   public init() {
     // Create frame
@@ -102,7 +113,7 @@ extension MaterialShowcase {
     targetView = tableView.cellForRow(at: indexPath)
     // for table viewcell, we do not need target holder (circle view)
     // therefore, set its radius = 0
-    radius = 0
+    targetHolderRadius = 0
   }
   
   // Finally, shows it
@@ -124,12 +135,47 @@ extension MaterialShowcase {
 // MARK: - Setup views internally
 extension MaterialShowcase {
   
+  // Initializes default view properties
+  fileprivate func configure() {
+    backgroundColor = UIColor.clear
+    guard let window = UIApplication.shared.delegate?.window else {
+      return
+    }
+    containerView = window
+    setDefaultProperties()
+  }
+  
+  fileprivate func setDefaultProperties() {
+    // Background
+    backgroundPromptColor = BACKGROUND_DEFAULT_COLOR
+    backgroundPromptColorAlpha = BACKGROUND_ALPHA
+    // Target view
+    targetTintColor = BACKGROUND_DEFAULT_COLOR
+    targetHolderColor = TARGET_HOLDER_COLOR
+    targetHolderRadius = TARGET_HOLDER_RADIUS
+    // Text
+    primaryText = PRIMARY_DEFAULT_TEXT
+    secondaryText = SECONDARY_DEFAULT_TEXT
+    primaryTextColor = PRIMARY_TEXT_COLOR
+    secondaryTextColor = SECONDARY_TEXT_COLOR
+    primaryTextSize = PRIMARY_TEXT_SIZE
+    secondaryTextSize = SECONDARY_TEXT_SIZE
+    // Animation
+    aniComeInDuration = ANI_COMEIN_DURATION
+    aniGoOutDuration = ANI_GOOUT_DURATION
+    aniRippleAlpha = ANI_RIPPLE_ALPHA
+    aniRippleColor = ANI_RIPPLE_COLOR
+    aniRippleScale = ANI_RIPPLE_SCALE
+  }
+  
   // Overrides this to add subviews. They will be drawn when calling show()
   public override func layoutSubviews() {
     super.layoutSubviews()
     let center = calculateCenter(at: targetView, to: containerView)
     
     addBackground(at: center)
+    addTargetRipple(at: center)
+    addTargetHolder(at: center)
     addTarget(at: center)
     addPrimaryLabel(at: center)
     addSecondaryLabel(at: center)
@@ -142,31 +188,10 @@ extension MaterialShowcase {
     }
     
     // Animation while displaying.
-    UIView.animate(withDuration: 0.5, delay: ANI_COMEIN_DURATION, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
-      self.targetAniSupportView.alpha = self.ANI_TARGET_HOLDER_ALPHA
-      self.targetAniSupportView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+    UIView.animate(withDuration: 0.5, delay: aniComeInDuration, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
+      self.targetRippleView.alpha = self.ANI_RIPPLE_ALPHA
+      self.targetRippleView.transform = CGAffineTransform(scaleX: self.aniRippleScale, y: self.aniRippleScale)
     }, completion: nil)
-  }
-  
-  // Initializes default view properties
-  fileprivate func configure() {
-    backgroundColor = UIColor.clear
-    guard let window = UIApplication.shared.delegate?.window else {
-      return
-    }
-    containerView = window
-    
-    // Setup default properties
-    backgroundPromptColor = BACKGROUND_DEFAULT_COLOR
-    backgroundPromptColorAlpha = BACKGROUND_ALPHA
-    targetTintColor = BACKGROUND_DEFAULT_COLOR
-    radius = TARGET_RADIUS
-    primaryText = PRIMARY_DEFAULT_TEXT
-    secondaryText = SECONDARY_DEFAULT_TEXT
-    primaryTextColor = PRIMARY_TEXT_COLOR
-    secondaryTextColor = SECONDARY_TEXT_COLOR
-    primaryTextSize = PRIMARY_TEXT_SIZE
-    secondaryTextSize = SECONDARY_TEXT_SIZE
   }
   
   // Add background which is a big circle
@@ -185,22 +210,33 @@ extension MaterialShowcase {
     backgroundView.asCircle()
     backgroundView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
     addSubview(backgroundView)
-    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+    UIView.animate(withDuration: aniComeInDuration, delay: 0,
                    options: [.curveLinear],
                    animations: {
                     self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)},
                    completion: nil)
   }
   
-  private func addTarget(at center: CGPoint) {
-    // Add target holder which is a circle view
-    targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
+  // A background view which add ripple animation when showing target view
+  private func addTargetRipple(at center: CGPoint) {
+    targetRippleView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
+    targetRippleView.center = center
+    targetRippleView.backgroundColor = aniRippleColor
+    targetRippleView.alpha = 0.0 //set it invisible
+    targetRippleView.asCircle()
+    addSubview(targetRippleView)
+    
+  }
+  
+  // A circle-shape background view of target view
+  private func addTargetHolder(at center: CGPoint) {
+    targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
-    targetHolderView.backgroundColor = UIColor.white
+    targetHolderView.backgroundColor = targetHolderColor
     targetHolderView.asCircle()
     targetHolderView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
     addSubview(targetHolderView)
-    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+    UIView.animate(withDuration: aniComeInDuration, delay: 0,
                    options: [.curveLinear],
                    animations: {
                     self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -208,16 +244,11 @@ extension MaterialShowcase {
                    completion: {
                     _ in
     })
-    
-    // Add another holder view which supports fadding animation when showing
-    targetAniSupportView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
-    targetAniSupportView.center = center
-    targetAniSupportView.backgroundColor = UIColor.white
-    targetAniSupportView.alpha = 0.0 //set it invisible
-    targetAniSupportView.asCircle()
-    addSubview(targetAniSupportView)
-    
-    // Copy target view to modify its copy but not the original target view
+  }
+  
+  // Create a copy view of target view 
+  // It helps us not to affect the original target view
+  private func addTarget(at center: CGPoint) {
     targetCopyView = targetView.copyView() as! UIView
     targetCopyView.tintColor = targetTintColor
     let width = targetCopyView.frame.width
@@ -290,7 +321,7 @@ extension MaterialShowcase {
   
   // Default action when dimissing showcase
   func completeShowcase() {
-    UIView.animate(withDuration: ANI_GOOUT_DURATION, delay: 0, options: [.curveEaseOut],
+    UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
                    animations: {
                     self.alpha = 0 },
                    completion: {
