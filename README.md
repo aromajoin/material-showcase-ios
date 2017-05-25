@@ -5,7 +5,10 @@
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
 
-![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif)  
+![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif)
+![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png)
+![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png)
+![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png)
 
 ## Requirement
 * iOS 8.0+
