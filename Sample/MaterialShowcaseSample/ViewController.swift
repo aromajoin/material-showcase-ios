@@ -38,6 +38,11 @@ class ViewController: UIViewController {
     let showcase = MaterialShowcase()
     showcase.setTargetView(barButtonItem: searchItem)
     showcase.targetTintColor = UIColor.red
+    showcase.targetHolderRadius = 50
+    showcase.targetHolderColor = UIColor.yellow
+    showcase.aniComeInDuration = 0.3
+    showcase.aniRippleColor = UIColor.black
+    showcase.aniRippleAlpha = 0.2
     showcase.primaryText = "Action 2"
     showcase.secondaryText = "Click here to go into details"
     showcase.show(completion: {
