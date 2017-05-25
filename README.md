@@ -3,7 +3,7 @@
 ![Download](https://img.shields.io/badge/pod-v0.1.1-blue.svg) 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
-**An elegant and beautiful showcase for iOS apps based on Material Design Guidelines.**  
+**An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
 
 ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif)  
 
@@ -51,14 +51,21 @@ You can define your own styles based on your app.
   // Background
   showcase.backgroundPromptColor = UIColor.blue
   showcase.backgroundPromptColorAlpha = 0.96
-  showcase.targetTintColor = UIColor.blue
   // Target
-  showcase.radius = 44
+  showcase.targetTintColor = UIColor.blue
+  showcase.targetHolderRadius = 44
+  showcase.targetHolderColor = UIColor.white
   // Text
   showcase.primaryTextColor = UIColor.white
   showcase.secondaryTextColor = UIColor.white
   showcase.primaryTextSize = 20
   showcase.secondaryTextSize = 16
+  // Animation
+  showcase.aniComeInDuration = 0.5 // unit: second
+  showcase.aniGoOutDuration = 0.5 // unit: second
+  showcase.aniRippleScale = 1.5 
+  showcase.aniRippleColor = UIColor.white
+  showcase.aniRippleAlpha = 0.2
 ```
   
 If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).  
