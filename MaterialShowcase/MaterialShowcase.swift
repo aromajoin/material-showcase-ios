@@ -7,6 +7,10 @@
 //
 import UIKit
 
+protocol MaterialShowcaseDelegate: class {
+    func showCaseWillDismiss()
+}
+
 public class MaterialShowcase: UIView {
   
   // MARK: Material design guideline constant
@@ -35,6 +39,7 @@ public class MaterialShowcase: UIView {
   fileprivate let ANI_RIPPLE_SCALE: CGFloat = 1.4
   
   // MARK: Private view properties
+  fileprivate var delegate: MaterialShowcaseDelegate?
   fileprivate var containerView: UIView!
   fileprivate var targetView: UIView!
   fileprivate var backgroundView: UIView!
@@ -68,7 +73,9 @@ public class MaterialShowcase: UIView {
   public var aniRippleColor: UIColor!
   public var aniRippleAlpha: CGFloat!
   
-  public init() {
+  init(delegate: MaterialShowcaseDelegate) {
+    //Set up delegate
+    self.delegate = delegate
     // Create frame
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     super.init(frame: frame)
@@ -321,6 +328,7 @@ extension MaterialShowcase {
   
   // Default action when dimissing showcase
   func completeShowcase() {
+    self.delegate?.showCaseWillDismiss()
     UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
                    animations: {
                     self.alpha = 0 },
