@@ -22,7 +22,7 @@ public class MaterialShowcase: UIView {
   fileprivate let LABEL_MARGIN: CGFloat = 40
   
   // Other default properties
-  fileprivate let LABEL_DEFAULT_HEIGHT: CGFloat = 25
+  fileprivate let LABEL_DEFAULT_HEIGHT: CGFloat = 75
   fileprivate let PRIMARY_TEXT_COLOR = UIColor.white
   fileprivate let SECONDARY_TEXT_COLOR = UIColor.white.withAlphaComponent(0.87)
   fileprivate let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
@@ -299,6 +299,7 @@ extension MaterialShowcase {
     secondaryLabel.textAlignment = .left
     secondaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     secondaryLabel.text = secondaryText
+    secondaryLabel.numberOfLines = 3
     
     // Calculate y position based on target position
     var yPosition: CGFloat!
