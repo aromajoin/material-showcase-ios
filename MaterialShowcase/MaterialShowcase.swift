@@ -7,10 +7,6 @@
 //
 import UIKit
 
-protocol MaterialShowcaseDelegate: class {
-    func showCaseWillDismiss()
-}
-
 public class MaterialShowcase: UIView {
   
   // MARK: Material design guideline constant
@@ -18,11 +14,11 @@ public class MaterialShowcase: UIView {
   fileprivate let TARGET_HOLDER_RADIUS: CGFloat = 44
   fileprivate let TEXT_CENTER_OFFSET: CGFloat = 44 + 20
   fileprivate let PRIMARY_TEXT_SIZE: CGFloat = 20
-  fileprivate let SECONDARY_TEXT_SIZE: CGFloat = 16
+  fileprivate let SECONDARY_TEXT_SIZE: CGFloat = 15
   fileprivate let LABEL_MARGIN: CGFloat = 40
   
   // Other default properties
-  fileprivate let LABEL_DEFAULT_HEIGHT: CGFloat = 75
+  fileprivate let LABEL_DEFAULT_HEIGHT: CGFloat = 50
   fileprivate let PRIMARY_TEXT_COLOR = UIColor.white
   fileprivate let SECONDARY_TEXT_COLOR = UIColor.white.withAlphaComponent(0.87)
   fileprivate let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
@@ -39,7 +35,6 @@ public class MaterialShowcase: UIView {
   fileprivate let ANI_RIPPLE_SCALE: CGFloat = 1.4
   
   // MARK: Private view properties
-  fileprivate var delegate: MaterialShowcaseDelegate?
   fileprivate var containerView: UIView!
   fileprivate var targetView: UIView!
   fileprivate var backgroundView: UIView!
@@ -50,7 +45,7 @@ public class MaterialShowcase: UIView {
   fileprivate var secondaryLabel: UILabel!
   
   // MARK: Public Properties
-  
+
   // Background
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
@@ -73,9 +68,7 @@ public class MaterialShowcase: UIView {
   public var aniRippleColor: UIColor!
   public var aniRippleAlpha: CGFloat!
   
-  init(delegate: MaterialShowcaseDelegate) {
-    //Set up delegate
-    self.delegate = delegate
+  public init() {
     // Create frame
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     super.init(frame: frame)
@@ -253,7 +246,7 @@ extension MaterialShowcase {
     })
   }
   
-  // Create a copy view of target view 
+  // Create a copy view of target view
   // It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
     targetCopyView = targetView.copyView() as! UIView
@@ -273,6 +266,10 @@ extension MaterialShowcase {
     primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     primaryLabel.text = primaryText
     
+    // Calculate x position
+    let xPosition = backgroundView.frame.minX > 0 ?
+      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN
+    
     // Calculate y position
     var yPosition: CGFloat!
     
@@ -282,10 +279,9 @@ extension MaterialShowcase {
       yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
     }
     
-    primaryLabel.frame = CGRect(x: (backgroundView.frame.minX > 0 ?
-      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN),
+    primaryLabel.frame = CGRect(x: xPosition,
                                 y: yPosition,
-                                width: containerView.frame.width,
+                                width: containerView.frame.width - xPosition,
                                 height: LABEL_DEFAULT_HEIGHT)
     
     addSubview(primaryLabel)
@@ -301,6 +297,10 @@ extension MaterialShowcase {
     secondaryLabel.text = secondaryText
     secondaryLabel.numberOfLines = 3
     
+    // Calculate x position 
+    let xPosition = (backgroundView.frame.minX > 0 ?
+      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN)
+    
     // Calculate y position based on target position
     var yPosition: CGFloat!
     
@@ -310,10 +310,9 @@ extension MaterialShowcase {
       yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT
     }
     
-    secondaryLabel.frame = CGRect(x: (backgroundView.frame.minX > 0 ?
-      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN),
+    secondaryLabel.frame = CGRect(x: xPosition,
                                   y: yPosition,
-                                  width: containerView.frame.width,
+                                  width: containerView.frame.width - xPosition,
                                   height: LABEL_DEFAULT_HEIGHT)
     
     addSubview(secondaryLabel)
@@ -329,7 +328,6 @@ extension MaterialShowcase {
   
   // Default action when dimissing showcase
   func completeShowcase() {
-    self.delegate?.showCaseWillDismiss()
     UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
                    animations: {
                     self.alpha = 0 },
@@ -338,7 +336,9 @@ extension MaterialShowcase {
                     // Recycle subviews
                     self.recycleSubviews()
                     // Remove it from current screen
-                    self.removeFromSuperview()})
+                    self.removeFromSuperview()
+    })
+    
   }
   
   private func recycleSubviews() {

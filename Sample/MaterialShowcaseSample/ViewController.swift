@@ -44,7 +44,8 @@ class ViewController: UIViewController {
     showcase.aniRippleColor = UIColor.black
     showcase.aniRippleAlpha = 0.2
     showcase.primaryText = "Action 2"
-    showcase.secondaryText = "Click here to go into details"
+    showcase.secondaryText = "Click here to go into long long long long long long long long long long long long long long long details"
+    showcase.secondaryTextSize = 14
     showcase.show(completion: {
       _ in
       // You can save showcase state here
