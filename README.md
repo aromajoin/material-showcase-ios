@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-![Download](https://img.shields.io/badge/pod-v0.1.2-blue.svg) 
+![Download](https://img.shields.io/badge/pod-v0.1.3-blue.svg) 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
@@ -62,7 +62,7 @@ You can define your own styles based on your app.
   showcase.primaryTextColor = UIColor.white
   showcase.secondaryTextColor = UIColor.white
   showcase.primaryTextSize = 20
-  showcase.secondaryTextSize = 16
+  showcase.secondaryTextSize = 15
   // Animation
   showcase.aniComeInDuration = 0.5 // unit: second
   showcase.aniGoOutDuration = 0.5 // unit: second
