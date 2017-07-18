@@ -110,7 +110,7 @@ extension MaterialShowcase {
   // Sets a UITableViewCell as target
   public func setTargetView(tableView: UITableView, section: Int, row: Int) {
     let indexPath = IndexPath(row: row, section: section)
-    targetView = tableView.cellForRow(at: indexPath)
+    targetView = tableView.cellForRow(at: indexPath)?.contentView
     // for table viewcell, we do not need target holder (circle view)
     // therefore, set its radius = 0
     targetHolderRadius = 0
