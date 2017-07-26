@@ -251,9 +251,22 @@ extension MaterialShowcase {
   private func addTarget(at center: CGPoint) {
     targetCopyView = targetView.copyView() as! UIView
     targetCopyView.tintColor = targetTintColor
+    
+    if targetCopyView is UIButton {
+        let button = targetView as! UIButton
+        let buttonCopy = targetCopyView as! UIButton
+        buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
+    } else if targetCopyView is UIImageView {
+        let imageView = targetView as! UIImageView
+        let imageViewCopy = targetCopyView as! UIImageView
+        imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+    }
+    
     let width = targetCopyView.frame.width
     let height = targetCopyView.frame.height
     targetCopyView.frame = CGRect(x: center.x - width/2, y: center.y - height/2, width: width, height: height)
+    targetCopyView.translatesAutoresizingMaskIntoConstraints = true
+    
     addSubview(targetCopyView)
   }
   
