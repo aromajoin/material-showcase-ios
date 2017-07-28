@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-![Download](https://img.shields.io/badge/pod-v0.1.3-blue.svg) 
+![Download](https://img.shields.io/badge/pod-v0.1.4-blue.svg) 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
@@ -47,6 +47,26 @@ There are several target view supported.
   showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
   // UItableViewCell
   showcase.setTargetView(tableView: tableView, section: 0, row: 0)
+```
+### Handle showcase status
+```swift
+  // Right after showing.
+  showcase.show(completion: {
+    _ in
+    // You can save showcase state here
+  })
+  
+  // When dismissing, delegate should be declared.
+  showcase.delegate = self
+  
+  extension ViewController: MaterialShowcaseDelegate {
+    func showCaseWillDismiss(showcase: MaterialShowcase) {
+      print("Showcase \(showcase.primaryText) will dismiss.")
+    }
+    func showCaseDidDismiss(showcase: MaterialShowcase) {
+      print("Showcase \(showcase.primaryText) dimissed.")
+    }
+  }
 ```
 #### Customize UI properties
 You can define your own styles based on your app.
