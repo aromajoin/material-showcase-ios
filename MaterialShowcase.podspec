@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'MaterialShowcase'
-s.version          = '0.1.3'
+s.version          = '0.1.4'
 s.summary          = 'An elegant and beautiful showcase for iOS apps.'
 
 s.description      = <<-DESC
@@ -16,3 +16,4 @@ s.ios.deployment_target = '8.0'
 s.source_files = 'MaterialShowcase/MaterialShowcase.swift'
 
 end
+## Execute push: $pod trunk push MaterialShowcase.podspec
