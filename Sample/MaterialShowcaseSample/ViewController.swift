@@ -46,6 +46,8 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 2"
     showcase.secondaryText = "Click here to go into long long long long long long long long long long long long long long long details"
     showcase.secondaryTextSize = 14
+    // Delegate to handle other action after showcase is dismissed.
+    showcase.delegate = self
     showcase.show(completion: {
       _ in
       // You can save showcase state here
@@ -57,10 +59,7 @@ class ViewController: UIViewController {
     showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
-    showcase.show(completion: {
-      _ in
-      // You can save showcase state here
-    })
+    showcase.show(completion: nil)
   }
   
   @IBAction func showTableView(_ sender: Any) {
@@ -68,10 +67,7 @@ class ViewController: UIViewController {
     showcase.setTargetView(tableView: tableView, section: 0, row: 2)
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
-    showcase.show(completion: {
-      _ in
-      // You can save showcase state here
-    })
+    showcase.show(completion: nil)
   }
 }
 
@@ -84,5 +80,15 @@ extension ViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: "animalViewCell", for: indexPath)
     cell.textLabel?.text = animals[indexPath.row]
     return cell
+  }
+}
+
+// If you need handle other actions (i.e: show other showcase), you can implement MaterialShowcaseDelegate
+extension ViewController: MaterialShowcaseDelegate {
+  func showCaseWillDismiss(showcase: MaterialShowcase) {
+    print("Showcase \(showcase.primaryText) will dismiss.")
+  }
+  func showCaseDidDismiss(showcase: MaterialShowcase) {
+    print("Showcase \(showcase.primaryText) dimissed.")
   }
 }
