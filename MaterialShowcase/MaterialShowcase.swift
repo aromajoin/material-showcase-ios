@@ -7,6 +7,11 @@
 //
 import UIKit
 
+@objc public protocol MaterialShowcaseDelegate: class {
+  @objc optional func showCaseWillDismiss(showcase: MaterialShowcase)
+  @objc optional func showCaseDidDismiss(showcase: MaterialShowcase)
+}
+
 public class MaterialShowcase: UIView {
   
   // MARK: Material design guideline constant
@@ -53,7 +58,6 @@ public class MaterialShowcase: UIView {
   public var targetTintColor: UIColor!
   public var targetHolderRadius: CGFloat!
   public var targetHolderColor: UIColor!
-  
   // Text
   public var primaryText: String!
   public var secondaryText: String!
@@ -67,6 +71,8 @@ public class MaterialShowcase: UIView {
   public var aniRippleScale: CGFloat!
   public var aniRippleColor: UIColor!
   public var aniRippleAlpha: CGFloat!
+  // Delegate
+  public var delegate: MaterialShowcaseDelegate?
   
   public init() {
     // Create frame
@@ -340,7 +346,11 @@ extension MaterialShowcase {
   }
   
   // Default action when dimissing showcase
+  // Notifies delegate, removes views, and handles out-going animation
   func completeShowcase() {
+    if delegate != nil && delegate?.showCaseDidDismiss != nil {
+      delegate?.showCaseWillDismiss!(showcase: self)
+    }
     UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
                    animations: {
                     self.alpha = 0 },
@@ -351,7 +361,9 @@ extension MaterialShowcase {
                     // Remove it from current screen
                     self.removeFromSuperview()
     })
-    
+    if delegate != nil && delegate?.showCaseDidDismiss != nil {
+      delegate?.showCaseDidDismiss!(showcase: self)
+    }
   }
   
   private func recycleSubviews() {
