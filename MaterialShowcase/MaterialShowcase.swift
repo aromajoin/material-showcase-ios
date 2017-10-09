@@ -72,7 +72,7 @@ public class MaterialShowcase: UIView {
   public var aniRippleColor: UIColor!
   public var aniRippleAlpha: CGFloat!
   // Delegate
-  public var delegate: MaterialShowcaseDelegate?
+  public weak var delegate: MaterialShowcaseDelegate?
   
   public init() {
     // Create frame
@@ -339,7 +339,7 @@ extension MaterialShowcase {
   
   // Handles user's tap
   private func tapGestureRecoganizer() -> UIGestureRecognizer {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(completeShowcase))
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MaterialShowcase.completeShowcase))
     tapGesture.numberOfTapsRequired = 1
     tapGesture.numberOfTouchesRequired = 1
     return tapGesture
@@ -349,7 +349,7 @@ extension MaterialShowcase {
   // Notifies delegate, removes views, and handles out-going animation
   func completeShowcase() {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseWillDismiss!(showcase: self)
+      delegate?.showCaseWillDismiss?(showcase: self)
     }
     UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
                    animations: {
@@ -362,7 +362,7 @@ extension MaterialShowcase {
                     self.removeFromSuperview()
     })
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseDidDismiss!(showcase: self)
+      delegate?.showCaseDidDismiss?(showcase: self)
     }
   }
   
