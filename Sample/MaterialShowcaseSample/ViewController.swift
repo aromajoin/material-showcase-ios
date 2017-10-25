@@ -15,7 +15,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var tabBar: UITabBar!
   @IBOutlet weak var button: UIButton!
   @IBOutlet weak var tableView: UITableView!
-
+  
   // Mock data for table view
   let animals = ["Dolphin", "Penguin", "Panda", "Neko", "Inu"]
   override func viewDidLoad() {
@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
     showcase.show(completion: {
-      _ in
       // You can save showcase state here
     })
   }
@@ -49,7 +48,6 @@ class ViewController: UIViewController {
     // Delegate to handle other action after showcase is dismissed.
     showcase.delegate = self
     showcase.show(completion: {
-      _ in
       // You can save showcase state here
     })
   }
