@@ -91,19 +91,19 @@ public class MaterialShowcase: UIView {
 // MARK: - Public APIs
 extension MaterialShowcase {
   
-  // Sets a general UIView as target
+  /// Sets a general UIView as target
   public func setTargetView(view: UIView) {
     targetView = view
   }
   
-  // Sets a UIBarButtonItem as target
+  /// Sets a UIBarButtonItem as target
   public func setTargetView(barButtonItem: UIBarButtonItem) {
     if let view = barButtonItem.value(forKey: "view") as? UIView {
       targetView = view
     }
   }
   
-  // Sets a UITabBar Item as target
+  /// Sets a UITabBar Item as target
   public func setTargetView(tabBar: UITabBar, itemIndex: Int) {
     let tabBarItems = orderedTabBarItemViews(of: tabBar)
     if itemIndex < tabBarItems.count {
@@ -113,7 +113,7 @@ extension MaterialShowcase {
     }
   }
   
-  // Sets a UITableViewCell as target
+  /// Sets a UITableViewCell as target
   public func setTargetView(tableView: UITableView, section: Int, row: Int) {
     let indexPath = IndexPath(row: row, section: section)
     targetView = tableView.cellForRow(at: indexPath)?.contentView
@@ -122,7 +122,7 @@ extension MaterialShowcase {
     targetHolderRadius = 0
   }
   
-  // Finally, shows it
+  /// Shows it over current screen after completing setup process
   public func show(completion handler: (()-> Void)?) {
     alpha = 0.0
     containerView.addSubview(self)
@@ -141,7 +141,7 @@ extension MaterialShowcase {
 // MARK: - Setup views internally
 extension MaterialShowcase {
   
-  // Initializes default view properties
+  /// Initializes default view properties
   fileprivate func configure() {
     backgroundColor = UIColor.clear
     guard let window = UIApplication.shared.delegate?.window else {
@@ -174,7 +174,7 @@ extension MaterialShowcase {
     aniRippleScale = ANI_RIPPLE_SCALE
   }
   
-  // Overrides this to add subviews. They will be drawn when calling show()
+  /// Overrides this to add subviews. They will be drawn when calling show()
   public override func layoutSubviews() {
     super.layoutSubviews()
     let center = calculateCenter(at: targetView, to: containerView)
@@ -200,7 +200,7 @@ extension MaterialShowcase {
     }, completion: nil)
   }
   
-  // Add background which is a big circle
+  /// Add background which is a big circle
   private func addBackground(at center: CGPoint) {
     let radius: CGFloat!
     
@@ -223,7 +223,7 @@ extension MaterialShowcase {
                    completion: nil)
   }
   
-  // A background view which add ripple animation when showing target view
+  /// A background view which add ripple animation when showing target view
   private func addTargetRipple(at center: CGPoint) {
     targetRippleView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetRippleView.center = center
@@ -234,7 +234,7 @@ extension MaterialShowcase {
     
   }
   
-  // A circle-shape background view of target view
+  /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
@@ -252,8 +252,8 @@ extension MaterialShowcase {
     })
   }
   
-  // Create a copy view of target view
-  // It helps us not to affect the original target view
+  /// Create a copy view of target view
+  /// It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
     targetCopyView = targetView.copyView() as! UIView
     targetCopyView.tintColor = targetTintColor
@@ -276,7 +276,7 @@ extension MaterialShowcase {
     addSubview(targetCopyView)
   }
   
-  // Configures and adds primary label view
+  /// Configures and adds primary label view
   private func addPrimaryLabel(at center: CGPoint) {
     primaryLabel = UILabel()
     primaryLabel.font = UIFont.boldSystemFont(ofSize: primaryTextSize)
@@ -306,7 +306,7 @@ extension MaterialShowcase {
     addSubview(primaryLabel)
   }
   
-  // Configures and adds secondary label view
+  /// Configures and adds secondary label view
   private func addSecondaryLabel(at center: CGPoint) {
     secondaryLabel = UILabel()
     secondaryLabel.font = UIFont.systemFont(ofSize: secondaryTextSize)
@@ -337,7 +337,7 @@ extension MaterialShowcase {
     addSubview(secondaryLabel)
   }
   
-  // Handles user's tap
+  /// Handles user's tap
   private func tapGestureRecoganizer() -> UIGestureRecognizer {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MaterialShowcase.completeShowcase))
     tapGesture.numberOfTapsRequired = 1
@@ -345,8 +345,8 @@ extension MaterialShowcase {
     return tapGesture
   }
   
-  // Default action when dimissing showcase
-  // Notifies delegate, removes views, and handles out-going animation
+  /// Default action when dimissing showcase
+  /// Notifies delegate, removes views, and handles out-going animation
   @objc func completeShowcase() {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseWillDismiss?(showcase: self)
@@ -376,14 +376,14 @@ extension MaterialShowcase {
 // MARK: - Helper methods
 extension MaterialShowcase {
   
-  // Defines the position of target view
-  // which helps to place texts at suitable positions
+  /// Defines the position of target view
+  /// which helps to place texts at suitable positions
   fileprivate enum TARGET_POSITION {
     case above // at upper screen part
     case below // at lower screen part
   }
   
-  // Detects the position of target view relative to its container
+  /// Detects the position of target view relative to its container
   fileprivate func getTargetPosition(target: UIView, container: UIView) -> TARGET_POSITION{
     let center = calculateCenter(at: targetView, to: container)
     if center.y < container.frame.height / 2{
@@ -442,12 +442,12 @@ public extension UIColor {
 // MARK: - UIView extension utility
 extension UIView{
   
-  // Create a view's copy
+  /// Create a view's copy
   func copyView() -> AnyObject{
     return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self))! as AnyObject
   }
   
-  // Transform a view's shape into circle
+  /// Transform a view's shape into circle
   func asCircle(){
     self.layer.cornerRadius = self.frame.width / 2;
     self.layer.masksToBounds = true
