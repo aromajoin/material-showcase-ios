@@ -257,7 +257,7 @@ extension MaterialShowcase {
   // Create a copy view of target view
   // It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
-    targetCopyView = targetView.copyView() as! UIView
+    targetCopyView = targetView.snapshotView(afterScreenUpdates: true);
     targetCopyView.tintColor = targetTintColor
     
     if targetCopyView is UIButton {
@@ -452,11 +452,6 @@ public extension UIColor {
 
 // MARK: - UIView extension utility
 extension UIView{
-  
-  // Create a view's copy
-  func copyView() -> AnyObject{
-    return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self))! as AnyObject
-  }
   
   // Transform a view's shape into circle
   func asCircle(){
