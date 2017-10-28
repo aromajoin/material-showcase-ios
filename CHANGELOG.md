@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.2.0 *(2017-10-29)*
+----------------------------
+* Fix bug, crash on iOS 11 when targeting BarButtonItem and custom buttons were not displayed
+* Allow to add custom fonts
+
 Version 0.1.4 *(2017-07-28)*
 ----------------------------
 * Fix bugs
@@ -15,8 +20,9 @@ Version 0.1.2 *(2017-05-25)*
 
 Version 0.1.1 *(2017-05-12)*
 ----------------------------
-* Fix Build settings  
+* Fix Build settings
 
 Version 0.1.0 *(2017-05-11)*
 ----------------------------
 * Initial release
+

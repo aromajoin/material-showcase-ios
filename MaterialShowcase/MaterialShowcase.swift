@@ -50,7 +50,7 @@ public class MaterialShowcase: UIView {
   fileprivate var secondaryLabel: UILabel!
   
   // MARK: Public Properties
-
+  
   // Background
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
@@ -65,6 +65,8 @@ public class MaterialShowcase: UIView {
   public var secondaryTextColor: UIColor!
   public var primaryTextSize: CGFloat!
   public var secondaryTextSize: CGFloat!
+  public var primaryTextFont: UIFont?
+  public var secondaryTextFont: UIFont?
   // Animation
   public var aniComeInDuration: TimeInterval!
   public var aniGoOutDuration: TimeInterval!
@@ -255,17 +257,17 @@ extension MaterialShowcase {
   /// Create a copy view of target view
   /// It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
-    targetCopyView = targetView.copyView() as! UIView
+    targetCopyView = targetView.snapshotView(afterScreenUpdates: true);
     targetCopyView.tintColor = targetTintColor
     
     if targetCopyView is UIButton {
-        let button = targetView as! UIButton
-        let buttonCopy = targetCopyView as! UIButton
-        buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
+      let button = targetView as! UIButton
+      let buttonCopy = targetCopyView as! UIButton
+      buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
     } else if targetCopyView is UIImageView {
-        let imageView = targetView as! UIImageView
-        let imageViewCopy = targetCopyView as! UIImageView
-        imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+      let imageView = targetView as! UIImageView
+      let imageViewCopy = targetCopyView as! UIImageView
+      imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
     }
     
     let width = targetCopyView.frame.width
@@ -279,7 +281,12 @@ extension MaterialShowcase {
   /// Configures and adds primary label view
   private func addPrimaryLabel(at center: CGPoint) {
     primaryLabel = UILabel()
-    primaryLabel.font = UIFont.boldSystemFont(ofSize: primaryTextSize)
+    
+    if let font = primaryTextFont {
+      primaryLabel.font = font
+    } else {
+      primaryLabel.font = UIFont.boldSystemFont(ofSize: primaryTextSize)
+    }
     primaryLabel.textColor = primaryTextColor
     primaryLabel.textAlignment = .left
     primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -309,7 +316,11 @@ extension MaterialShowcase {
   /// Configures and adds secondary label view
   private func addSecondaryLabel(at center: CGPoint) {
     secondaryLabel = UILabel()
-    secondaryLabel.font = UIFont.systemFont(ofSize: secondaryTextSize)
+    if let font = secondaryTextFont {
+      secondaryLabel.font = font
+    } else {
+      secondaryLabel.font = UIFont.systemFont(ofSize: secondaryTextSize)
+    }
     secondaryLabel.textColor = secondaryTextColor
     secondaryLabel.textAlignment = .left
     secondaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
@@ -442,12 +453,7 @@ public extension UIColor {
 // MARK: - UIView extension utility
 extension UIView{
   
-  /// Create a view's copy
-  func copyView() -> AnyObject{
-    return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self))! as AnyObject
-  }
-  
-  /// Transform a view's shape into circle
+  // Transform a view's shape into circle
   func asCircle(){
     self.layer.cornerRadius = self.frame.width / 2;
     self.layer.masksToBounds = true
