@@ -140,14 +140,17 @@ extension MaterialShowcase {
   }
   
   /// Shows it over current screen after completing setup process
-  public func show(completion handler: (()-> Void)?) {
+  public func show(animated: Bool = true, completion handler: (()-> Void)?) {
     alpha = 0.0
     containerView.addSubview(self)
-    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
-                   options: [.curveEaseInOut],
-                   animations: { self.alpha = 1.0 },
-                   completion: nil)
-    
+    if animated {
+      UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+                     options: [.curveEaseInOut],
+                     animations: { self.alpha = 1.0 },
+                     completion: nil)
+    } else {
+      self.alpha = 1.0
+    }
     // Handler user's action after showing.
     if let handler = handler {
       handler()
@@ -382,20 +385,29 @@ extension MaterialShowcase {
   
   /// Default action when dimissing showcase
   /// Notifies delegate, removes views, and handles out-going animation
-  @objc func completeShowcase() {
+  @objc public func completeShowcase(animated: Bool = true) {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseWillDismiss?(showcase: self)
     }
-    UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
-                   animations: {
-                    self.alpha = 0 },
-                   completion: {
-                    _ in
-                    // Recycle subviews
-                    self.recycleSubviews()
-                    // Remove it from current screen
-                    self.removeFromSuperview()
-    })
+    if animated {
+      UIView.animate(
+        withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
+        animations: {
+          self.alpha = 0
+        },
+        completion: { _ in
+          // Recycle subviews
+          self.recycleSubviews()
+          // Remove it from current screen
+          self.removeFromSuperview()
+        }
+      )
+    } else {
+      // Recycle subviews
+      self.recycleSubviews()
+      // Remove it from current screen
+      self.removeFromSuperview()
+    }
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseDidDismiss?(showcase: self)
     }
