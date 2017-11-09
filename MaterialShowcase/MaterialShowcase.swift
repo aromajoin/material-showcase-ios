@@ -440,6 +440,16 @@ extension MaterialShowcase {
     let interactionViews = tabBar.subviews.filter({$0.isUserInteractionEnabled})
     return interactionViews.sorted(by: {$0.frame.minX < $1.frame.minX})
   }
+  
+  public static func presentedShowcases() -> [MaterialShowcase]? {
+    guard let window = UIApplication.shared.delegate?.window else {
+      return nil
+    }
+    return window?.subviews.filter({ (view) -> Bool in
+      return view is MaterialShowcase
+    }) as? [MaterialShowcase]
+  }
+  
 }
 
 // MARK: - UIColor extension utility
