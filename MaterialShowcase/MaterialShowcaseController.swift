@@ -41,23 +41,28 @@ public protocol MaterialShowcaseControllerDataSource: class {
   
 }
 
-public class MaterialShowcaseController {
+open class MaterialShowcaseController {
   public weak var dataSource: MaterialShowcaseControllerDataSource?
   public weak var delegate: MaterialShowcaseControllerDelegate?
   
-  var started = false
-  var currentIndex = -1
+  public var started = false
+  public var currentIndex = -1
+  public weak var currentShowcase: MaterialShowcase?
   
   public init() {
     
   }
   
-  public func start(on viewController: UIViewController) {
+  open func start() {
     started = true
     nextShowcase()
   }
   
-  func nextShowcase() {
+  open func nextShowcase() {
+    if let currentShowcase = self.currentShowcase {
+        currentShowcase.completeShowcase(animated: true)
+        self.currentShowcase = nil
+    }
     let numberOfShowcases = dataSource?.numberOfShowcases(for: self) ?? 0
     currentIndex += 1
     let showcase = dataSource?.materialShowcaseController(self, showcaseAt: currentIndex)
@@ -67,6 +72,7 @@ public class MaterialShowcaseController {
       currentIndex = -1
       return
     }
+    currentShowcase = showcase
     showcase?.show(completion: nil)
   }
 }
@@ -77,6 +83,7 @@ extension MaterialShowcaseController: MaterialShowcaseDelegate {
   }
   public func showCaseDidDismiss(showcase: MaterialShowcase) {
     delegate?.materialShowcaseController(self, materialShowcaseDidDisappear: showcase, forIndex: currentIndex)
+    currentShowcase = nil
     self.nextShowcase()
   }
 }
