@@ -13,7 +13,7 @@ s.author           = { 'Quang Nguyen' => 'quangnguyen@aromajoin.com' }
 s.source           = { :git => 'https://github.com/aromajoin/material-showcase-ios.git', :tag => s.version.to_s }
 
 s.ios.deployment_target = '8.0'
-s.source_files = 'MaterialShowcase/MaterialShowcase.swift'
+s.source_files = 'MaterialShowcase/*.swift'
 
 end
 ## Execute push: $pod trunk push MaterialShowcase.podspec

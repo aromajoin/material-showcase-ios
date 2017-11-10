@@ -39,6 +39,7 @@ public class MaterialShowcase: UIView {
   fileprivate let ANI_RIPPLE_ALPHA: CGFloat = 0.2
   fileprivate let ANI_RIPPLE_SCALE: CGFloat = 1.4
   
+  
   // MARK: Private view properties
   fileprivate var containerView: UIView!
   fileprivate var targetView: UIView!
@@ -55,6 +56,7 @@ public class MaterialShowcase: UIView {
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
   // Target
+  public var shouldSetTintColor: Bool = true
   public var targetTintColor: UIColor!
   public var targetHolderRadius: CGFloat!
   public var targetHolderColor: UIColor!
@@ -96,11 +98,22 @@ extension MaterialShowcase {
   /// Sets a general UIView as target
   public func setTargetView(view: UIView) {
     targetView = view
+    if let label = targetView as? UILabel {
+      targetTintColor = label.textColor
+      backgroundPromptColor = label.textColor
+    } else if let button = targetView as? UIButton {
+      let tintColor = button.titleColor(for: .normal)
+      targetTintColor = tintColor
+      backgroundPromptColor = tintColor
+    } else {
+      targetTintColor = targetView.tintColor
+      backgroundPromptColor = targetView.tintColor
+    }
   }
   
   /// Sets a UIBarButtonItem as target
   public func setTargetView(barButtonItem: UIBarButtonItem) {
-    if let view = barButtonItem.value(forKey: "view") as? UIView {
+    if let view = (barButtonItem.value(forKey: "view") as? UIView)?.subviews.first {
       targetView = view
     }
   }
@@ -110,6 +123,8 @@ extension MaterialShowcase {
     let tabBarItems = orderedTabBarItemViews(of: tabBar)
     if itemIndex < tabBarItems.count {
       targetView = tabBarItems[itemIndex]
+      targetTintColor = tabBar.tintColor
+      backgroundPromptColor = tabBar.tintColor
     } else {
       print ("The tab bar item index is out of range")
     }
@@ -125,14 +140,17 @@ extension MaterialShowcase {
   }
   
   /// Shows it over current screen after completing setup process
-  public func show(completion handler: (()-> Void)?) {
+  public func show(animated: Bool = true, completion handler: (()-> Void)?) {
     alpha = 0.0
     containerView.addSubview(self)
-    UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
-                   options: [.curveEaseInOut],
-                   animations: { self.alpha = 1.0 },
-                   completion: nil)
-    
+    if animated {
+      UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
+                     options: [.curveEaseInOut],
+                     animations: { self.alpha = 1.0 },
+                     completion: nil)
+    } else {
+      self.alpha = 1.0
+    }
     // Handler user's action after showing.
     if let handler = handler {
       handler()
@@ -257,17 +275,25 @@ extension MaterialShowcase {
   /// Create a copy view of target view
   /// It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
-    targetCopyView = targetView.snapshotView(afterScreenUpdates: true);
-    targetCopyView.tintColor = targetTintColor
+    targetCopyView = targetView.copyView()
     
-    if targetCopyView is UIButton {
-      let button = targetView as! UIButton
-      let buttonCopy = targetCopyView as! UIButton
-      buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
-    } else if targetCopyView is UIImageView {
-      let imageView = targetView as! UIImageView
-      let imageViewCopy = targetCopyView as! UIImageView
-      imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+    if shouldSetTintColor {
+      targetCopyView.setTintColor(targetTintColor, recursive: true)
+      
+      if targetCopyView is UIButton {
+        let button = targetView as! UIButton
+        let buttonCopy = targetCopyView as! UIButton
+        buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
+      } else if targetCopyView is UIImageView {
+        let imageView = targetView as! UIImageView
+        let imageViewCopy = targetCopyView as! UIImageView
+        imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+      } else if let imageViewCopy = targetCopyView.subviews.first as? UIImageView,
+        let labelCopy = targetCopyView.subviews.last as? UILabel {
+        let imageView = targetView.subviews.first as! UIImageView
+        imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        labelCopy.textColor = targetTintColor
+      }
     }
     
     let width = targetCopyView.frame.width
@@ -289,6 +315,7 @@ extension MaterialShowcase {
     }
     primaryLabel.textColor = primaryTextColor
     primaryLabel.textAlignment = .left
+    primaryLabel.numberOfLines = 0
     primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     primaryLabel.text = primaryText
     
@@ -307,9 +334,9 @@ extension MaterialShowcase {
     
     primaryLabel.frame = CGRect(x: xPosition,
                                 y: yPosition,
-                                width: containerView.frame.width - xPosition,
-                                height: LABEL_DEFAULT_HEIGHT)
-    
+                                width: containerView.frame.width - (xPosition + xPosition),
+                                height: 0)
+    primaryLabel.sizeToFitHeight()
     addSubview(primaryLabel)
   }
   
@@ -327,7 +354,7 @@ extension MaterialShowcase {
     secondaryLabel.text = secondaryText
     secondaryLabel.numberOfLines = 3
     
-    // Calculate x position 
+    // Calculate x position
     let xPosition = (backgroundView.frame.minX > 0 ?
       backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN)
     
@@ -358,20 +385,29 @@ extension MaterialShowcase {
   
   /// Default action when dimissing showcase
   /// Notifies delegate, removes views, and handles out-going animation
-  @objc func completeShowcase() {
+  @objc public func completeShowcase(animated: Bool = true) {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseWillDismiss?(showcase: self)
     }
-    UIView.animate(withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
-                   animations: {
-                    self.alpha = 0 },
-                   completion: {
-                    _ in
-                    // Recycle subviews
-                    self.recycleSubviews()
-                    // Remove it from current screen
-                    self.removeFromSuperview()
-    })
+    if animated {
+      UIView.animate(
+        withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
+        animations: {
+          self.alpha = 0
+        },
+        completion: { _ in
+          // Recycle subviews
+          self.recycleSubviews()
+          // Remove it from current screen
+          self.removeFromSuperview()
+        }
+      )
+    } else {
+      // Recycle subviews
+      self.recycleSubviews()
+      // Remove it from current screen
+      self.removeFromSuperview()
+    }
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseDidDismiss?(showcase: self)
     }
@@ -416,6 +452,16 @@ extension MaterialShowcase {
     let interactionViews = tabBar.subviews.filter({$0.isUserInteractionEnabled})
     return interactionViews.sorted(by: {$0.frame.minX < $1.frame.minX})
   }
+  
+  public static func presentedShowcases() -> [MaterialShowcase]? {
+    guard let window = UIApplication.shared.delegate?.window else {
+      return nil
+    }
+    return window?.subviews.filter({ (view) -> Bool in
+      return view is MaterialShowcase
+    }) as? [MaterialShowcase]
+  }
+  
 }
 
 // MARK: - UIColor extension utility
@@ -458,4 +504,35 @@ extension UIView{
     self.layer.cornerRadius = self.frame.width / 2;
     self.layer.masksToBounds = true
   }
+  
+  func setTintColor(_ color: UIColor, recursive: Bool) {
+    if recursive {
+      tintColor = color
+      for view in subviews {
+        view.setTintColor(color, recursive: true)
+      }
+    } else {
+      tintColor = color
+    }
+  }
 }
+
+extension UILabel {
+  func sizeToFitHeight() {
+    let tempLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: CGFloat.greatestFiniteMagnitude))
+    tempLabel.numberOfLines = numberOfLines
+    tempLabel.lineBreakMode = lineBreakMode
+    tempLabel.font = font
+    tempLabel.text = text
+    tempLabel.sizeToFit()
+    frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: tempLabel.frame.height)
+  }
+}
+
+extension UIView
+{
+  func copyView<T: UIView>() -> T {
+    return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! T
+  }
+}
+
