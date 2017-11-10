@@ -158,6 +158,20 @@ extension MaterialShowcase {
   }
 }
 
+// MARK: - Utility API
+extension MaterialShowcase {
+  /// Returns the current showcases displayed on screen.
+  /// It will return null if no showcase exists.
+  public static func presentedShowcases() -> [MaterialShowcase]? {
+    guard let window = UIApplication.shared.delegate?.window else {
+      return nil
+    }
+    return window?.subviews.filter({ (view) -> Bool in
+      return view is MaterialShowcase
+    }) as? [MaterialShowcase]
+  }
+}
+
 // MARK: - Setup views internally
 extension MaterialShowcase {
   
@@ -394,13 +408,13 @@ extension MaterialShowcase {
         withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
         animations: {
           self.alpha = 0
-        },
+      },
         completion: { _ in
           // Recycle subviews
           self.recycleSubviews()
           // Remove it from current screen
           self.removeFromSuperview()
-        }
+      }
       )
     } else {
       // Recycle subviews
@@ -420,7 +434,7 @@ extension MaterialShowcase {
   }
 }
 
-// MARK: - Helper methods
+// MARK: - Private helper methods
 extension MaterialShowcase {
   
   /// Defines the position of target view
@@ -452,16 +466,6 @@ extension MaterialShowcase {
     let interactionViews = tabBar.subviews.filter({$0.isUserInteractionEnabled})
     return interactionViews.sorted(by: {$0.frame.minX < $1.frame.minX})
   }
-  
-  public static func presentedShowcases() -> [MaterialShowcase]? {
-    guard let window = UIApplication.shared.delegate?.window else {
-      return nil
-    }
-    return window?.subviews.filter({ (view) -> Bool in
-      return view is MaterialShowcase
-    }) as? [MaterialShowcase]
-  }
-  
 }
 
 // MARK: - UIColor extension utility
