@@ -1,5 +1,11 @@
 Change Log
 ==========
+Version 0.3.0 *(2017-11-11)*
+--------------------------------
+* Fix bug of failing to deal with image button
+* Refactor API: set animation as an option and choose whether tint color will be set or not
+* Add API: find presented showcases
+
 Version 0.2.0 *(2017-10-29)*
 ----------------------------
 * Fix bug, crash on iOS 11 when targeting BarButtonItem and custom buttons were not displayed
