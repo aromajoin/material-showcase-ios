@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     showcase.setTargetView(view: button)
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
+    showcase.shouldSetTintColor = false // It should be set to false when button uses image.
+    showcase.backgroundPromptColor = UIColor.blue
     showcase.show(completion: {
       // You can save showcase state here
     })
