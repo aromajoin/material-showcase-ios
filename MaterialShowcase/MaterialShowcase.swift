@@ -15,40 +15,37 @@ import UIKit
 public class MaterialShowcase: UIView {
   
   // MARK: Material design guideline constant
-  fileprivate let BACKGROUND_ALPHA: CGFloat = 0.96
-  fileprivate let TARGET_HOLDER_RADIUS: CGFloat = 44
-  fileprivate let TEXT_CENTER_OFFSET: CGFloat = 44 + 20
-  fileprivate let PRIMARY_TEXT_SIZE: CGFloat = 20
-  fileprivate let SECONDARY_TEXT_SIZE: CGFloat = 15
-  fileprivate let LABEL_MARGIN: CGFloat = 40
+  let BACKGROUND_ALPHA: CGFloat = 0.96
+  let TARGET_HOLDER_RADIUS: CGFloat = 44
+  let TEXT_CENTER_OFFSET: CGFloat = 44 + 20
+  let INSTRUCTIONS_CENTER_OFFSET: CGFloat = 20
+  let LABEL_MARGIN: CGFloat = 40
+  let TARGET_PADDING: CGFloat = 20
   
   // Other default properties
-  fileprivate let LABEL_DEFAULT_HEIGHT: CGFloat = 50
-  fileprivate let PRIMARY_TEXT_COLOR = UIColor.white
-  fileprivate let SECONDARY_TEXT_COLOR = UIColor.white.withAlphaComponent(0.87)
-  fileprivate let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
-  fileprivate let TARGET_HOLDER_COLOR = UIColor.white
-  fileprivate let PRIMARY_DEFAULT_TEXT = "Awesome action"
-  fileprivate let SECONDARY_DEFAULT_TEXT = "Tap here to do some awesome thing"
+  let LABEL_DEFAULT_HEIGHT: CGFloat = 50
+  let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
+  let TARGET_HOLDER_COLOR = UIColor.white
   
   // MARK: Animation properties
-  fileprivate var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
-  fileprivate var ANI_GOOUT_DURATION: TimeInterval = 0.5  // second
-  fileprivate var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
-  fileprivate let ANI_RIPPLE_COLOR = UIColor.white
-  fileprivate let ANI_RIPPLE_ALPHA: CGFloat = 0.2
-  fileprivate let ANI_RIPPLE_SCALE: CGFloat = 1.4
+  var ANI_COMEIN_DURATION: TimeInterval = 0.5 // second
+  var ANI_GOOUT_DURATION: TimeInterval = 0.5  // second
+  var ANI_TARGET_HOLDER_SCALE: CGFloat = 2.2
+  let ANI_RIPPLE_COLOR = UIColor.white
+  let ANI_RIPPLE_ALPHA: CGFloat = 0.5
+  let ANI_RIPPLE_SCALE: CGFloat = 1.6
   
+  var offsetThreshold: CGFloat = 88
   
   // MARK: Private view properties
-  fileprivate var containerView: UIView!
-  fileprivate var targetView: UIView!
-  fileprivate var backgroundView: UIView!
-  fileprivate var targetHolderView: UIView!
-  fileprivate var targetRippleView: UIView!
-  fileprivate var targetCopyView: UIView!
-  fileprivate var primaryLabel: UILabel!
-  fileprivate var secondaryLabel: UILabel!
+  var containerView: UIView!
+  var targetView: UIView!
+  var backgroundView: UIView!
+  var targetHolderView: UIView!
+  var hiddenTargetHolderView: UIView!
+  var targetRippleView: UIView!
+  var targetCopyView: UIView!
+  var instructionView: MaterialShowcaseInstructionView!
   
   // MARK: Public Properties
   
@@ -141,13 +138,25 @@ extension MaterialShowcase {
   
   /// Shows it over current screen after completing setup process
   public func show(animated: Bool = true, completion handler: (()-> Void)?) {
+    initViews()
     alpha = 0.0
     containerView.addSubview(self)
+    self.layoutIfNeeded()
+    
+    let scale = TARGET_HOLDER_RADIUS / (backgroundView.frame.width / 2)
+    let center = backgroundView.center
+    
+    backgroundView.transform = CGAffineTransform(scaleX: scale, y: scale) // Initial set to support animation
+    self.backgroundView.center = self.targetHolderView.center
     if animated {
-      UIView.animate(withDuration: ANI_COMEIN_DURATION, delay: 0,
-                     options: [.curveEaseInOut],
-                     animations: { self.alpha = 1.0 },
-                     completion: nil)
+      UIView.animate(withDuration: aniComeInDuration, animations: {
+        self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)
+        self.backgroundView.center = center
+        self.alpha = 1.0
+      }, completion: { _ in
+        self.startAnimations()
+      })
     } else {
       self.alpha = 1.0
     }
@@ -176,7 +185,7 @@ extension MaterialShowcase {
 extension MaterialShowcase {
   
   /// Initializes default view properties
-  fileprivate func configure() {
+  func configure() {
     backgroundColor = UIColor.clear
     guard let window = UIApplication.shared.delegate?.window else {
       return
@@ -185,7 +194,7 @@ extension MaterialShowcase {
     setDefaultProperties()
   }
   
-  fileprivate func setDefaultProperties() {
+  func setDefaultProperties() {
     // Background
     backgroundPromptColor = BACKGROUND_DEFAULT_COLOR
     backgroundPromptColorAlpha = BACKGROUND_ALPHA
@@ -194,12 +203,12 @@ extension MaterialShowcase {
     targetHolderColor = TARGET_HOLDER_COLOR
     targetHolderRadius = TARGET_HOLDER_RADIUS
     // Text
-    primaryText = PRIMARY_DEFAULT_TEXT
-    secondaryText = SECONDARY_DEFAULT_TEXT
-    primaryTextColor = PRIMARY_TEXT_COLOR
-    secondaryTextColor = SECONDARY_TEXT_COLOR
-    primaryTextSize = PRIMARY_TEXT_SIZE
-    secondaryTextSize = SECONDARY_TEXT_SIZE
+    primaryText = MaterialShowcaseInstructionView.PRIMARY_DEFAULT_TEXT
+    secondaryText = MaterialShowcaseInstructionView.SECONDARY_DEFAULT_TEXT
+    primaryTextColor = MaterialShowcaseInstructionView.PRIMARY_TEXT_COLOR
+    secondaryTextColor = MaterialShowcaseInstructionView.SECONDARY_TEXT_COLOR
+    primaryTextSize = MaterialShowcaseInstructionView.PRIMARY_TEXT_SIZE
+    secondaryTextSize = MaterialShowcaseInstructionView.SECONDARY_TEXT_SIZE
     // Animation
     aniComeInDuration = ANI_COMEIN_DURATION
     aniGoOutDuration = ANI_GOOUT_DURATION
@@ -208,53 +217,59 @@ extension MaterialShowcase {
     aniRippleScale = ANI_RIPPLE_SCALE
   }
   
-  /// Overrides this to add subviews. They will be drawn when calling show()
-  public override func layoutSubviews() {
-    super.layoutSubviews()
+  func startAnimations() {
+    let options: UIViewKeyframeAnimationOptions = [.curveEaseInOut, .repeat]
+    UIView.animateKeyframes(withDuration: 1, delay: 0, options: options, animations: {
+      UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+        self.targetRippleView.alpha = self.ANI_RIPPLE_ALPHA
+        self.targetHolderView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        self.targetRippleView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+      })
+      
+      UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
+        self.targetHolderView.transform = CGAffineTransform.identity
+        self.targetRippleView.alpha = 0
+        self.targetRippleView.transform = CGAffineTransform(scaleX: self.aniRippleScale, y: self.aniRippleScale)
+      })
+      
+    }, completion: nil)
+  }
+  
+  func initViews() {
     let center = calculateCenter(at: targetView, to: containerView)
     
-    addBackground(at: center)
     addTargetRipple(at: center)
     addTargetHolder(at: center)
     addTarget(at: center)
-    addPrimaryLabel(at: center)
-    addSecondaryLabel(at: center)
-    
+    addInstructionView(at: center)
+    instructionView.layoutIfNeeded()
+    addBackground()
+
     // Add gesture recognizer for both container and its subview
     addGestureRecognizer(tapGestureRecoganizer())
     // Disable subview interaction to let users click to general view only
     for subView in subviews {
       subView.isUserInteractionEnabled = false
     }
-    
-    // Animation while displaying.
-    UIView.animate(withDuration: 0.5, delay: aniComeInDuration, options: [.repeat, .autoreverse, .curveEaseInOut], animations: {
-      self.targetRippleView.alpha = self.ANI_RIPPLE_ALPHA
-      self.targetRippleView.transform = CGAffineTransform(scaleX: self.aniRippleScale, y: self.aniRippleScale)
-    }, completion: nil)
   }
   
   /// Add background which is a big circle
-  private func addBackground(at center: CGPoint) {
+  private func addBackground() {
     let radius: CGFloat!
+    
+    let center = getOuterCircleCenterPoint(for: targetCopyView)
     
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
     } else {
-      radius = containerView.frame.width
+      radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetCopyView.frame)
     }
     
     backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
     backgroundView.center = center
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     backgroundView.asCircle()
-    backgroundView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
-    addSubview(backgroundView)
-    UIView.animate(withDuration: aniComeInDuration, delay: 0,
-                   options: [.curveLinear],
-                   animations: {
-                    self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)},
-                   completion: nil)
+    insertSubview(backgroundView, belowSubview: targetRippleView)
   }
   
   /// A background view which add ripple animation when showing target view
@@ -270,20 +285,16 @@ extension MaterialShowcase {
   
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
+    hiddenTargetHolderView = UIView()
+    hiddenTargetHolderView.isHidden = true
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
     targetHolderView.backgroundColor = targetHolderColor
     targetHolderView.asCircle()
+    hiddenTargetHolderView.frame = targetHolderView.frame
     targetHolderView.transform = CGAffineTransform(scaleX: 1/ANI_TARGET_HOLDER_SCALE, y: 1/ANI_TARGET_HOLDER_SCALE) // Initial set to support animation
+    addSubview(hiddenTargetHolderView)
     addSubview(targetHolderView)
-    UIView.animate(withDuration: aniComeInDuration, delay: 0,
-                   options: [.curveLinear],
-                   animations: {
-                    self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
-    },
-                   completion: {
-                    _ in
-    })
   }
   
   /// Create a copy view of target view
@@ -298,6 +309,8 @@ extension MaterialShowcase {
         let button = targetView as! UIButton
         let buttonCopy = targetCopyView as! UIButton
         buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        buttonCopy.setTitleColor(targetTintColor, for: .normal)
+        buttonCopy.isEnabled = true
       } else if targetCopyView is UIImageView {
         let imageView = targetView as! UIImageView
         let imageViewCopy = targetCopyView as! UIImageView
@@ -307,35 +320,36 @@ extension MaterialShowcase {
         let imageView = targetView.subviews.first as! UIImageView
         imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         labelCopy.textColor = targetTintColor
+      } else if let label = targetCopyView as? UILabel {
+        label.textColor = targetTintColor
       }
     }
     
     let width = targetCopyView.frame.width
     let height = targetCopyView.frame.height
-    targetCopyView.frame = CGRect(x: center.x - width/2, y: center.y - height/2, width: width, height: height)
+    targetCopyView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+    targetCopyView.center = center
     targetCopyView.translatesAutoresizingMaskIntoConstraints = true
     
     addSubview(targetCopyView)
   }
   
   /// Configures and adds primary label view
-  private func addPrimaryLabel(at center: CGPoint) {
-    primaryLabel = UILabel()
+  private func addInstructionView(at center: CGPoint) {
+    instructionView = MaterialShowcaseInstructionView()
     
-    if let font = primaryTextFont {
-      primaryLabel.font = font
-    } else {
-      primaryLabel.font = UIFont.boldSystemFont(ofSize: primaryTextSize)
-    }
-    primaryLabel.textColor = primaryTextColor
-    primaryLabel.textAlignment = .left
-    primaryLabel.numberOfLines = 0
-    primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-    primaryLabel.text = primaryText
+    instructionView.primaryTextFont = primaryTextFont
+    instructionView.primaryTextSize = primaryTextSize
+    instructionView.primaryTextColor = primaryTextColor
+    instructionView.primaryText = primaryText
+    
+    instructionView.secondaryTextFont = secondaryTextFont
+    instructionView.secondaryTextSize = secondaryTextSize
+    instructionView.secondaryTextColor = secondaryTextColor
+    instructionView.secondaryText = secondaryText
     
     // Calculate x position
-    let xPosition = backgroundView.frame.minX > 0 ?
-      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN
+    let xPosition = LABEL_MARGIN
     
     // Calculate y position
     var yPosition: CGFloat!
@@ -346,55 +360,23 @@ extension MaterialShowcase {
       yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
     }
     
-    primaryLabel.frame = CGRect(x: xPosition,
+    instructionView.frame = CGRect(x: xPosition,
                                 y: yPosition,
                                 width: containerView.frame.width - (xPosition + xPosition),
                                 height: 0)
-    primaryLabel.sizeToFitHeight()
-    addSubview(primaryLabel)
-  }
-  
-  /// Configures and adds secondary label view
-  private func addSecondaryLabel(at center: CGPoint) {
-    secondaryLabel = UILabel()
-    if let font = secondaryTextFont {
-      secondaryLabel.font = font
-    } else {
-      secondaryLabel.font = UIFont.systemFont(ofSize: secondaryTextSize)
-    }
-    secondaryLabel.textColor = secondaryTextColor
-    secondaryLabel.textAlignment = .left
-    secondaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-    secondaryLabel.text = secondaryText
-    secondaryLabel.numberOfLines = 3
-    
-    // Calculate x position
-    let xPosition = (backgroundView.frame.minX > 0 ?
-      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN)
-    
-    // Calculate y position based on target position
-    var yPosition: CGFloat!
-    
-    if getTargetPosition(target: targetView, container: containerView) == .above {
-      yPosition = center.y + TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT
-    } else {
-      yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT
-    }
-    
-    secondaryLabel.frame = CGRect(x: xPosition,
-                                  y: yPosition,
-                                  width: containerView.frame.width - xPosition,
-                                  height: LABEL_DEFAULT_HEIGHT)
-    
-    addSubview(secondaryLabel)
+    addSubview(instructionView)
   }
   
   /// Handles user's tap
   private func tapGestureRecoganizer() -> UIGestureRecognizer {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MaterialShowcase.completeShowcase))
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MaterialShowcase.tapGestureSelector))
     tapGesture.numberOfTapsRequired = 1
     tapGesture.numberOfTouchesRequired = 1
     return tapGesture
+  }
+  
+  @objc private func tapGestureSelector() {
+    completeShowcase()
   }
   
   /// Default action when dimissing showcase
@@ -404,18 +386,22 @@ extension MaterialShowcase {
       delegate?.showCaseWillDismiss?(showcase: self)
     }
     if animated {
-      UIView.animate(
-        withDuration: aniGoOutDuration, delay: 0, options: [.curveEaseOut],
-        animations: {
+      targetRippleView.removeFromSuperview()
+      UIView.animateKeyframes(withDuration: aniGoOutDuration, delay: 0, options: [.calculationModeLinear], animations: {
+        UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 3/5, animations: {
+          self.targetHolderView.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+          self.backgroundView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+          self.backgroundView.alpha = 0
+        })
+        UIView.addKeyframe(withRelativeStartTime: 3/5, relativeDuration: 2/5, animations: {
           self.alpha = 0
-      },
-        completion: { _ in
-          // Recycle subviews
-          self.recycleSubviews()
-          // Remove it from current screen
-          self.removeFromSuperview()
-      }
-      )
+        })
+      }, completion: { (success) in
+        // Recycle subviews
+        self.recycleSubviews()
+        // Remove it from current screen
+        self.removeFromSuperview()
+      })
     } else {
       // Recycle subviews
       self.recycleSubviews()
@@ -439,13 +425,13 @@ extension MaterialShowcase {
   
   /// Defines the position of target view
   /// which helps to place texts at suitable positions
-  fileprivate enum TARGET_POSITION {
+  enum TargetPosition {
     case above // at upper screen part
     case below // at lower screen part
   }
   
   /// Detects the position of target view relative to its container
-  fileprivate func getTargetPosition(target: UIView, container: UIView) -> TARGET_POSITION{
+  func getTargetPosition(target: UIView, container: UIView) -> TargetPosition {
     let center = calculateCenter(at: targetView, to: container)
     if center.y < container.frame.height / 2{
       return .above
@@ -455,88 +441,16 @@ extension MaterialShowcase {
   }
   
   // Calculates the center point based on targetview
-  fileprivate func calculateCenter(at targetView: UIView, to containerView: UIView) -> CGPoint {
+  func calculateCenter(at targetView: UIView, to containerView: UIView) -> CGPoint {
     let targetRect = targetView.convert(targetView.bounds , to: containerView)
-    return CGPoint(x: targetRect.origin.x + targetRect.width / 2,
-                   y: targetRect.origin.y + targetRect.height / 2)
+    return targetRect.center
   }
   
   // Gets all UIView from TabBarItem.
-  fileprivate func orderedTabBarItemViews(of tabBar: UITabBar) -> [UIView] {
+  func orderedTabBarItemViews(of tabBar: UITabBar) -> [UIView] {
     let interactionViews = tabBar.subviews.filter({$0.isUserInteractionEnabled})
     return interactionViews.sorted(by: {$0.frame.minX < $1.frame.minX})
   }
 }
 
-// MARK: - UIColor extension utility
-public extension UIColor {
-  
-  /// Returns color from its hex string
-  ///
-  /// - Parameter hexString: the color hex string
-  /// - Returns: UIColor
-  public static func fromHex(hexString: String) -> UIColor {
-    let hex = hexString.trimmingCharacters(
-      in: CharacterSet.alphanumerics.inverted)
-    var int = UInt32()
-    Scanner(string: hex).scanHexInt32(&int)
-    let a, r, g, b: UInt32
-    switch hex.characters.count {
-    case 3: // RGB (12-bit)
-      (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-    case 6: // RGB (24-bit)
-      (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-    case 8: // ARGB (32-bit)
-      (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-    default:
-      return UIColor.clear
-    }
-    
-    return UIColor(
-      red: CGFloat(r) / 255,
-      green: CGFloat(g) / 255,
-      blue: CGFloat(b) / 255,
-      alpha: CGFloat(a) / 255)
-  }
-}
-
-// MARK: - UIView extension utility
-extension UIView{
-  
-  // Transform a view's shape into circle
-  func asCircle(){
-    self.layer.cornerRadius = self.frame.width / 2;
-    self.layer.masksToBounds = true
-  }
-  
-  func setTintColor(_ color: UIColor, recursive: Bool) {
-    if recursive {
-      tintColor = color
-      for view in subviews {
-        view.setTintColor(color, recursive: true)
-      }
-    } else {
-      tintColor = color
-    }
-  }
-}
-
-extension UILabel {
-  func sizeToFitHeight() {
-    let tempLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: CGFloat.greatestFiniteMagnitude))
-    tempLabel.numberOfLines = numberOfLines
-    tempLabel.lineBreakMode = lineBreakMode
-    tempLabel.font = font
-    tempLabel.text = text
-    tempLabel.sizeToFit()
-    frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: tempLabel.frame.height)
-  }
-}
-
-extension UIView
-{
-  func copyView<T: UIView>() -> T {
-    return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! T
-  }
-}
 

@@ -92,15 +92,42 @@
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8CC-dB-oJX">
+                                <rect key="frame" x="323" y="243" width="36" height="30"/>
+                                <state key="normal" title="Right"/>
+                                <connections>
+                                    <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9jX-AO-lF9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOG-Y7-rBI">
+                                <rect key="frame" x="16" y="243" width="30" height="30"/>
+                                <state key="normal" title="Left"/>
+                                <connections>
+                                    <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wiV-7c-jm0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWR-um-41T">
+                                <rect key="frame" x="164" y="243" width="47" height="30"/>
+                                <state key="normal" title="Middle"/>
+                                <connections>
+                                    <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YAX-A9-M9i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="top" secondItem="PP9-Xh-O4w" secondAttribute="bottom" constant="8" id="4KF-JG-KWh"/>
+                            <constraint firstItem="bWR-um-41T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5uu-YV-RhW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Er-Kq-T6A" secondAttribute="trailing" id="AtH-1u-8rc"/>
+                            <constraint firstItem="8CC-dB-oJX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="B16-Gv-0Gq"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2Er-Kq-T6A" secondAttribute="leading" id="GT1-rZ-Ldh"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="top" secondItem="6xO-1R-dVw" secondAttribute="bottom" constant="8" id="JIl-QG-17M"/>
+                            <constraint firstItem="xOG-Y7-rBI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NGb-fc-oVt"/>
+                            <constraint firstItem="8CC-dB-oJX" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="NdY-Cu-5dP"/>
+                            <constraint firstItem="xOG-Y7-rBI" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="NrW-aB-eKx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6xO-1R-dVw" secondAttribute="trailing" constant="10" id="Osa-wg-0nU"/>
                             <constraint firstItem="Nlo-Uq-wk3" firstAttribute="top" secondItem="2Er-Kq-T6A" secondAttribute="bottom" constant="16" id="PzA-ki-8ai"/>
+                            <constraint firstItem="bWR-um-41T" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="Tgb-PQ-fCz"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="centerX" secondItem="PP9-Xh-O4w" secondAttribute="centerX" id="W9s-OV-bPW"/>
                             <constraint firstItem="6xO-1R-dVw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="aFZ-AT-SdK"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aeW-yO-8cM"/>

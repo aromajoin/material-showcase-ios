@@ -35,6 +35,16 @@ class ViewController: UIViewController {
     })
   }
   
+  @IBAction func placementButton(_ sender: UIButton) {
+    let showcase = MaterialShowcase()
+    showcase.setTargetView(view: sender)
+    showcase.primaryText = "Action 1"
+    showcase.secondaryText = "Click here to go into details"
+    showcase.show(completion: {
+      // You can save showcase state here
+    })
+  }
+  
   @IBAction func showBarButtonItem(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(barButtonItem: searchItem)
