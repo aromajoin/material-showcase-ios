@@ -58,10 +58,16 @@ open class MaterialShowcaseController {
     nextShowcase()
   }
   
+  open func stop() {
+    started = false
+    currentIndex = -1
+    currentShowcase?.completeShowcase(animated: true)
+  }
+  
   open func nextShowcase() {
     if let currentShowcase = self.currentShowcase {
-        currentShowcase.completeShowcase(animated: true)
-        self.currentShowcase = nil
+      currentShowcase.completeShowcase(animated: true)
+      self.currentShowcase = nil
     }
     let numberOfShowcases = dataSource?.numberOfShowcases(for: self) ?? 0
     currentIndex += 1
@@ -84,7 +90,9 @@ extension MaterialShowcaseController: MaterialShowcaseDelegate {
   public func showCaseDidDismiss(showcase: MaterialShowcase) {
     delegate?.materialShowcaseController(self, materialShowcaseDidDisappear: showcase, forIndex: currentIndex)
     currentShowcase = nil
-    self.nextShowcase()
+    if started {
+      self.nextShowcase()
+    }
   }
 }
 
