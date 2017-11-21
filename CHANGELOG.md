@@ -1,5 +1,11 @@
 Change Log
 ==========
+Version 0.3.1 *(2017-11-21)*
+--------------------------------
+* Refactor codes
+* Fix bug
+* Improve animation
+
 Version 0.3.0 *(2017-11-11)*
 --------------------------------
 * Fix bug of failing to deal with image button
