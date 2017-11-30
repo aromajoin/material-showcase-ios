@@ -26,7 +26,10 @@
                                 <rect key="frame" x="0.0" y="618" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem systemItem="favorites" id="S2b-aL-lBF"/>
+                                    <tabBarItem systemItem="favorites" id="20b-Kx-RH7"/>
+                                    <tabBarItem systemItem="history" id="5eb-cq-kuj"/>
+                                    <tabBarItem systemItem="contacts" id="36y-JF-W5s"/>
+                                    <tabBarItem systemItem="downloads" id="S2b-aL-lBF"/>
                                     <tabBarItem systemItem="more" id="ll9-rk-CGz"/>
                                 </items>
                             </tabBar>
