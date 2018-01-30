@@ -96,6 +96,12 @@ You can define your own styles based on your app.
 If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).  
 Please feel free to create a pull request. 
 
+## Third Party Bindings
+
+### React Native
+You may now use this library with [React Native](https://github.com/facebook/react-native) via the module [here](https://github.com/prscX/react-native-material-showcase-ios)
+
+
 ## License  
 
 `Material Showcase` is available under the Apache license. See the LICENSE file for more info.
