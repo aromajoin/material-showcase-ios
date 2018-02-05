@@ -56,7 +56,7 @@ There are several target view supported.
     // You can save showcase state here
   })
   
-  // When dismissing, delegate should be declared.
+  // To handle other behaviors when showcase is dismissing, delegate should be declared.
   showcase.delegate = self
   
   extension ViewController: MaterialShowcaseDelegate {
@@ -68,6 +68,8 @@ There are several target view supported.
     }
   }
 ```
+Note: Do not call `showcase.show()` inside UIViewController's  `viewDidLoad()` function. At that time, view components have not laid down correctly yet, it results in unexpected error.
+
 #### Customize UI properties
 You can define your own styles based on your app.
 ```swift
