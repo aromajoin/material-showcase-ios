@@ -52,9 +52,9 @@ public class MaterialShowcase: UIView {
   // Background
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
-  // Settings for tap zone
-  //isTapRecognizerForTagretView == false - recognize tap for all Mathetial view
-  //isTapRecognizerForTagretView == true  - recognize tap for only targetView rect
+  // Tap zone settings
+  // - false: recognize tap from all displayed showcase.
+  // - true: recognize tap for targetView area only.
   public var isTapRecognizerForTagretView: Bool = false
   // Target
   public var shouldSetTintColor: Bool = true
