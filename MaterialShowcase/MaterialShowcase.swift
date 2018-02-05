@@ -52,6 +52,10 @@ public class MaterialShowcase: UIView {
   // Background
   public var backgroundPromptColor: UIColor!
   public var backgroundPromptColorAlpha: CGFloat!
+  // Settings for tap zone
+  //isTapRecognizerForTagretView == false - recognize tap for all Mathetial view
+  //isTapRecognizerForTagretView == true  - recognize tap for only targetView rect
+  public var isTapRecognizerForTagretView: Bool = false
   // Target
   public var shouldSetTintColor: Bool = true
   public var targetTintColor: UIColor!
@@ -245,11 +249,18 @@ extension MaterialShowcase {
     instructionView.layoutIfNeeded()
     addBackground()
 
-    // Add gesture recognizer for both container and its subview
-    addGestureRecognizer(tapGestureRecoganizer())
     // Disable subview interaction to let users click to general view only
     for subView in subviews {
       subView.isUserInteractionEnabled = false
+    }
+    
+    if isTapRecognizerForTagretView {
+        //Add gesture recognizer for targetCopyView
+        targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
+        targetCopyView.isUserInteractionEnabled = true
+    } else {
+        // Add gesture recognizer for both container and its subview
+        addGestureRecognizer(tapGestureRecoganizer())
     }
   }
   

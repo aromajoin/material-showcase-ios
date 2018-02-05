@@ -11,6 +11,8 @@ import MaterialShowcase
 
 class ViewController: UIViewController {
   
+  var tutorialStep = 1
+    
   @IBOutlet weak var searchItem: UIBarButtonItem!
   @IBOutlet weak var tabBar: UITabBar!
   @IBOutlet weak var button: UIButton!
@@ -30,7 +32,9 @@ class ViewController: UIViewController {
     showcase.secondaryText = "Click here to go into details"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
+    showcase.isTapRecognizerForTagretView = true
     showcase.show(completion: {
+        print("==== completion Action 1 ====")
       // You can save showcase state here
     })
   }
@@ -38,9 +42,12 @@ class ViewController: UIViewController {
   @IBAction func placementButton(_ sender: UIButton) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(view: sender)
-    showcase.primaryText = "Action 1"
+    showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
+    showcase.isTapRecognizerForTagretView = true
+    showcase.delegate = self
     showcase.show(completion: {
+        print("==== completion Action 1.1 ====")
       // You can save showcase state here
     })
   }
@@ -57,10 +64,12 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 2"
     showcase.secondaryText = "Click here to go into long long long long long long long long long long long long long long long details"
     showcase.secondaryTextSize = 14
+    showcase.isTapRecognizerForTagretView = true
     // Delegate to handle other action after showcase is dismissed.
     showcase.delegate = self
     showcase.show(completion: {
       // You can save showcase state here
+         print("==== completion Action 2 ====")
     })
   }
   
@@ -69,6 +78,8 @@ class ViewController: UIViewController {
     showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
+    showcase.isTapRecognizerForTagretView = true
+    showcase.delegate = self
     showcase.show(completion: nil)
   }
   
@@ -77,6 +88,8 @@ class ViewController: UIViewController {
     showcase.setTargetView(tableView: tableView, section: 0, row: 2)
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
+    showcase.isTapRecognizerForTagretView = true
+    showcase.delegate = self
     showcase.show(completion: nil)
   }
 }
@@ -100,5 +113,20 @@ extension ViewController: MaterialShowcaseDelegate {
   }
   func showCaseDidDismiss(showcase: MaterialShowcase) {
     print("Showcase \(showcase.primaryText) dimissed.")
+    print("tutorialStep = \(tutorialStep)")
+    switch tutorialStep {
+    case 1:
+        self.placementButton(button)
+    case 2:
+        self.showBarButtonItem(self)
+    case 3:
+        self.showTabBar(self)
+    case 4:
+        self.showTableView(self)
+    default:
+        tutorialStep = 0
+    }
+    
+    tutorialStep += 1
   }
 }
