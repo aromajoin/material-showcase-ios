@@ -68,7 +68,7 @@ There are several target view supported.
     }
   }
 ```
-Note: Do not call `showcase.show()` inside UIViewController's  `viewDidLoad()` function. At that time, view components have not laid down correctly yet, it results in unexpected error.
+**Note**: Do not call `showcase.show()` inside UIViewController's  `viewDidLoad()` function. At that time, view components have not laid down correctly yet, it results in unexpected error.
 
 #### Customize UI properties
 You can define your own styles based on your app.
@@ -101,7 +101,7 @@ Please feel free to create a pull request.
 ## Third Party Bindings
 
 ### React Native
-You may now use this library with [React Native](https://github.com/facebook/react-native) via the module [here](https://github.com/prscX/react-native-material-showcase-ios)
+For [React Native](https://github.com/facebook/react-native) developers, you can use this library via [its binding bridge](https://github.com/prscX/react-native-material-showcase-ios) created by [@prscX](https://github.com/prscX).
 
 
 ## License  
