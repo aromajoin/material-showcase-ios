@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-[![Download](https://img.shields.io/badge/pod-v0.3.1-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![Download](https://img.shields.io/badge/pod-v0.4.0-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
@@ -94,7 +94,15 @@ You can define your own styles based on your app.
   showcase.aniRippleColor = UIColor.white
   showcase.aniRippleAlpha = 0.2
 ```
-  
+#### Dismiss showcase only if users click to target view
+In default, showcase will be dismissed when users click to any place in whole showcase view.
+If you want to dismiss showcase only when users click to target view correctly, please set the following property.
+```swift
+  showcase.isTapRecognizerForTagretView = true
+```
+
+For more information, please take a look at [sample app](/Sample).
+
 If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).  
 Please feel free to create a pull request. 
 
