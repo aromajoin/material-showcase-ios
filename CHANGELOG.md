@@ -1,5 +1,11 @@
 Change Log
 ==========
+Version 0.4.0 *(2018-02-22)*
+--------------------------------
+* Add target tap recognizer
+* Fix UIKit import issue for Reactive Native bridge
+* Change `view.copyView` to use Apple official API `view.snapshotView`
+
 Version 0.3.1 *(2017-11-21)*
 --------------------------------
 * Refactor codes
