@@ -34,7 +34,7 @@ pod 'MaterialShowcase'
     // Later you can check and do not show it again
   })
 ```
-**Note**: Do not call `showcase.show()` inside UIViewController's  `viewDidLoad()` function. At that time, view components have not laid down correctly yet, it results in unexpected error.
+**Note**: `showcase.show()` should be called after your views are placed correctly, for example inside UIViewController's  `viewWillAppear()` or `viewDidAppear()` function. You **SHOULD NOT** call it inside `viewDidLoad()` because views have not laid down correctly yet, `showcase` can not calculate these views positions and it results in unexpected errors.
 
 #### Supported Target Views
 There are several target view supported.  
