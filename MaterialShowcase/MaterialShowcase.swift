@@ -70,6 +70,8 @@ public class MaterialShowcase: UIView {
   public var secondaryTextSize: CGFloat!
   public var primaryTextFont: UIFont?
   public var secondaryTextFont: UIFont?
+  public var primaryTextAligment: NSTextAlignment!
+  public var secondaryTextAligment: NSTextAlignment!
   // Animation
   public var aniComeInDuration: TimeInterval!
   public var aniGoOutDuration: TimeInterval!
@@ -349,11 +351,13 @@ extension MaterialShowcase {
   private func addInstructionView(at center: CGPoint) {
     instructionView = MaterialShowcaseInstructionView()
     
+    instructionView.primaryTextAlignment = primaryTextAligment
     instructionView.primaryTextFont = primaryTextFont
     instructionView.primaryTextSize = primaryTextSize
     instructionView.primaryTextColor = primaryTextColor
     instructionView.primaryText = primaryText
     
+    instructionView.secondaryTextAlignment = secondaryTextAligment
     instructionView.secondaryTextFont = secondaryTextFont
     instructionView.secondaryTextSize = secondaryTextSize
     instructionView.secondaryTextColor = secondaryTextColor
