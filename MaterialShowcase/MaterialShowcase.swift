@@ -278,7 +278,7 @@ extension MaterialShowcase {
   private func addBackground() {
     let radius: CGFloat!
     
-    let center = getOuterCircleCenterPoint(for: targetCopyView)
+    let center = targetCopyView.center//getOuterCircleCenterPoint(for: targetCopyView)
     
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
