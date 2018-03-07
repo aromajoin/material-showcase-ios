@@ -245,10 +245,20 @@ extension MaterialShowcase {
     addTargetRipple(at: center)
     addTargetHolder(at: center)
     addTarget(at: center)
+    
+    //In iPad version InstructionView was add to backgroundView
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        addBackground()
+    }
+    
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
-    addBackground()
 
+    //In iPhone version InstructionView was add to self view
+    if UIDevice.current.userInterfaceIdiom != .pad {
+        addBackground()
+    }
+    
     // Disable subview interaction to let users click to general view only
     for subView in subviews {
       subView.isUserInteractionEnabled = false
@@ -375,7 +385,11 @@ extension MaterialShowcase {
                                 y: yPosition,
                                 width: containerView.frame.width - (xPosition + xPosition),
                                 height: 0)
-    addSubview(instructionView)
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        backgroundView.addSubview(instructionView)
+    } else {
+        addSubview(instructionView)
+    }
   }
   
   /// Handles user's tap
