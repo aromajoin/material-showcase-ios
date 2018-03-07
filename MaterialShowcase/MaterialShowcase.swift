@@ -425,9 +425,7 @@ extension MaterialShowcase {
   }
   
   private func recycleSubviews() {
-    for subview in subviews {
-      subview.removeFromSuperview()
-    }
+    subviews.forEach({$0.removeFromSuperview()})
   }
 }
 
