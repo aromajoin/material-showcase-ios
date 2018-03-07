@@ -370,15 +370,29 @@ extension MaterialShowcase {
     instructionView.secondaryText = secondaryText
     
     // Calculate x position
-    let xPosition = LABEL_MARGIN
+    var xPosition = LABEL_MARGIN
     
     // Calculate y position
     var yPosition: CGFloat!
     
-    if getTargetPosition(target: targetView, container: containerView) == .above {
-      yPosition = center.y + TEXT_CENTER_OFFSET
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        if (frame.origin.x < 0) {
+            xPosition = abs(backgroundView.frame.origin.x) + xPosition
+        }
+        
+        if getTargetPosition(target: targetView, container: containerView) == .above {
+            yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
+        } else {
+            yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
+        }
+        
     } else {
-      yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+        if getTargetPosition(target: targetView, container: containerView) == .above {
+            yPosition = center.y + TEXT_CENTER_OFFSET
+        } else {
+            yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+        }
+        
     }
     
     instructionView.frame = CGRect(x: xPosition,
