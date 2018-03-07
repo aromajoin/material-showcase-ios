@@ -88,7 +88,7 @@ public class MaterialShowcaseInstructionView: UIView {
     
     primaryLabel.frame = CGRect(x: 0,
                                 y: 0,
-                                width: frame.width,
+                                width: getWidth(),
                                 height: 0)
     primaryLabel.sizeToFitHeight()
     addSubview(primaryLabel)
@@ -110,13 +110,21 @@ public class MaterialShowcaseInstructionView: UIView {
     
     secondaryLabel.frame = CGRect(x: 0,
                                   y: primaryLabel.frame.height,
-                                  width: frame.width,
+                                  width: getWidth(),
                                   height: 0)
     secondaryLabel.sizeToFitHeight()
     addSubview(secondaryLabel)
-    frame = CGRect(x: frame.minX, y: frame.minY, width: UIScreen.main.bounds.width, height: primaryLabel.frame.height + secondaryLabel.frame.height)
+    frame = CGRect(x: frame.minX, y: frame.minY, width: getWidth(), height: primaryLabel.frame.height + secondaryLabel.frame.height)
   }
   
+  //Calculate width per device
+  private func getWidth() -> CGFloat{
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      return frame.width
+    }
+    return (self.superview?.frame.size.width)!/2
+  }
+    
   /// Overrides this to add subviews. They will be drawn when calling show()
   public override func layoutSubviews() {
     super.layoutSubviews()
