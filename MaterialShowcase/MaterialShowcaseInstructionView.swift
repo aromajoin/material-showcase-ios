@@ -119,10 +119,14 @@ public class MaterialShowcaseInstructionView: UIView {
   
   //Calculate width per device
   private func getWidth() -> CGFloat{
-    if UIDevice.current.userInterfaceIdiom == .phone {
-      return frame.width
+    //superview was left side
+    if (self.superview?.frame.origin.x)! < CGFloat(0) {
+        return frame.width - (frame.minX/2)
+    } else if ((self.superview?.frame.origin.x)! + (self.superview?.frame.size.width)! >
+        UIScreen.main.bounds.width) { //superview was right side
+        return (frame.width - frame.minX)/2
     }
-    return (self.superview?.frame.size.width)!/2
+    return (frame.width - frame.minX)
   }
     
   /// Overrides this to add subviews. They will be drawn when calling show()
