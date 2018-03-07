@@ -30,6 +30,8 @@ public class MaterialShowcaseInstructionView: UIView {
   public var secondaryTextSize: CGFloat!
   public var primaryTextFont: UIFont?
   public var secondaryTextFont: UIFont?
+  public var primaryTextAlignment: NSTextAlignment!
+  public var secondaryTextAlignment: NSTextAlignment!
   
   public init() {
     // Create frame
@@ -68,7 +70,7 @@ public class MaterialShowcaseInstructionView: UIView {
       primaryLabel.font = UIFont.boldSystemFont(ofSize: primaryTextSize)
     }
     primaryLabel.textColor = primaryTextColor
-    primaryLabel.textAlignment = .left
+    primaryLabel.textAlignment = self.primaryTextAlignment ?? .left
     primaryLabel.numberOfLines = 0
     primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     primaryLabel.text = primaryText
@@ -103,7 +105,7 @@ public class MaterialShowcaseInstructionView: UIView {
       secondaryLabel.font = UIFont.systemFont(ofSize: secondaryTextSize)
     }
     secondaryLabel.textColor = secondaryTextColor
-    secondaryLabel.textAlignment = .left
+    secondaryLabel.textAlignment = self.secondaryTextAlignment ?? .left
     secondaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     secondaryLabel.text = secondaryText
     secondaryLabel.numberOfLines = 3
