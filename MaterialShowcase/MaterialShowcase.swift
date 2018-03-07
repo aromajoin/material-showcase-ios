@@ -376,11 +376,19 @@ extension MaterialShowcase {
     var yPosition: CGFloat!
     
     // Calculate instructionView width
-    var width : CGFloat!
+    var width : CGFloat
     
     if UIDevice.current.userInterfaceIdiom == .pad {
-        if (frame.origin.x < 0) {
+        width = backgroundView.frame.width - xPosition
+        
+        if backgroundView.frame.origin.x < 0 {
             xPosition = abs(backgroundView.frame.origin.x) + xPosition
+        } else if (backgroundView.frame.origin.x + backgroundView.frame.size.width >
+            UIScreen.main.bounds.width) {
+            width = backgroundView.frame.size.width - (xPosition*2)
+        }
+        if xPosition + width > backgroundView.frame.size.width {
+            width = width - CGFloat(xPosition/2)
         }
         
         if getTargetPosition(target: targetView, container: containerView) == .above {
@@ -388,8 +396,6 @@ extension MaterialShowcase {
         } else {
             yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
         }
-        
-        width = backgroundView.frame.width - xPosition
     } else {
         if getTargetPosition(target: targetView, container: containerView) == .above {
             yPosition = center.y + TEXT_CENTER_OFFSET
