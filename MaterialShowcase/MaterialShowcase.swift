@@ -375,6 +375,9 @@ extension MaterialShowcase {
     // Calculate y position
     var yPosition: CGFloat!
     
+    // Calculate instructionView width
+    var width : CGFloat!
+    
     if UIDevice.current.userInterfaceIdiom == .pad {
         if (frame.origin.x < 0) {
             xPosition = abs(backgroundView.frame.origin.x) + xPosition
@@ -386,6 +389,7 @@ extension MaterialShowcase {
             yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
         }
         
+        width = backgroundView.frame.width - xPosition
     } else {
         if getTargetPosition(target: targetView, container: containerView) == .above {
             yPosition = center.y + TEXT_CENTER_OFFSET
@@ -393,11 +397,12 @@ extension MaterialShowcase {
             yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
         }
         
+        width = containerView.frame.width - (xPosition + xPosition)
     }
     
     instructionView.frame = CGRect(x: xPosition,
                                 y: yPosition,
-                                width: containerView.frame.width - (xPosition + xPosition),
+                                width: width ,
                                 height: 0)
     if UIDevice.current.userInterfaceIdiom == .pad {
         backgroundView.addSubview(instructionView)
