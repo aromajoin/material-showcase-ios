@@ -5,10 +5,11 @@
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
 
-![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif)
-![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png)
-![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png)
-![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png)
+| ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png) |
+| ---------------------------------------- | ---------------------------------------- |
+| ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png) |
+| ![Screenshots for Persian intro](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/feat/support_alignment/art/demo-persian.jpg) |                                          |
+
 
 ## Requirement
 * iOS 8.0+
@@ -87,6 +88,9 @@ You can define your own styles based on your app.
   showcase.secondaryTextSize = 15
   showcase.primaryTextFont = UIFont.boldSystemFont(ofSize: primaryTextSize)
   showcase.secondaryTextFont = UIFont.systemFont(ofSize: secondaryTextSize)
+  //Alignment
+  showcase.primaryTextAlignment = .left
+  showcase.secondaryTextAlignment = .left
   // Animation
   showcase.aniComeInDuration = 0.5 // unit: second
   showcase.aniGoOutDuration = 0.5 // unit: second
