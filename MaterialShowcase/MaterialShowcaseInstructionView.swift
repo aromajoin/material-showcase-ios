@@ -136,8 +136,6 @@ public class MaterialShowcaseInstructionView: UIView {
     addPrimaryLabel()
     addSecondaryLabel()
     
-    for subView in subviews {
-      subView.isUserInteractionEnabled = false
-    }
+    subviews.forEach({$0.isUserInteractionEnabled = false})
   }
 }

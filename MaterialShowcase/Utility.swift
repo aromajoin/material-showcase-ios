@@ -49,13 +49,9 @@ extension UIView {
   }
   
   func setTintColor(_ color: UIColor, recursive: Bool) {
+    tintColor = color
     if recursive {
-      tintColor = color
-      for view in subviews {
-        view.setTintColor(color, recursive: true)
-      }
-    } else {
-      tintColor = color
+      subviews.forEach({$0.setTintColor(color, recursive: true)})
     }
   }
 }

@@ -260,9 +260,7 @@ extension MaterialShowcase {
     }
     
     // Disable subview interaction to let users click to general view only
-    for subView in subviews {
-      subView.isUserInteractionEnabled = false
-    }
+    subviews.forEach({$0.isUserInteractionEnabled = false})
     
     if isTapRecognizerForTagretView {
         //Add gesture recognizer for targetCopyView
@@ -464,9 +462,7 @@ extension MaterialShowcase {
   }
   
   private func recycleSubviews() {
-    for subview in subviews {
-      subview.removeFromSuperview()
-    }
+    subviews.forEach({$0.removeFromSuperview()})
   }
 }
 
