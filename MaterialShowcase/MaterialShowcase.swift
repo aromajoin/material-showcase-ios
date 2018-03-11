@@ -245,10 +245,20 @@ extension MaterialShowcase {
     addTargetRipple(at: center)
     addTargetHolder(at: center)
     addTarget(at: center)
+    
+    //In iPad version InstructionView was add to backgroundView
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        addBackground()
+    }
+    
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
-    addBackground()
 
+    //In iPhone version InstructionView was add to self view
+    if UIDevice.current.userInterfaceIdiom != .pad {
+        addBackground()
+    }
+    
     // Disable subview interaction to let users click to general view only
     for subView in subviews {
       subView.isUserInteractionEnabled = false
@@ -268,7 +278,7 @@ extension MaterialShowcase {
   private func addBackground() {
     let radius: CGFloat!
     
-    let center = getOuterCircleCenterPoint(for: targetCopyView)
+    let center = targetCopyView.center//getOuterCircleCenterPoint(for: targetCopyView)
     
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
@@ -360,22 +370,51 @@ extension MaterialShowcase {
     instructionView.secondaryText = secondaryText
     
     // Calculate x position
-    let xPosition = LABEL_MARGIN
+    var xPosition = LABEL_MARGIN
     
     // Calculate y position
     var yPosition: CGFloat!
     
-    if getTargetPosition(target: targetView, container: containerView) == .above {
-      yPosition = center.y + TEXT_CENTER_OFFSET
+    // Calculate instructionView width
+    var width : CGFloat
+    
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        width = backgroundView.frame.width - xPosition
+        
+        if backgroundView.frame.origin.x < 0 {
+            xPosition = abs(backgroundView.frame.origin.x) + xPosition
+        } else if (backgroundView.frame.origin.x + backgroundView.frame.size.width >
+            UIScreen.main.bounds.width) {
+            width = backgroundView.frame.size.width - (xPosition*2)
+        }
+        if xPosition + width > backgroundView.frame.size.width {
+            width = width - CGFloat(xPosition/2)
+        }
+        
+        if getTargetPosition(target: targetView, container: containerView) == .above {
+            yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
+        } else {
+            yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
+        }
     } else {
-      yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+        if getTargetPosition(target: targetView, container: containerView) == .above {
+            yPosition = center.y + TEXT_CENTER_OFFSET
+        } else {
+            yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+        }
+        
+        width = containerView.frame.width - (xPosition + xPosition)
     }
     
     instructionView.frame = CGRect(x: xPosition,
                                 y: yPosition,
-                                width: containerView.frame.width - (xPosition + xPosition),
+                                width: width ,
                                 height: 0)
-    addSubview(instructionView)
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        backgroundView.addSubview(instructionView)
+    } else {
+        addSubview(instructionView)
+    }
   }
   
   /// Handles user's tap
