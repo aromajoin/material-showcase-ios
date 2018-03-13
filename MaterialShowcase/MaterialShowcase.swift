@@ -70,8 +70,8 @@ public class MaterialShowcase: UIView {
   public var secondaryTextSize: CGFloat!
   public var primaryTextFont: UIFont?
   public var secondaryTextFont: UIFont?
-  public var primaryTextAlignment: NSTextAlignment!
-  public var secondaryTextAlignment: NSTextAlignment!
+  public var primaryTextAlignment: NSTextAlignment = .left
+  public var secondaryTextAlignment: NSTextAlignment = .left
   // Animation
   public var aniComeInDuration: TimeInterval!
   public var aniGoOutDuration: TimeInterval!
