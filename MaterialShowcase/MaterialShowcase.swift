@@ -51,7 +51,7 @@ public class MaterialShowcase: UIView {
   
   // Background
   public var backgroundPromptColor: UIColor!
-  public var backgroundPromptColorAlpha: CGFloat!
+  public var backgroundPromptColorAlpha: CGFloat = 0.0
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
@@ -59,25 +59,25 @@ public class MaterialShowcase: UIView {
   // Target
   public var shouldSetTintColor: Bool = true
   public var targetTintColor: UIColor!
-  public var targetHolderRadius: CGFloat!
+  public var targetHolderRadius: CGFloat = 0.0
   public var targetHolderColor: UIColor!
   // Text
   public var primaryText: String!
   public var secondaryText: String!
   public var primaryTextColor: UIColor!
   public var secondaryTextColor: UIColor!
-  public var primaryTextSize: CGFloat!
-  public var secondaryTextSize: CGFloat!
+  public var primaryTextSize: CGFloat = 0.0
+  public var secondaryTextSize: CGFloat = 0.0
   public var primaryTextFont: UIFont?
   public var secondaryTextFont: UIFont?
-  public var primaryTextAlignment: NSTextAlignment!
-  public var secondaryTextAlignment: NSTextAlignment!
+  public var primaryTextAlignment: NSTextAlignment = .left
+  public var secondaryTextAlignment: NSTextAlignment = .left
   // Animation
-  public var aniComeInDuration: TimeInterval!
-  public var aniGoOutDuration: TimeInterval!
-  public var aniRippleScale: CGFloat!
+  public var aniComeInDuration: TimeInterval = 0.0
+  public var aniGoOutDuration: TimeInterval = 0.0
+  public var aniRippleScale: CGFloat = 0.0
   public var aniRippleColor: UIColor!
-  public var aniRippleAlpha: CGFloat!
+  public var aniRippleAlpha: CGFloat = 0.0
   // Delegate
   public weak var delegate: MaterialShowcaseDelegate?
   
