@@ -27,7 +27,7 @@ pod 'MaterialShowcase'
 
 After installing `MaterialShowcase` pod, Follow the below instructions :
 
-![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot-2.png)
+![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot.png)
 
 Using `#import "MaterialShowcase-Swift.h"` to import library to your class.
 
