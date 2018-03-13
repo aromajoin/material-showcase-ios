@@ -59,7 +59,7 @@ public class MaterialShowcase: UIView {
   // Target
   public var shouldSetTintColor: Bool = true
   public var targetTintColor: UIColor!
-  public var targetHolderRadius: CGFloat!
+  public var targetHolderRadius: CGFloat = 0.0
   public var targetHolderColor: UIColor!
   // Text
   public var primaryText: String!
