@@ -27,7 +27,7 @@ After installing `MaterialShowcase` pod, please follow the below instructions to
 
 ![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot.png)
 
-** or **
+**OR**
 
 Add below Cocoapods script to your pod file :
 
