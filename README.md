@@ -21,15 +21,15 @@ You can install it by using CocoaPods. Please add the following line to your Pod
 pod 'MaterialShowcase'
 ```
 
-## Usage
-
 ### Objective-C
 
-After installing `MaterialShowcase` pod, Follow the below instructions :
+After installing `MaterialShowcase` pod, please follow the below instructions to set it up in Objective-C project.
 
 ![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot.png)
 
 Using `#import "MaterialShowcase-Swift.h"` to import library to your class.
+
+## Usage
 
 ### Basic
 ```swift
