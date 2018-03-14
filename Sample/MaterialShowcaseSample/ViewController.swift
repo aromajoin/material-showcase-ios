@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
+    showcase.delegate = self
     showcase.show(completion: {
         print("==== completion Action 1 ====")
       // You can save showcase state here
@@ -45,7 +46,6 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTagretView = true
-    showcase.delegate = self
     showcase.show(completion: {
         print("==== completion Action 1.1 ====")
       // You can save showcase state here
@@ -92,6 +92,12 @@ class ViewController: UIViewController {
     showcase.delegate = self
     showcase.show(completion: nil)
   }
+  @IBAction func showInSeries(_ sender: UIButton) {
+    // step 1
+    showButton(self)
+    // to continue other showcases
+    tutorialStep = 2
+  }
 }
 
 extension ViewController: UITableViewDataSource {
@@ -115,8 +121,6 @@ extension ViewController: MaterialShowcaseDelegate {
     print("Showcase \(showcase.primaryText) dimissed.")
     print("tutorialStep = \(tutorialStep)")
     switch tutorialStep {
-    case 1:
-        self.placementButton(button)
     case 2:
         self.showBarButtonItem(self)
     case 3:
