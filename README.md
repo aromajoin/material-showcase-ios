@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-[![Download](https://img.shields.io/badge/pod-v0.5.0-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![Download](https://img.shields.io/badge/pod-v0.5.1-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
