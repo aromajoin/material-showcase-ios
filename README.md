@@ -1,6 +1,9 @@
 # Material Showcase for iOS
 
 [![Download](https://img.shields.io/badge/pod-v0.5.1-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![CocoaPods downloaded](https://img.shields.io/cocoapods/dt/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![CocoaPods installed](https://img.shields.io/cocoapods/at/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![CocoaPods platforms](https://img.shields.io/cocoapods/p/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
@@ -26,6 +29,31 @@ pod 'MaterialShowcase'
 After installing `MaterialShowcase` pod, please follow the below instructions to set it up in Objective-C project.
 
 ![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot.png)
+
+**OR**
+
+Add below Cocoapods script to your pod file :
+
+``` ruby
+# platform :ios, '9.0'
+
+target 'YOUR_PROJECT_NAME' do
+  use_frameworks!
+
+  pod 'MaterialShowcase'
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name.include?('MaterialShowcase')
+        target.build_configurations.each do |config|
+           config.build_settings['SWIFT_VERSION'] = '3.2'
+        end
+      end
+    end
+  end
+
+end
+```
 
 Using `#import "MaterialShowcase-Swift.h"` to import library to your class.
 
