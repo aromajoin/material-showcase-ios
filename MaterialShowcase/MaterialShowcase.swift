@@ -50,36 +50,36 @@ public class MaterialShowcase: UIView {
   // MARK: Public Properties
   
   // Background
-  public var backgroundPromptColor: UIColor!
-  public var backgroundPromptColorAlpha: CGFloat = 0.0
+  @objc public var backgroundPromptColor: UIColor!
+  @objc public var backgroundPromptColorAlpha: CGFloat = 0.0
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
-  public var isTapRecognizerForTagretView: Bool = false
+  @objc public var isTapRecognizerForTagretView: Bool = false
   // Target
-  public var shouldSetTintColor: Bool = true
-  public var targetTintColor: UIColor!
-  public var targetHolderRadius: CGFloat = 0.0
-  public var targetHolderColor: UIColor!
+  @objc public var shouldSetTintColor: Bool = true
+  @objc public var targetTintColor: UIColor!
+  @objc public var targetHolderRadius: CGFloat = 0.0
+  @objc public var targetHolderColor: UIColor!
   // Text
-  public var primaryText: String!
-  public var secondaryText: String!
-  public var primaryTextColor: UIColor!
-  public var secondaryTextColor: UIColor!
-  public var primaryTextSize: CGFloat = 0.0
-  public var secondaryTextSize: CGFloat = 0.0
-  public var primaryTextFont: UIFont?
-  public var secondaryTextFont: UIFont?
-  public var primaryTextAlignment: NSTextAlignment = .left
-  public var secondaryTextAlignment: NSTextAlignment = .left
+  @objc public var primaryText: String!
+  @objc public var secondaryText: String!
+  @objc public var primaryTextColor: UIColor!
+  @objc public var secondaryTextColor: UIColor!
+  @objc public var primaryTextSize: CGFloat = 0.0
+  @objc public var secondaryTextSize: CGFloat = 0.0
+  @objc public var primaryTextFont: UIFont?
+  @objc public var secondaryTextFont: UIFont?
+  @objc public var primaryTextAlignment: NSTextAlignment = .left
+  @objc public var secondaryTextAlignment: NSTextAlignment = .left
   // Animation
-  public var aniComeInDuration: TimeInterval = 0.0
-  public var aniGoOutDuration: TimeInterval = 0.0
-  public var aniRippleScale: CGFloat = 0.0
-  public var aniRippleColor: UIColor!
-  public var aniRippleAlpha: CGFloat = 0.0
+  @objc public var aniComeInDuration: TimeInterval = 0.0
+  @objc public var aniGoOutDuration: TimeInterval = 0.0
+  @objc public var aniRippleScale: CGFloat = 0.0
+  @objc public var aniRippleColor: UIColor!
+  @objc public var aniRippleAlpha: CGFloat = 0.0
   // Delegate
-  public weak var delegate: MaterialShowcaseDelegate?
+  @objc public weak var delegate: MaterialShowcaseDelegate?
   
   public init() {
     // Create frame
@@ -99,7 +99,7 @@ public class MaterialShowcase: UIView {
 extension MaterialShowcase {
   
   /// Sets a general UIView as target
-  public func setTargetView(view: UIView) {
+  @objc public func setTargetView(view: UIView) {
     targetView = view
     if let label = targetView as? UILabel {
       targetTintColor = label.textColor
@@ -115,14 +115,14 @@ extension MaterialShowcase {
   }
   
   /// Sets a UIBarButtonItem as target
-  public func setTargetView(barButtonItem: UIBarButtonItem) {
+  @objc public func setTargetView(barButtonItem: UIBarButtonItem) {
     if let view = (barButtonItem.value(forKey: "view") as? UIView)?.subviews.first {
       targetView = view
     }
   }
   
   /// Sets a UITabBar Item as target
-  public func setTargetView(tabBar: UITabBar, itemIndex: Int) {
+  @objc public func setTargetView(tabBar: UITabBar, itemIndex: Int) {
     let tabBarItems = orderedTabBarItemViews(of: tabBar)
     if itemIndex < tabBarItems.count {
       targetView = tabBarItems[itemIndex]
@@ -134,7 +134,7 @@ extension MaterialShowcase {
   }
   
   /// Sets a UITableViewCell as target
-  public func setTargetView(tableView: UITableView, section: Int, row: Int) {
+  @objc public func setTargetView(tableView: UITableView, section: Int, row: Int) {
     let indexPath = IndexPath(row: row, section: section)
     targetView = tableView.cellForRow(at: indexPath)?.contentView
     // for table viewcell, we do not need target holder (circle view)
@@ -143,7 +143,7 @@ extension MaterialShowcase {
   }
   
   /// Shows it over current screen after completing setup process
-  public func show(animated: Bool = true, completion handler: (()-> Void)?) {
+  @objc public func show(animated: Bool = true, completion handler: (()-> Void)?) {
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
@@ -502,5 +502,3 @@ extension MaterialShowcase {
     return interactionViews.sorted(by: {$0.frame.minX < $1.frame.minX})
   }
 }
-
-
