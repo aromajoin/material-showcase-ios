@@ -11,7 +11,7 @@
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png) |
 | ---------------------------------------- | ---------------------------------------- |
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png) |
-| ![Screenshots for Persian intro](https://raw.githubusercontent.com/aromajoin/material-showcase-ios/master/art/demo-persian.jpg) |                                          |
+| ![Screenshots for Persian intro](https://raw.githubusercontent.com/aromajoin/material-showcase-ios/master/art/demo-persian.jpg) | ![iPad Screenshots](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/master/art/iPad-Screenshot.png)  |
 
 
 ## Requirement
