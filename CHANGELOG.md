@@ -1,7 +1,11 @@
 Change Log
 ==========
+Version 0.5.2 *(2018-04-03)*
+--------------------------------
+* Fix instruction view frame calculation issue
+
 Version 0.5.1 *(2018-03-14)*
--------------------------------
+--------------------------------
 * Fix the issue in which properties are missing in Objective-C project
 
 Version 0.5.0 *(2018-03-12)*
