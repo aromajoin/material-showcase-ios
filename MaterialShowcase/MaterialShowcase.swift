@@ -401,7 +401,7 @@ extension MaterialShowcase {
     } else {
         if getTargetPosition(target: targetView, container: containerView) == .above {
             
-             yPosition = center.y + (targetView.bounds.height > self.targetHolderRadius ? targetView.bounds.height : (TARGET_PADDING + self.targetHolderRadius))
+             yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > self.targetHolderRadius ? targetView.bounds.height / 2 : self.targetHolderRadius)
             
         } else {
             yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
