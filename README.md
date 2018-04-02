@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-[![Download](https://img.shields.io/badge/pod-v0.5.1-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![Download](https://img.shields.io/cocoapods/v/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods downloaded](https://img.shields.io/cocoapods/dt/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods installed](https://img.shields.io/cocoapods/at/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods platforms](https://img.shields.io/cocoapods/p/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
