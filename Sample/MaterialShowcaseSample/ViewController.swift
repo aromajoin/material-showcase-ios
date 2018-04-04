@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
     showcase.delegate = self
+    showcase.backgroundViewType = .full
     showcase.show(completion: {
         print("==== completion Action 1 ====")
       // You can save showcase state here
