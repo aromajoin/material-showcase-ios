@@ -14,6 +14,11 @@ import UIKit
 
 public class MaterialShowcase: UIView {
   
+  @objc public enum BackgroundTypeStyle: Int {
+    case circle //default
+    case full//full screen
+  }
+  
   // MARK: Material design guideline constant
   let BACKGROUND_ALPHA: CGFloat = 0.96
   let TARGET_HOLDER_RADIUS: CGFloat = 44
@@ -52,6 +57,7 @@ public class MaterialShowcase: UIView {
   // Background
   @objc public var backgroundPromptColor: UIColor!
   @objc public var backgroundPromptColorAlpha: CGFloat = 0.0
+  @objc public var backgroundViewType: BackgroundTypeStyle = .circle
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
@@ -250,46 +256,53 @@ extension MaterialShowcase {
     
     //In iPad version InstructionView was add to backgroundView
     if UIDevice.current.userInterfaceIdiom == .pad {
-        addBackground()
+      addBackground()
     }
     
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
-
+    
     //In iPhone version InstructionView was add to self view
     if UIDevice.current.userInterfaceIdiom != .pad {
-        addBackground()
+      addBackground()
     }
     
     // Disable subview interaction to let users click to general view only
     subviews.forEach({$0.isUserInteractionEnabled = false})
     
     if isTapRecognizerForTagretView {
-        //Add gesture recognizer for targetCopyView
-        targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
-        targetCopyView.isUserInteractionEnabled = true
+      //Add gesture recognizer for targetCopyView
+      targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
+      targetCopyView.isUserInteractionEnabled = true
     } else {
-        // Add gesture recognizer for both container and its subview
-        addGestureRecognizer(tapGestureRecoganizer())
+      // Add gesture recognizer for both container and its subview
+      addGestureRecognizer(tapGestureRecoganizer())
     }
   }
   
   /// Add background which is a big circle
   private func addBackground() {
-    let radius: CGFloat!
     
-    let center = targetCopyView.center//getOuterCircleCenterPoint(for: targetCopyView)
-    
-    if UIDevice.current.userInterfaceIdiom == .pad {
-      radius = 300.0
-    } else {
-      radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetCopyView.frame)
+    switch self.backgroundViewType {
+    case .circle:
+      let radius: CGFloat!
+      
+      let center = targetCopyView.center//getOuterCircleCenterPoint(for: targetCopyView)
+      
+      if UIDevice.current.userInterfaceIdiom == .pad {
+        radius = 300.0
+      } else {
+        radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetCopyView.frame)
+      }
+      
+      backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
+      backgroundView.center = center
+      
+      backgroundView.asCircle()
+    case .full:
+      backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height))
     }
-    
-    backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
-    backgroundView.center = center
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
-    backgroundView.asCircle()
     insertSubview(backgroundView, belowSubview: targetRippleView)
   }
   
@@ -381,43 +394,43 @@ extension MaterialShowcase {
     var width : CGFloat
     
     if UIDevice.current.userInterfaceIdiom == .pad {
-        width = backgroundView.frame.width - xPosition
-        
-        if backgroundView.frame.origin.x < 0 {
-            xPosition = abs(backgroundView.frame.origin.x) + xPosition
-        } else if (backgroundView.frame.origin.x + backgroundView.frame.size.width >
-            UIScreen.main.bounds.width) {
-            width = backgroundView.frame.size.width - (xPosition*2)
-        }
-        if xPosition + width > backgroundView.frame.size.width {
-            width = width - CGFloat(xPosition/2)
-        }
-        
-        if getTargetPosition(target: targetView, container: containerView) == .above {
-            yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
-        } else {
-            yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
-        }
+      width = backgroundView.frame.width - xPosition
+      
+      if backgroundView.frame.origin.x < 0 {
+        xPosition = abs(backgroundView.frame.origin.x) + xPosition
+      } else if (backgroundView.frame.origin.x + backgroundView.frame.size.width >
+        UIScreen.main.bounds.width) {
+        width = backgroundView.frame.size.width - (xPosition*2)
+      }
+      if xPosition + width > backgroundView.frame.size.width {
+        width = width - CGFloat(xPosition/2)
+      }
+      
+      if getTargetPosition(target: targetView, container: containerView) == .above {
+        yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
+      } else {
+        yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
+      }
     } else {
-        if getTargetPosition(target: targetView, container: containerView) == .above {
-            
-             yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > self.targetHolderRadius ? targetView.bounds.height / 2 : self.targetHolderRadius)
-            
-        } else {
-            yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
-        }
+      if getTargetPosition(target: targetView, container: containerView) == .above {
         
-        width = containerView.frame.width - (xPosition + xPosition)
+        yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > self.targetHolderRadius ? targetView.bounds.height / 2 : self.targetHolderRadius)
+        
+      } else {
+        yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+      }
+      
+      width = containerView.frame.width - (xPosition + xPosition)
     }
     
     instructionView.frame = CGRect(x: xPosition,
-                                y: yPosition,
-                                width: width ,
-                                height: 0)
+                                   y: yPosition,
+                                   width: width ,
+                                   height: 0)
     if UIDevice.current.userInterfaceIdiom == .pad {
-        backgroundView.addSubview(instructionView)
+      backgroundView.addSubview(instructionView)
     } else {
-        addSubview(instructionView)
+      addSubview(instructionView)
     }
   }
   
