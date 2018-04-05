@@ -23,7 +23,7 @@
 		CE083A191EBACFEB0077666F /* MaterialShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE083A1C1EBACFEB0077666F /* MaterialShowcase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialShowcase.h; sourceTree = "<group>"; };
 		CE083A1D1EBACFEB0077666F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE083A241EBAD0020077666F /* MaterialShowcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialShowcase.swift; sourceTree = "<group>"; };
+		CE083A241EBAD0020077666F /* MaterialShowcase.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MaterialShowcase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
