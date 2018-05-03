@@ -105,9 +105,8 @@ extension UIViewKeyframeAnimationOptions {
   }
   
   init(animationOptions: UIViewAnimationOptions) {
-    rawValue = animationOptions.rawValue
+    self.init(rawValue: animationOptions.rawValue)
   }
-  
 }
 
 extension CGRect {
