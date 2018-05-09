@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.6.0 *(2018-05-09)*
+--------------------------------
+* Add fullscreen mode in addition to circle background
+* Refactor background view
+
 Version 0.5.2 *(2018-04-03)*
 --------------------------------
 * Fix instruction view frame calculation issue
