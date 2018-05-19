@@ -34,7 +34,6 @@ class ViewController: UIViewController {
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
     showcase.delegate = self
-    showcase.backgroundViewType = .full
     showcase.show(completion: {
         print("==== completion Action 1 ====")
       // You can save showcase state here
@@ -77,6 +76,7 @@ class ViewController: UIViewController {
   @IBAction func showTabBar(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
+    showcase.backgroundViewType = .full
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTagretView = true

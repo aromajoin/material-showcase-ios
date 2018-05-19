@@ -97,6 +97,7 @@ You can define your own styles based on your app.
   // Background
   showcase.backgroundPromptColor = UIColor.blue
   showcase.backgroundPromptColorAlpha = 0.96
+  showcase.backgroundViewType = .full // default is .circle
   // Target
   showcase.targetTintColor = UIColor.blue
   showcase.targetHolderRadius = 44
