@@ -341,7 +341,7 @@ extension MaterialShowcase {
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
     hiddenTargetHolderView = UIView()
-    hiddenTargetHolderView.isHidden = true
+    hiddenTargetHolderView.backgroundColor = .clear
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
     targetHolderView.backgroundColor = targetHolderColor
