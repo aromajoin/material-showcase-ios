@@ -8,8 +8,8 @@
 import UIKit
 
 @objc public protocol MaterialShowcaseDelegate: class {
-  @objc optional func showCaseWillDismiss(showcase: MaterialShowcase)
-  @objc optional func showCaseDidDismiss(showcase: MaterialShowcase)
+  @objc optional func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
+  @objc optional func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
 }
 
 public class MaterialShowcase: UIView {
@@ -274,13 +274,15 @@ extension MaterialShowcase {
     // Disable subview interaction to let users click to general view only
     subviews.forEach({$0.isUserInteractionEnabled = false})
     
-    if isTapRecognizerForTagretView && targetHolderColor != .clear{
+    if isTapRecognizerForTagretView {
       //Add gesture recognizer for targetCopyView
-      targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
-      targetCopyView.isUserInteractionEnabled = true
+      hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
+      hiddenTargetHolderView.isUserInteractionEnabled = true
     } else {
       // Add gesture recognizer for both container and its subview
       addGestureRecognizer(tapGestureRecoganizer())
+	  hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
+	  hiddenTargetHolderView.isUserInteractionEnabled = true
     }
   }
   
@@ -341,7 +343,7 @@ extension MaterialShowcase {
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
     hiddenTargetHolderView = UIView()
-    hiddenTargetHolderView.isHidden = true
+    hiddenTargetHolderView.backgroundColor = .clear
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
     targetHolderView.backgroundColor = targetHolderColor
@@ -463,15 +465,15 @@ extension MaterialShowcase {
     return tapGesture
   }
   
-  @objc private func tapGestureSelector() {
-    completeShowcase()
+  @objc private func tapGestureSelector(tapGesture:UITapGestureRecognizer) {
+	completeShowcase(didTapTarget: tapGesture.view === hiddenTargetHolderView)
   }
   
   /// Default action when dimissing showcase
   /// Notifies delegate, removes views, and handles out-going animation
-  @objc public func completeShowcase(animated: Bool = true) {
+	@objc public func completeShowcase(animated: Bool = true, didTapTarget: Bool = false) {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseWillDismiss?(showcase: self)
+      delegate?.showCaseWillDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
     if animated {
       targetRippleView.removeFromSuperview()
@@ -497,7 +499,7 @@ extension MaterialShowcase {
       self.removeFromSuperview()
     }
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseDidDismiss?(showcase: self)
+      delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
   }
   
