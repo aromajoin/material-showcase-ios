@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.6.0 *(2018-06-04)*
+-------------------------------
+* Add Carthage support
+* Add user-tap check property
+
 Version 0.6.0 *(2018-05-09)*
 --------------------------------
 * Add fullscreen mode in addition to circle background
