@@ -1,5 +1,6 @@
 # Material Showcase for iOS
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Download](https://img.shields.io/cocoapods/v/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods downloaded](https://img.shields.io/cocoapods/dt/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods installed](https://img.shields.io/cocoapods/at/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
@@ -19,6 +20,28 @@
 * Swift 3.0+
 
 ## Installation
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate MaterialShowcase into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+github "aromajoin/material-showcase-ios" ~> 0.6.1
+```
+
+Run `carthage update` to build the framework and drag the built `MaterialShowcase.framework` into your Xcode project.
+
+### CocoaPods
+
 You can install it by using CocoaPods. Please add the following line to your Podfile.   
 ```
 pod 'MaterialShowcase'
