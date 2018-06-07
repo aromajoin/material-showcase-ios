@@ -83,7 +83,6 @@ There are several target view supported.
 ```swift
   // Right after showing.
   showcase.show(completion: {
-    _ in
     // You can save showcase state here
   })
   
