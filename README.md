@@ -60,7 +60,6 @@ Please, read [this doc](https://github.com/Husseinhj/material-showcase-ios/blob/
   showcase.primaryText = "Action 1"
   showcase.secondaryText = "Click here to go into details"
   showcase.show(completion: {
-    _ in
     // You can save showcase state here
     // Later you can check and do not show it again
   })
