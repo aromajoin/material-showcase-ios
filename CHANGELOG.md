@@ -1,6 +1,6 @@
 Change Log
 ==========
-Version 0.6.0 *(2018-06-04)*
+Version 0.6.1 *(2018-06-04)*
 -------------------------------
 * Add Carthage support
 * Add user-tap check property

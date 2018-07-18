@@ -21,37 +21,32 @@
 
 ## Installation
 
-### Carthage
+### CocoaPods
+You can install it by using CocoaPods. Please add the following line to your Podfile.   
+```
+pod 'MaterialShowcase'
+```
 
+### Carthage
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
 You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
-
 ```bash
 $ brew update
 $ brew install carthage
 ```
 
 To integrate MaterialShowcase into your Xcode project using Carthage, specify it in your `Cartfile`:
-
 ```ogdl
 github "aromajoin/material-showcase-ios" ~> 0.6.1
 ```
 
 Run `carthage update` to build the framework and drag the built `MaterialShowcase.framework` into your Xcode project.
 
-### CocoaPods
-
-You can install it by using CocoaPods. Please add the following line to your Podfile.   
-```
-pod 'MaterialShowcase'
-```
-
 ## Usage
 
 ### Objective-C
-
-Please, read [this doc](https://github.com/Husseinhj/material-showcase-ios/blob/master/docs-standalone/Objective-C.md) and follow the instructions.
+In order to integrate the library into Object-C project, please follow the instructions from [this doc](https://github.com/Husseinhj/material-showcase-ios/blob/master/docs-standalone/Objective-C.md).
 
 ### Basic
 ```swift
@@ -60,7 +55,6 @@ Please, read [this doc](https://github.com/Husseinhj/material-showcase-ios/blob/
   showcase.primaryText = "Action 1"
   showcase.secondaryText = "Click here to go into details"
   showcase.show(completion: {
-    _ in
     // You can save showcase state here
     // Later you can check and do not show it again
   })
@@ -84,7 +78,6 @@ There are several target view supported.
 ```swift
   // Right after showing.
   showcase.show(completion: {
-    _ in
     // You can save showcase state here
   })
   
