@@ -281,14 +281,13 @@ extension MaterialShowcase {
     } else {
       // Add gesture recognizer for both container and its subview
       addGestureRecognizer(tapGestureRecoganizer())
-	  hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
-	  hiddenTargetHolderView.isUserInteractionEnabled = true
+      hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
+      hiddenTargetHolderView.isUserInteractionEnabled = true
     }
   }
   
   /// Add background which is a big circle
   private func addBackground() {
-    
     switch self.backgroundViewType {
     case .circle:
       let radius: CGFloat!
@@ -311,11 +310,9 @@ extension MaterialShowcase {
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
     addBackgroundMask(with: targetHolderRadius, in: backgroundView)
-
   }
   
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
-    
     let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
     let mutablePath = CGMutablePath()
     mutablePath.addRect(view.bounds)
@@ -336,9 +333,7 @@ extension MaterialShowcase {
     targetRippleView.alpha = 0.0 //set it invisible
     targetRippleView.asCircle()
     addSubview(targetRippleView)
-    
   }
-	
   
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
@@ -466,12 +461,12 @@ extension MaterialShowcase {
   }
   
   @objc private func tapGestureSelector(tapGesture:UITapGestureRecognizer) {
-	completeShowcase(didTapTarget: tapGesture.view === hiddenTargetHolderView)
+    completeShowcase(didTapTarget: tapGesture.view === hiddenTargetHolderView)
   }
   
   /// Default action when dimissing showcase
   /// Notifies delegate, removes views, and handles out-going animation
-	@objc public func completeShowcase(animated: Bool = true, didTapTarget: Bool = false) {
+  @objc public func completeShowcase(animated: Bool = true, didTapTarget: Bool = false) {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseWillDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
