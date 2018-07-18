@@ -76,7 +76,9 @@ class ViewController: UIViewController {
   @IBAction func showTabBar(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
-    showcase.backgroundViewType = .full
+    showcase.backgroundViewType = .circle
+    showcase.targetTintColor = UIColor.clear
+    showcase.targetHolderColor = UIColor.clear
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTagretView = true
