@@ -9,6 +9,22 @@ Version 0.6.1 *(2018-06-04)*
 * Add Carthage support
 * Add user-tap check property
 
+### Upgrade note
+
+* Changed the [signature of delegate methods](https://github.com/aromajoin/material-showcase-ios#handle-showcase-status).
+
+Please, update delegate methods :
+```swift
+func showCaseWillDismiss(showcase: MaterialShowcase)
+func showCaseDidDismiss(showcase: MaterialShowcase)
+```
+to:
+```swift
+func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
+
+func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
+```
+
 Version 0.6.0 *(2018-05-09)*
 --------------------------------
 * Add fullscreen mode in addition to circle background
