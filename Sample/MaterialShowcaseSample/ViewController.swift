@@ -117,10 +117,10 @@ extension ViewController: UITableViewDataSource {
 
 // If you need handle other actions (i.e: show other showcase), you can implement MaterialShowcaseDelegate
 extension ViewController: MaterialShowcaseDelegate {
-  func showCaseWillDismiss(showcase: MaterialShowcase) {
+    func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
     print("Showcase \(showcase.primaryText) will dismiss.")
   }
-  func showCaseDidDismiss(showcase: MaterialShowcase) {
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
     print("Showcase \(showcase.primaryText) dimissed.")
     print("tutorialStep = \(tutorialStep)")
     switch tutorialStep {
