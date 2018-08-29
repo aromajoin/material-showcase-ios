@@ -10,9 +10,18 @@ Version 0.6.1 *(2018-06-04)*
 * Add user-tap check property
 
 ### Upgrade note
-* Changed the signature of delegate methods. Please, update delegate methods `func showCaseWillDismiss(showcase: MaterialShowcase)` and `func showCaseDidDismiss(showcase: MaterialShowcase)` to below code :
+
+* Changed the [signature of delegate methods](https://github.com/aromajoin/material-showcase-ios#handle-showcase-status).
+
+Please, update delegate methods :
+```swift
+func showCaseWillDismiss(showcase: MaterialShowcase)
+func showCaseDidDismiss(showcase: MaterialShowcase)
+```
+to:
 ```swift
 func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
+
 func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
 ```
 
