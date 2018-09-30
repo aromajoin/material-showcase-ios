@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     showcase.setTargetView(tableView: tableView, section: 0, row: 2)
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
-    showcase.isTapRecognizerForTargetView = true
+    showcase.isTapRecognizerForTargetView = false
     showcase.delegate = self
     showcase.show(completion: nil)
   }
