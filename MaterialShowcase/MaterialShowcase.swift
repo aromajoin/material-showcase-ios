@@ -61,7 +61,7 @@ public class MaterialShowcase: UIView {
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
-  @objc public var isTapRecognizerForTagretView: Bool = false
+  @objc public var isTapRecognizerForTargetView: Bool = false
   // Target
   @objc public var shouldSetTintColor: Bool = true
   @objc public var targetTintColor: UIColor!
@@ -274,7 +274,7 @@ extension MaterialShowcase {
     // Disable subview interaction to let users click to general view only
     subviews.forEach({$0.isUserInteractionEnabled = false})
     
-    if isTapRecognizerForTagretView {
+    if isTapRecognizerForTargetView {
       //Add gesture recognizer for targetCopyView
       hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
       hiddenTargetHolderView.isUserInteractionEnabled = true

@@ -104,7 +104,7 @@ showcase.secondaryTextAlignment = .right
 In default, showcase will be dismissed when users click to any place in whole showcase view.
 If you want to dismiss showcase only when users click to target view correctly, please set the following property.
 ```swift
-showcase.isTapRecognizerForTagretView = true
+showcase.isTapRecognizerForTargetView = true
 ```
 
 ### Customize UI properties
