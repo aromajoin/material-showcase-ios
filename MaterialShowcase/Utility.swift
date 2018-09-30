@@ -78,33 +78,33 @@ extension UIView
   }
 }
 
-extension UIViewKeyframeAnimationOptions {
+extension UIView.KeyframeAnimationOptions {
   
-  static var curveEaseIn: UIViewKeyframeAnimationOptions {
+  static var curveEaseIn: UIView.KeyframeAnimationOptions {
     get {
-      return UIViewKeyframeAnimationOptions(animationOptions: .curveEaseIn)
+      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseIn)
     }
   }
   
-  static var curveEaseOut: UIViewKeyframeAnimationOptions {
+  static var curveEaseOut: UIView.KeyframeAnimationOptions {
     get {
-      return UIViewKeyframeAnimationOptions(animationOptions: .curveEaseOut)
+      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseOut)
     }
   }
   
-  static var curveEaseInOut: UIViewKeyframeAnimationOptions {
+  static var curveEaseInOut: UIView.KeyframeAnimationOptions {
     get {
-      return UIViewKeyframeAnimationOptions(animationOptions: .curveEaseInOut)
+      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseInOut)
     }
   }
   
-  static var curveLinear: UIViewKeyframeAnimationOptions {
+  static var curveLinear: UIView.KeyframeAnimationOptions {
     get {
-      return UIViewKeyframeAnimationOptions(animationOptions: .curveLinear)
+      return UIView.KeyframeAnimationOptions(animationOptions: .curveLinear)
     }
   }
   
-  init(animationOptions: UIViewAnimationOptions) {
+  init(animationOptions: UIView.AnimationOptions) {
     self.init(rawValue: animationOptions.rawValue)
   }
 }
