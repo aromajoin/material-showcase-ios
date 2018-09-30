@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WBd-gk-dHj">
-                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem systemItem="favorites" id="20b-Kx-RH7"/>
@@ -62,7 +61,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Er-Kq-T6A">
-                                <rect key="frame" x="16" y="293" width="343" height="244"/>
+                                <rect key="frame" x="16" y="292" width="343" height="244"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="244" id="Avq-py-Wk6"/>
@@ -90,7 +89,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlo-Uq-wk3">
-                                <rect key="frame" x="295" y="553" width="48" height="49"/>
+                                <rect key="frame" x="295" y="552" width="48" height="49"/>
                                 <state key="normal" image="ic_twitter">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -116,9 +115,11 @@
                                     <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YAX-A9-M9i"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfM-wr-XQ9">
-                                <rect key="frame" x="38" y="562" width="173" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfM-wr-XQ9">
+                                <rect key="frame" x="74" y="561.5" width="173" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="173" id="Xml-BO-KYG"/>
+                                </constraints>
                                 <state key="normal" title="Show in series"/>
                                 <connections>
                                     <action selector="showInSeries:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W2m-mg-Qjj"/>
@@ -140,15 +141,17 @@
                             <constraint firstItem="Nlo-Uq-wk3" firstAttribute="top" secondItem="2Er-Kq-T6A" secondAttribute="bottom" constant="16" id="PzA-ki-8ai"/>
                             <constraint firstItem="bWR-um-41T" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="Tgb-PQ-fCz"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="centerX" secondItem="PP9-Xh-O4w" secondAttribute="centerX" id="W9s-OV-bPW"/>
+                            <constraint firstItem="kfM-wr-XQ9" firstAttribute="centerY" secondItem="Nlo-Uq-wk3" secondAttribute="centerY" id="WvC-Nd-Yhx"/>
                             <constraint firstItem="6xO-1R-dVw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="aFZ-AT-SdK"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aeW-yO-8cM"/>
                             <constraint firstItem="PP9-Xh-O4w" firstAttribute="width" secondItem="jp3-uM-SZU" secondAttribute="width" id="bu7-0l-YNQ"/>
+                            <constraint firstItem="Nlo-Uq-wk3" firstAttribute="leading" secondItem="kfM-wr-XQ9" secondAttribute="trailing" constant="48" id="csA-7U-ycs"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="centerX" secondItem="6xO-1R-dVw" secondAttribute="centerX" id="gCn-Bl-20h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Nlo-Uq-wk3" secondAttribute="trailing" constant="16" id="hLC-rW-qFY"/>
                             <constraint firstItem="PP9-Xh-O4w" firstAttribute="centerX" secondItem="jp3-uM-SZU" secondAttribute="centerX" id="jWn-Us-703"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="top" secondItem="Nlo-Uq-wk3" secondAttribute="bottom" constant="16" id="jdV-qk-I2e"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="width" secondItem="PP9-Xh-O4w" secondAttribute="width" id="miZ-Yb-ZGq"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WBd-gk-dHj" secondAttribute="bottom" id="t6D-N5-6bc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="WBd-gk-dHj" secondAttribute="bottom" constant="1" id="t6D-N5-6bc"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="tI3-Nr-ahD"/>
                             <constraint firstItem="6xO-1R-dVw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="27" id="tel-XC-3Jl"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="width" secondItem="6xO-1R-dVw" secondAttribute="width" id="tq6-Ys-Qhl"/>
