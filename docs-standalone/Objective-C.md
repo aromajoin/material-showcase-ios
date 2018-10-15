@@ -6,7 +6,7 @@ After installing `MaterialShowcase` pod, please follow the below instructions to
 
 **OR**
 
-Add below Cocoapods script to your pod file :
+Add below Cocoapods script to your pod file and run `pod install` after that:
 
 ``` ruby
 # platform :ios, '9.0'
