@@ -10,7 +10,7 @@ If it's possible to change the *Swift* **version** follow this:
 * Update your project *Swift* version to **4.2**, to avoid getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the `Swift 4.2`.
 
 Otherwise: 
-* If your project swift version is not 4.2, Add these codes in your `Podfile`:
+* If your project swift version is not 4.2, Add these codes in your `Podfile` and run `pod install` in terminal:
 ```
 # platform :ios, '9.0'
 
