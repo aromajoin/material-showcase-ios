@@ -6,9 +6,11 @@ Version 0.6.3 *(2018-09-30)*
 * Fix a spelling in API 
 
 ### Upgrade note
-Update the *Xcode application* to **version 10** or the *Swift* version to **4.2**, to avoid getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the `Swift 4.2`.
+If it's psossible to change the *Swift* **version** follow this:
+* Update the *Xcode application* to **version 10** or the *Swift* version to **4.2**, to avoid getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the `Swift 4.2`.
 
-If your project swift version is not 4.2, Add these code your pod file:
+Otherwise: 
+* If your project swift version is not 4.2, Add these codes in your `Podfile`:
 ```
 # platform :ios, '9.0'
 
