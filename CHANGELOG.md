@@ -5,6 +5,33 @@ Version 0.6.3 *(2018-09-30)*
 * Update to Swift 4.2
 * Fix a spelling in API 
 
+### Upgrade note
+If it's possible to change the *Swift* **version** follow this:
+* Update your project *Swift* version to **4.2**, to avoid getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the `Swift 4.2`.
+
+Otherwise: 
+* If your project swift version is not 4.2, add below the Cocoapods script to your `Podfile` and run `pod install` after that:
+```
+# platform :ios, '9.0'
+
+target 'YOUR_PROJECT_NAME' do
+  use_frameworks!
+
+  pod 'MaterialShowcase'
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name.include?('MaterialShowcase')
+        target.build_configurations.each do |config|
+           config.build_settings['SWIFT_VERSION'] = '4.2'
+        end
+      end
+    end
+  end
+
+end
+```
+
 Version 0.6.2 *(2018-07-18)*
 -------------------------------
 * Fix bugs
