@@ -5,6 +5,9 @@ Version 0.6.3 *(2018-09-30)*
 * Update to Swift 4.2
 * Fix a spelling in API 
 
+### Upgrade note
+Update the *Xcode application* to **version 10** for eliminate getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the Swift 4.2.
+
 Version 0.6.2 *(2018-07-18)*
 -------------------------------
 * Fix bugs
