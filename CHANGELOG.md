@@ -8,6 +8,28 @@ Version 0.6.3 *(2018-09-30)*
 ### Upgrade note
 Update the *Xcode application* to **version 10** or the *Swift* version to **4.2**, to avoid getting `'KeyframeAnimationOptions' is not a member type of 'UIView'` error for supporting the `Swift 4.2`.
 
+If your project swift version is not 4.2, Add these code your pod file:
+```
+# platform :ios, '9.0'
+
+target 'YOUR_PROJECT_NAME' do
+  use_frameworks!
+
+  pod 'MaterialShowcase'
+
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name.include?('MaterialShowcase')
+        target.build_configurations.each do |config|
+           config.build_settings['SWIFT_VERSION'] = '4.2'
+        end
+      end
+    end
+  end
+
+end
+```
+
 Version 0.6.2 *(2018-07-18)*
 -------------------------------
 * Fix bugs
