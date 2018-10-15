@@ -20,7 +20,7 @@ target 'YOUR_PROJECT_NAME' do
     installer.pods_project.targets.each do |target|
       if target.name.include?('MaterialShowcase')
         target.build_configurations.each do |config|
-           config.build_settings['SWIFT_VERSION'] = '3.2'
+           config.build_settings['SWIFT_VERSION'] = '4.2'
         end
       end
     end
