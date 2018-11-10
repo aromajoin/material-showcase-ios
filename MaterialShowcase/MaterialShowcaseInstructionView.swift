@@ -62,6 +62,10 @@ public class MaterialShowcaseInstructionView: UIView {
   
   /// Configures and adds primary label view
   private func addPrimaryLabel() {
+    if primaryLabel != nil {
+        primaryLabel.removeFromSuperview()
+    }
+    
     primaryLabel = UILabel()
     
     if let font = primaryTextFont {
@@ -98,6 +102,10 @@ public class MaterialShowcaseInstructionView: UIView {
   
   /// Configures and adds secondary label view
   private func addSecondaryLabel() {
+    if secondaryLabel != nil {
+        secondaryLabel.removeFromSuperview()
+    }
+    
     secondaryLabel = UILabel()
     if let font = secondaryTextFont {
       secondaryLabel.font = font
