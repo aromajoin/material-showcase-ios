@@ -124,7 +124,7 @@ public class MaterialShowcaseInstructionView: UIView {
                                   height: 0)
     secondaryLabel.sizeToFitHeight()
     addSubview(secondaryLabel)
-    frame = CGRect(x: frame.minX, y: frame.minY, width: getWidth(), height: primaryLabel.frame.height + secondaryLabel.frame.height)
+    frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: primaryLabel.frame.height + secondaryLabel.frame.height)
   }
   
   //Calculate width per device
