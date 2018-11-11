@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.6.4 *(2018-11-10)*
+-------------------------------
+* Fix issue #74 and #81 concerning primary and secondary label overlap when some libraries override UIView control methods.
+
 Version 0.6.3 *(2018-09-30)*
 -------------------------------
 * Update to Swift 4.2
