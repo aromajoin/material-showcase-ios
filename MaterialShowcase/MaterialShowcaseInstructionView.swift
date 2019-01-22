@@ -116,7 +116,7 @@ public class MaterialShowcaseInstructionView: UIView {
     secondaryLabel.textAlignment = self.secondaryTextAlignment ?? .left
     secondaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     secondaryLabel.text = secondaryText
-    secondaryLabel.numberOfLines = 3
+    secondaryLabel.numberOfLines = 0
     
     secondaryLabel.frame = CGRect(x: 0,
                                   y: primaryLabel.frame.height,
