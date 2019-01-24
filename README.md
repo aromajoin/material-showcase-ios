@@ -11,8 +11,6 @@
 
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png) |
 | ---------------------------------------- | ---------------------------------------- |
-| ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png) |
-| ![Screenshots for Persian intro](https://raw.githubusercontent.com/aromajoin/material-showcase-ios/master/art/demo-persian.jpg) | ![iPad Screenshots](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/master/art/iPad-Screenshot.png)  |
 
 
 ## Requirement
@@ -134,6 +132,7 @@ You can define your own styles based on your app.
   showcase.aniRippleScale = 1.5 
   showcase.aniRippleColor = UIColor.white
   showcase.aniRippleAlpha = 0.2
+  //...
 ```
 
 For more information, please take a look at [sample app](/Sample).
@@ -145,6 +144,9 @@ Please feel free to create a pull request.
 
 ### React Native
 For [React Native](https://github.com/facebook/react-native) developers, you can use this library via [its binding bridge](https://github.com/prscX/react-native-material-showcase-ios) created by [@prscX](https://github.com/prscX).
+
+## FAQ
+- [How to show a view inside table view cell?](https://github.com/aromajoin/material-showcase-ios/issues/83)
 
 
 ## License  
