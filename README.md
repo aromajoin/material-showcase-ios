@@ -2,10 +2,6 @@
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Download](https://img.shields.io/cocoapods/v/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
-[![CocoaPods downloaded](https://img.shields.io/cocoapods/dt/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
-[![CocoaPods installed](https://img.shields.io/cocoapods/at/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
-[![CocoaPods platforms](https://img.shields.io/cocoapods/p/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg?style=flat-square)](https://www.apache.org/licenses/LICENSE-2.0.html)  
 
 **An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
 
@@ -90,6 +86,10 @@ There are several target view supported.
       print("Showcase \(showcase.primaryText) dimissed.")
     }
   }
+```
+### Dismiss showcase programmatically
+```swift
+  showcase.completeShowcase(animated: true, didTapTarget: false)
 ```
 ### Support both LTR and RTL text alignment
 In default, text aligment is set to be left-to-right. If you want to show text in right-to-left direction. Please define following.
