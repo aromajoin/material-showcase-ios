@@ -145,6 +145,9 @@ Please feel free to create a pull request.
 ### React Native
 For [React Native](https://github.com/facebook/react-native) developers, you can use this library via [its binding bridge](https://github.com/prscX/react-native-material-showcase-ios) created by [@prscX](https://github.com/prscX).
 
+### NativeScript
+For [NativeScript](https://nativescript.org) developers, you can use this library via [3rd party plugin](https://github.com/hamdiwanis/nativescript-app-tour) created by [@hamdiwanis](https://github.com/hamdiwanis).
+
 ## FAQ
 - [How to show a view inside table view cell?](https://github.com/aromajoin/material-showcase-ios/issues/83)
 
