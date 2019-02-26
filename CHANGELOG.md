@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.6.5 *(2019-02-26)*
+--------------------------------
+* Allow subtitle instruction text to have more than 3 lines
+
 Version 0.6.4 *(2018-11-10)*
 -------------------------------
 * Fix issue #74 and #81 concerning primary and secondary label overlap when some libraries override UIView control methods.
