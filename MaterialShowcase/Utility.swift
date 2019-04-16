@@ -15,7 +15,7 @@ public extension UIColor {
   ///
   /// - Parameter hexString: the color hex string
   /// - Returns: UIColor
-  public static func fromHex(hexString: String) -> UIColor {
+    static func fromHex(hexString: String) -> UIColor {
     let hex = hexString.trimmingCharacters(
       in: CharacterSet.alphanumerics.inverted)
     var int = UInt32()
@@ -115,4 +115,7 @@ extension CGRect {
       return CGPoint(x: midX, y: midY)
     }
   }
+}
+public enum MaterialKey : String{
+    case _default
 }

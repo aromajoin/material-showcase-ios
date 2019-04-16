@@ -14,6 +14,7 @@ import UIKit
 
 public class MaterialShowcase: UIView {
   
+  
   @objc public enum BackgroundTypeStyle: Int {
     case circle //default
     case full//full screen
@@ -51,6 +52,7 @@ public class MaterialShowcase: UIView {
   var targetRippleView: UIView!
   var targetCopyView: UIView!
   var instructionView: MaterialShowcaseInstructionView!
+
   
   // MARK: Public Properties
   
@@ -87,9 +89,15 @@ public class MaterialShowcase: UIView {
   // Delegate
   @objc public weak var delegate: MaterialShowcaseDelegate?
   
+//  @objc private var isSequence : Bool = false
+  @objc public var sequenceArray : [MaterialShowcase]!
+
+
+  
   public init() {
     // Create frame
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+    self.sequenceArray = []
     super.init(frame: frame)
     
     configure()
@@ -150,6 +158,9 @@ extension MaterialShowcase {
   
   /// Shows it over current screen after completing setup process
   @objc public func show(animated: Bool = true, completion handler: (()-> Void)?) {
+    guard !getUserState() else {
+      return
+    }
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
@@ -176,6 +187,30 @@ extension MaterialShowcase {
     if let handler = handler {
       handler()
     }
+  }
+  
+   @objc public func sequence(array: [MaterialShowcase]) {
+    
+    MaterialShowcase.showCaseArray = array
+    array.first?.show(completion: nil)
+  }
+ 
+  
+  /// Set user show retry
+  @objc public func setUserState(save : Bool , key : String? = nil) {
+    guard key != nil else {
+      return
+    }
+    UserDefaults.standard.set(save, forKey: key!)
+  }
+  
+  /// Remove user state
+  @objc public func removeUserState(key : String = MaterialKey._default.rawValue) {
+    UserDefaults.standard.removeObject(forKey: key)
+  }
+  /// Remove user state
+  @objc public func getUserState(key : String = MaterialKey._default.rawValue) -> Bool {
+    return UserDefaults.standard.bool(forKey: key)
   }
 }
 
@@ -496,6 +531,20 @@ extension MaterialShowcase {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
+    
+    if MaterialShowcase.showCaseArray.count > 0 {
+         continueSequence()
+    }
+ 
+  }
+  func continueSequence() {
+    
+    MaterialShowcase.currentNumber  += 1
+    guard MaterialShowcase.currentNumber < MaterialShowcase.showCaseArray.count  else {
+       MaterialShowcase.currentNumber = 0
+      return
+    }
+    MaterialShowcase.showCaseArray[MaterialShowcase.currentNumber].show(animated: true, completion: nil)
   }
   
   private func recycleSubviews() {
@@ -505,6 +554,10 @@ extension MaterialShowcase {
 
 // MARK: - Private helper methods
 extension MaterialShowcase {
+  
+  public static var showCaseArray : [MaterialShowcase]!
+  public static var currentNumber : Int = 0
+
   
   /// Defines the position of target view
   /// which helps to place texts at suitable positions
