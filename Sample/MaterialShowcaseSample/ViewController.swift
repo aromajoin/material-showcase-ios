@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    var xas = MaterialShowcaseSequence()
+
     // Mock data for table view
     let animals = ["Dolphin", "Penguin", "Panda", "Neko", "Inu"]
     override func viewDidLoad() {
@@ -32,8 +34,7 @@ class ViewController: UIViewController {
         showcase3.primaryText = "Action 3"
         showcase3.secondaryText = "Click here to go into details"
         showcase3.isTapRecognizerForTargetView = false
-        
-        
+
         
         let showcase1 = MaterialShowcase()
         showcase1.setTargetView(view: button)
@@ -42,29 +43,32 @@ class ViewController: UIViewController {
         showcase1.shouldSetTintColor = false // It should be set to false when button uses image.
         showcase1.backgroundPromptColor = UIColor.blue
         showcase1.isTapRecognizerForTargetView = true
-        showcase1.delegate = self
-        
-        
+    
         
         let showcase2 = MaterialShowcase()
         showcase2.setTargetView(barButtonItem: searchItem)
         showcase2.primaryText = "Action 1.1"
         showcase2.secondaryText = "Click here to go into details"
         showcase2.isTapRecognizerForTargetView = true
+        
+        
+        showcase3.delegate = self
         showcase2.delegate = self
+        showcase1.delegate = self
         
+        xas = xas.temp(showcase3).temp(showcase1).temp(showcase2)
         
-        
+        xas.start()
         
         
         //        showcase3.show(completion: nil)
         
         
         
-        let arr  = [showcase1,showcase3,showcase2]
-        let showcase = MaterialShowcase()
-        showcase.setUserState(save: true,key: "veli")
-        showcase.sequence(array: arr)
+//        let arr  = [showcase1,showcase3,showcase2]
+//        let showcase = MaterialShowcase()
+//        showcase.setUserState(save: true,key: "veli")
+//        showcase.sequence(array: arr)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +82,7 @@ class ViewController: UIViewController {
         showcase.shouldSetTintColor = false // It should be set to false when button uses image.
         showcase.backgroundPromptColor = UIColor.blue
         showcase.isTapRecognizerForTargetView = true
-        showcase.delegate = self
+//        showcase.delegate = self
         showcase.show(completion: {
             print("==== completion Action 1 ====")
             // You can save showcase state here
@@ -111,7 +115,7 @@ class ViewController: UIViewController {
         showcase.secondaryTextSize = 14
         showcase.isTapRecognizerForTargetView = true
         // Delegate to handle other action after showcase is dismissed.
-        showcase.delegate = self
+//        showcase.delegate = self
         showcase.show(completion: {
             // You can save showcase state here
             print("==== completion Action 2 ====")
@@ -127,7 +131,7 @@ class ViewController: UIViewController {
         showcase.primaryText = "Action 3"
         showcase.secondaryText = "Click here to go into details"
         showcase.isTapRecognizerForTargetView = true
-        showcase.delegate = self
+//        showcase.delegate = self
         showcase.show(completion: nil)
     }
     
@@ -137,7 +141,7 @@ class ViewController: UIViewController {
         showcase.primaryText = "Action 3"
         showcase.secondaryText = "Click here to go into details"
         showcase.isTapRecognizerForTargetView = false
-        showcase.delegate = self
+//        showcase.delegate = self
         showcase.show(completion: nil)
     }
     @IBAction func showInSeries(_ sender: UIButton) {
@@ -162,23 +166,7 @@ extension ViewController: UITableViewDataSource {
 
 // If you need handle other actions (i.e: show other showcase), you can implement MaterialShowcaseDelegate
 extension ViewController: MaterialShowcaseDelegate {
-    func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-        print("Showcase \(showcase.primaryText) will dismiss.")
-    }
     func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-        print("Showcase \(showcase.primaryText) dimissed.")
-        print("tutorialStep = \(tutorialStep)")
-        switch tutorialStep {
-        case 2:
-            self.showBarButtonItem(self)
-        case 3:
-            self.showTabBar(self)
-        case 4:
-            self.showTableView(self)
-        default:
-            tutorialStep = 0
-        }
-        
-        tutorialStep += 1
+        xas.showCaseWillDismis()
     }
 }

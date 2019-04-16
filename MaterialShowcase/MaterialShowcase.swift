@@ -89,15 +89,11 @@ public class MaterialShowcase: UIView {
   // Delegate
   @objc public weak var delegate: MaterialShowcaseDelegate?
   
-//  @objc private var isSequence : Bool = false
-  @objc public var sequenceArray : [MaterialShowcase]!
-
 
   
   public init() {
     // Create frame
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-    self.sequenceArray = []
     super.init(frame: frame)
     
     configure()
@@ -158,9 +154,6 @@ extension MaterialShowcase {
   
   /// Shows it over current screen after completing setup process
   @objc public func show(animated: Bool = true, completion handler: (()-> Void)?) {
-    guard !getUserState() else {
-      return
-    }
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
@@ -188,30 +181,9 @@ extension MaterialShowcase {
       handler()
     }
   }
-  
-   @objc public func sequence(array: [MaterialShowcase]) {
-    
-    MaterialShowcase.showCaseArray = array
-    array.first?.show(completion: nil)
-  }
+
  
-  
-  /// Set user show retry
-  @objc public func setUserState(save : Bool , key : String? = nil) {
-    guard key != nil else {
-      return
-    }
-    UserDefaults.standard.set(save, forKey: key!)
-  }
-  
-  /// Remove user state
-  @objc public func removeUserState(key : String = MaterialKey._default.rawValue) {
-    UserDefaults.standard.removeObject(forKey: key)
-  }
-  /// Remove user state
-  @objc public func getUserState(key : String = MaterialKey._default.rawValue) -> Bool {
-    return UserDefaults.standard.bool(forKey: key)
-  }
+
 }
 
 // MARK: - Utility API
@@ -532,10 +504,10 @@ extension MaterialShowcase {
       delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
     
-    if MaterialShowcase.showCaseArray.count > 0 {
-         continueSequence()
-    }
- 
+//    if MaterialShowcase.showCaseArray.count > 0 {
+//         continueSequence()
+//    }
+// 
   }
   func continueSequence() {
     
