@@ -503,20 +503,7 @@ extension MaterialShowcase {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
-    
-//    if MaterialShowcase.showCaseArray.count > 0 {
-//         continueSequence()
-//    }
-// 
-  }
-  func continueSequence() {
-    
-    MaterialShowcase.currentNumber  += 1
-    guard MaterialShowcase.currentNumber < MaterialShowcase.showCaseArray.count  else {
-       MaterialShowcase.currentNumber = 0
-      return
-    }
-    MaterialShowcase.showCaseArray[MaterialShowcase.currentNumber].show(animated: true, completion: nil)
+
   }
   
   private func recycleSubviews() {
@@ -526,10 +513,6 @@ extension MaterialShowcase {
 
 // MARK: - Private helper methods
 extension MaterialShowcase {
-  
-  public static var showCaseArray : [MaterialShowcase]!
-  public static var currentNumber : Int = 0
-
   
   /// Defines the position of target view
   /// which helps to place texts at suitable positions
