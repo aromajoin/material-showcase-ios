@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var xas = MaterialShowcaseSequence()
+    var sequence = MaterialShowcaseSequence()
 
     // Mock data for table view
     let animals = ["Dolphin", "Penguin", "Panda", "Neko", "Inu"]
@@ -56,9 +56,10 @@ class ViewController: UIViewController {
         showcase2.delegate = self
         showcase1.delegate = self
         
-        xas = xas.temp(showcase3).temp(showcase1).temp(showcase2)
+     
         
-        xas.start()
+         sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: "eve").start()
+      
         
         
         //        showcase3.show(completion: nil)
@@ -167,6 +168,6 @@ extension ViewController: UITableViewDataSource {
 // If you need handle other actions (i.e: show other showcase), you can implement MaterialShowcaseDelegate
 extension ViewController: MaterialShowcaseDelegate {
     func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
-        xas.showCaseWillDismis()
+        sequence.showCaseWillDismis()
     }
 }

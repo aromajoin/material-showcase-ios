@@ -78,20 +78,6 @@ public class MaterialShowcaseInstructionView: UIView {
     primaryLabel.numberOfLines = 0
     primaryLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
     primaryLabel.text = primaryText
-    
-    //    // Calculate x position
-    //    let xPosition = backgroundView.frame.minX > 0 ?
-    //      backgroundView.frame.minX + LABEL_MARGIN : LABEL_MARGIN
-    //
-    //    // Calculate y position
-    //    var yPosition: CGFloat!
-    //
-    //    if getTargetPosition(target: targetView, container: containerView) == .above {
-    //      yPosition = center.y + TEXT_CENTER_OFFSET
-    //    } else {
-    //      yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
-    //    }
-    
     primaryLabel.frame = CGRect(x: 0,
                                 y: 0,
                                 width: getWidth(),

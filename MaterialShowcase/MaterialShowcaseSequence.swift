@@ -19,7 +19,7 @@ public class MaterialShowcaseSequence {
         return self
     }
     public func start() {
-        guard getUserState(key: self.key) else {
+        guard !getUserState(key: self.key) else {
             return
         }
         showcaseArray.first?.show(completion: increase)
@@ -53,6 +53,9 @@ public class MaterialShowcaseSequence {
     public func showCaseWillDismis() {
         guard self.showcaseArray.count > currentCase else {
             //last index
+            guard self.key != nil else {
+                return
+            }
             UserDefaults.standard.set(true, forKey: key!)
             return
         }
