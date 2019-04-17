@@ -134,6 +134,34 @@ You can define your own styles based on your app.
   showcase.aniRippleAlpha = 0.2
   //...
 ```
+### Sequence items
+
+You can define showcase items and create sequence.
+
+**If you set key param sequence visible just one time or key is empty will always show be repeated**
+
+Always Repeat
+```swift
+        //one time so we have key.
+        let sequence = MaterialShowcaseSequence()
+        let showcase2 = MaterialShowcase()
+        let showcase3 = MaterialShowcase()
+        let showcase1 = MaterialShowcase()
+        sequence.temp(showcase1).temp(showcase2).temp(showcase3).start()
+
+```
+One time repeat so we have key.
+```swift
+        
+        let sequence = MaterialShowcaseSequence()
+        let showcase2 = MaterialShowcase()
+        let showcase3 = MaterialShowcase()
+        let showcase1 = MaterialShowcase()
+        sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: "eve").start()
+
+```
+
+
 
 For more information, please take a look at [sample app](/Sample).
 
