@@ -134,6 +134,44 @@ You can define your own styles based on your app.
   showcase.aniRippleAlpha = 0.2
   //...
 ```
+### Sequence items
+
+You can define showcase items and create sequence.
+
+**If you set key param sequence visible just one time or key is empty will always show be repeated**
+
+Always appear
+```swift
+        let sequence = MaterialShowcaseSequence()
+        let showcase2 = MaterialShowcase()
+        let showcase3 = MaterialShowcase()
+        let showcase1 = MaterialShowcase()
+        showcase1.delegate = self
+        showcase2.delegate = self
+        showcase3.delegate = self
+        sequence.temp(showcase1).temp(showcase2).temp(showcase3).start()
+```
+Will appear once so we have key
+```swift
+        let sequence = MaterialShowcaseSequence()
+        let showcase2 = MaterialShowcase()
+        let showcase3 = MaterialShowcase()
+        let showcase1 = MaterialShowcase()
+        showcase1.delegate = self
+        showcase2.delegate = self
+        showcase3.delegate = self
+        //Once the key value changes , it will appear once
+        sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: "temp").start()
+```
+**Must extends MaterialShowCaseDelegate and This code into showCaseDidDismiss function**
+```swift
+extension ViewController: MaterialShowcaseDelegate {
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+        sequence.showCaseWillDismis()
+    }
+}
+```
+
 
 For more information, please take a look at [sample app](/Sample).
 

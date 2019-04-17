@@ -14,6 +14,7 @@ import UIKit
 
 public class MaterialShowcase: UIView {
   
+  
   @objc public enum BackgroundTypeStyle: Int {
     case circle //default
     case full//full screen
@@ -51,6 +52,7 @@ public class MaterialShowcase: UIView {
   var targetRippleView: UIView!
   var targetCopyView: UIView!
   var instructionView: MaterialShowcaseInstructionView!
+
   
   // MARK: Public Properties
   
@@ -86,6 +88,8 @@ public class MaterialShowcase: UIView {
   @objc public var aniRippleAlpha: CGFloat = 0.0
   // Delegate
   @objc public weak var delegate: MaterialShowcaseDelegate?
+  
+
   
   public init() {
     // Create frame
@@ -177,6 +181,9 @@ extension MaterialShowcase {
       handler()
     }
   }
+
+ 
+
 }
 
 // MARK: - Utility API
@@ -496,6 +503,7 @@ extension MaterialShowcase {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
       delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
+
   }
   
   private func recycleSubviews() {
