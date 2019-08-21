@@ -12,7 +12,7 @@ s.license          = { :type => 'APACHE', :file => 'LICENSE' }
 s.author           = { 'Quang Nguyen' => 'quangnguyen@aromajoin.com' }
 s.source           = { :git => 'https://github.com/aromajoin/material-showcase-ios.git', :tag => s.version.to_s }
 
-s.swift_version = '4.2'
+s.swift_version = '5.0'
 s.ios.deployment_target = '8.0'
 s.source_files = 'MaterialShowcase/*.swift'
 
