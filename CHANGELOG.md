@@ -1,5 +1,10 @@
 Change Log
 ==========
+
+Version 0.6.6 *(2019-08-21)*
+--------------------------------
+* Update to Swift 5.0
+
 Version 0.6.5 *(2019-02-26)*
 --------------------------------
 * Allow subtitle instruction text to have more than 3 lines
