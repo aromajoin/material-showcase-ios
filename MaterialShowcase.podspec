@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'MaterialShowcase'
-s.version          = '0.6.5'
+s.version          = '0.6.6'
 s.summary          = 'An elegant and beautiful showcase for iOS apps.'
 
 s.description      = <<-DESC
