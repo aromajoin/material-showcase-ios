@@ -187,8 +187,7 @@ For [React Native](https://github.com/facebook/react-native) developers, you can
 For [NativeScript](https://nativescript.org) developers, you can use this library via [3rd party plugin](https://github.com/hamdiwanis/nativescript-app-tour) created by [@hamdiwanis](https://github.com/hamdiwanis).
 
 ## FAQ
-- [How to show a view inside table view cell?](https://github.com/aromajoin/material-showcase-ios/issues/83)
-
+Please check the FAQ page [here](https://github.com/aromajoin/material-showcase-ios/wiki/FAQ).
 
 ## License  
 
