@@ -3,7 +3,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Download](https://img.shields.io/cocoapods/v/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 
-**An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**  
+**An elegant and beautiful tap showcase view for iOS apps based on Material Design Guidelines.**
 
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png) |
 | ---------------------------------------- | ---------------------------------------- |
@@ -16,7 +16,7 @@
 ## Installation
 
 ### CocoaPods
-You can install it by using CocoaPods. Please add the following line to your Podfile.   
+You can install it by using CocoaPods. Please add the following line to your Podfile.
 ```
 pod 'MaterialShowcase'
 ```
@@ -56,7 +56,7 @@ In order to integrate the library into Object-C project, please follow the instr
 **Note**: `showcase.show()` should be called after your views are placed correctly, for example inside UIViewController's  `viewWillAppear()` or `viewDidAppear()` function. You **SHOULD NOT** call it inside `viewDidLoad()` because views have not laid down correctly yet, `showcase` can not calculate these views positions and it results in unexpected errors.
 
 ### Supported target views
-There are several target view supported.  
+There are several target view supported.
 
 ```swift
   // Any UIView
@@ -68,16 +68,29 @@ There are several target view supported.
   // UItableViewCell
   showcase.setTargetView(tableView: tableView, section: 0, row: 0)
 ```
+
+### Enable TapThrough
+By default, tapping a showcase's target does not perform it's predefined action. This can be overridden.
+
+```swift
+  // UIButton
+  showcase.setTargetView(button: button, tapThrough: true)
+  // UIBarButtonItem
+  showcase.setTargetView(barButtonItem: barItem, tapThrough: true)
+  // UITabBar item
+  showcase.setTargetView(tabBar: tabBar, itemIndex: 0, tapThrough: true)
+```
+
 ### Handle showcase status
 ```swift
   // Right after showing.
   showcase.show(completion: {
     // You can save showcase state here
   })
-  
+
   // To handle other behaviors when showcase is dismissing, delegate should be declared.
   showcase.delegate = self
-  
+
   extension ViewController: MaterialShowcaseDelegate {
     func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
       print("Showcase \(showcase.primaryText) will dismiss.")
@@ -129,7 +142,7 @@ You can define your own styles based on your app.
   // Animation
   showcase.aniComeInDuration = 0.5 // unit: second
   showcase.aniGoOutDuration = 0.5 // unit: second
-  showcase.aniRippleScale = 1.5 
+  showcase.aniRippleScale = 1.5
   showcase.aniRippleColor = UIColor.white
   showcase.aniRippleAlpha = 0.2
   //...
@@ -175,8 +188,8 @@ extension ViewController: MaterialShowcaseDelegate {
 
 For more information, please take a look at [sample app](/Sample).
 
-If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).  
-Please feel free to create a pull request. 
+If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).
+Please feel free to create a pull request.
 
 ## Third Party Bindings
 
@@ -189,6 +202,6 @@ For [NativeScript](https://nativescript.org) developers, you can use this librar
 ## FAQ
 Please check the FAQ page [here](https://github.com/aromajoin/material-showcase-ios/wiki/FAQ).
 
-## License  
+## License
 
 `Material Showcase` is available under the Apache license. See the LICENSE file for more info.
