@@ -52,7 +52,8 @@ public class MaterialShowcase: UIView {
   var targetRippleView: UIView!
   var targetCopyView: UIView!
   var instructionView: MaterialShowcaseInstructionView!
-
+    
+  var onTapThrough: (() -> Void)?
   
   // MARK: Public Properties
   
@@ -125,19 +126,36 @@ extension MaterialShowcase {
   }
   
   /// Sets a UIBarButtonItem as target
-  @objc public func setTargetView(barButtonItem: UIBarButtonItem) {
+  @objc public func setTargetView(button: UIButton, tapThrough: Bool = false) {
+    targetView = button
+    let tintColor = button.titleColor(for: .normal)
+    targetTintColor = tintColor
+    backgroundPromptColor = tintColor
+    if tapThrough {
+      onTapThrough = { button.sendActions(for: .touchUpInside)  }
+    }
+  }
+  
+  /// Sets a UIBarButtonItem as target
+  @objc public func setTargetView(barButtonItem: UIBarButtonItem, tapThrough: Bool = false) {
     if let view = (barButtonItem.value(forKey: "view") as? UIView)?.subviews.first {
       targetView = view
+      if tapThrough {
+        onTapThrough = { _ = barButtonItem.target?.perform(barButtonItem.action, with: nil) }
+      }
     }
   }
   
   /// Sets a UITabBar Item as target
-  @objc public func setTargetView(tabBar: UITabBar, itemIndex: Int) {
+  @objc public func setTargetView(tabBar: UITabBar, itemIndex: Int, tapThrough: Bool = false) {
     let tabBarItems = orderedTabBarItemViews(of: tabBar)
     if itemIndex < tabBarItems.count {
       targetView = tabBarItems[itemIndex]
       targetTintColor = tabBar.tintColor
       backgroundPromptColor = tabBar.tintColor
+      if tapThrough {
+        onTapThrough = { tabBar.selectedItem = tabBar.items?[itemIndex] }
+      }
     } else {
       print ("The tab bar item index is out of range")
     }
@@ -504,6 +522,9 @@ extension MaterialShowcase {
       delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
 
+    if didTapTarget {
+      onTapThrough?()
+    }
   }
   
   private func recycleSubviews() {
