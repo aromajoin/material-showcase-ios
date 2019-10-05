@@ -21,7 +21,7 @@ public class MaterialShowcase: UIView {
   }
   
   // MARK: Material design guideline constant
-  let BACKGROUND_ALPHA: CGFloat = 0.96
+  let BACKGROUND_PROMPT_ALPHA: CGFloat = 0.96
   let TARGET_HOLDER_RADIUS: CGFloat = 44
   let TEXT_CENTER_OFFSET: CGFloat = 44 + 20
   let INSTRUCTIONS_CENTER_OFFSET: CGFloat = 20
@@ -58,6 +58,7 @@ public class MaterialShowcase: UIView {
   // MARK: Public Properties
   
   // Background
+  @objc public var backgroundAlpha: CGFloat = 1.0
   @objc public var backgroundPromptColor: UIColor!
   @objc public var backgroundPromptColorAlpha: CGFloat = 0.0
   @objc public var backgroundViewType: BackgroundTypeStyle = .circle
@@ -187,12 +188,12 @@ extension MaterialShowcase {
         self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
         self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)
         self.backgroundView.center = center
-        self.alpha = 1.0
+        self.alpha = self.backgroundAlpha
       }, completion: { _ in
         self.startAnimations()
       })
     } else {
-      self.alpha = 1.0
+      self.alpha = self.backgroundAlpha
     }
     // Handler user's action after showing.
     if let handler = handler {
@@ -234,7 +235,7 @@ extension MaterialShowcase {
   func setDefaultProperties() {
     // Background
     backgroundPromptColor = BACKGROUND_DEFAULT_COLOR
-    backgroundPromptColorAlpha = BACKGROUND_ALPHA
+    backgroundPromptColorAlpha = BACKGROUND_PROMPT_ALPHA
     // Target view
     targetTintColor = BACKGROUND_DEFAULT_COLOR
     targetHolderColor = TARGET_HOLDER_COLOR
