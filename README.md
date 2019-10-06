@@ -122,6 +122,7 @@ showcase.isTapRecognizerForTargetView = true
 You can define your own styles based on your app.
 ```swift
   // Background
+  showcase.backgroundAlpha = 0.9
   showcase.backgroundPromptColor = UIColor.blue
   showcase.backgroundPromptColorAlpha = 0.96
   showcase.backgroundViewType = .full // default is .circle
