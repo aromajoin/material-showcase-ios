@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 0.7.0 *(2019-10-09)*
+--------------------------------
+* Add 'tapThrough' functions for UIButton, UIBarButtonItem, UITabBarItem for handling predefined actions
+* Able to adjust the background view's alpha
+* Fix the Carthage integration issue
+
 Version 0.6.6 *(2019-08-21)*
 --------------------------------
 * Update to Swift 5.0
