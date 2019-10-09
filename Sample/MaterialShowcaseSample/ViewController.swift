@@ -61,7 +61,7 @@ class ViewController: UIViewController {
   
   @IBAction func showButton(_ sender: Any) {
     let showcase = MaterialShowcase()
-    showcase.setTargetView(view: button)
+    showcase.setTargetView(button: button, tapThrough: true)
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
   
   @IBAction func showTabBar(_ sender: Any) {
     let showcase = MaterialShowcase()
-    showcase.setTargetView(tabBar: tabBar, itemIndex: 0)
+    showcase.setTargetView(tabBar: tabBar, itemIndex: 0, tapThrough: true)
     showcase.backgroundViewType = .circle
     showcase.targetTintColor = UIColor.clear
     showcase.targetHolderColor = UIColor.clear
