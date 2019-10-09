@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension MaterialShowcase {
-
+  
   func isInGutter(center: CGPoint) -> Bool {
     return center.y < offsetThreshold || containerView.frame.height - center.y < offsetThreshold
   }

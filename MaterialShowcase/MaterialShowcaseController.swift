@@ -84,10 +84,11 @@ open class MaterialShowcaseController {
 }
 
 extension MaterialShowcaseController: MaterialShowcaseDelegate {
-    public func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+  public func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
     delegate?.materialShowcaseController(self, materialShowcaseWillDisappear: showcase, forIndex: currentIndex)
   }
-    public func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
+  
+  public func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
     delegate?.materialShowcaseController(self, materialShowcaseDidDisappear: showcase, forIndex: currentIndex)
     currentShowcase = nil
     if started {

@@ -63,7 +63,7 @@ public class MaterialShowcaseInstructionView: UIView {
   /// Configures and adds primary label view
   private func addPrimaryLabel() {
     if primaryLabel != nil {
-        primaryLabel.removeFromSuperview()
+      primaryLabel.removeFromSuperview()
     }
     
     primaryLabel = UILabel()
@@ -89,7 +89,7 @@ public class MaterialShowcaseInstructionView: UIView {
   /// Configures and adds secondary label view
   private func addSecondaryLabel() {
     if secondaryLabel != nil {
-        secondaryLabel.removeFromSuperview()
+      secondaryLabel.removeFromSuperview()
     }
     
     secondaryLabel = UILabel()
@@ -117,14 +117,14 @@ public class MaterialShowcaseInstructionView: UIView {
   private func getWidth() -> CGFloat{
     //superview was left side
     if (self.superview?.frame.origin.x)! < CGFloat(0) {
-        return frame.width - (frame.minX/2)
+      return frame.width - (frame.minX/2)
     } else if ((self.superview?.frame.origin.x)! + (self.superview?.frame.size.width)! >
-        UIScreen.main.bounds.width) { //superview was right side
-        return (frame.width - frame.minX)/2
+      UIScreen.main.bounds.width) { //superview was right side
+      return (frame.width - frame.minX)/2
     }
     return (frame.width - frame.minX)
   }
-    
+  
   /// Overrides this to add subviews. They will be drawn when calling show()
   public override func layoutSubviews() {
     super.layoutSubviews()
