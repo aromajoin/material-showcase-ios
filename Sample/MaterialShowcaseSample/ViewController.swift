@@ -22,20 +22,13 @@ class ViewController: UIViewController {
   
   // Mock data for table view
   let animals = ["Dolphin", "Penguin", "Panda", "Neko", "Inu"]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.dataSource = self
-    
   }
   
   override func viewDidAppear(_ animated: Bool) {
-    let showcase3 = MaterialShowcase()
-    showcase3.setTargetView(tableView: self.tableView, section: 0, row: 2)
-    showcase3.primaryText = "Action 3"
-    showcase3.secondaryText = "Click here to go into details"
-    showcase3.isTapRecognizerForTargetView = false
-    
-    
     let showcase1 = MaterialShowcase()
     showcase1.setTargetView(view: button)
     showcase1.primaryText = "Action 1"
@@ -44,17 +37,21 @@ class ViewController: UIViewController {
     showcase1.backgroundPromptColor = UIColor.blue
     showcase1.isTapRecognizerForTargetView = true
     
-    
     let showcase2 = MaterialShowcase()
     showcase2.setTargetView(barButtonItem: searchItem)
     showcase2.primaryText = "Action 1.1"
     showcase2.secondaryText = "Click here to go into details"
     showcase2.isTapRecognizerForTargetView = true
     
+    let showcase3 = MaterialShowcase()
+    showcase3.setTargetView(tableView: self.tableView, section: 0, row: 2)
+    showcase3.primaryText = "Action 3"
+    showcase3.secondaryText = "Click here to go into details"
+    showcase3.isTapRecognizerForTargetView = false
     
-    showcase3.delegate = self
-    showcase2.delegate = self
     showcase1.delegate = self
+    showcase2.delegate = self
+    showcase3.delegate = self
     
     sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: "eve").start()
   }
