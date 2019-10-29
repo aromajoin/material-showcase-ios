@@ -125,7 +125,6 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 3"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTargetView = false
-    //        showcase.delegate = self
     showcase.show(completion: nil)
   }
   @IBAction func showInSeries(_ sender: UIButton) {

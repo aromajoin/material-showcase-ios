@@ -61,6 +61,7 @@ public class MaterialShowcase: UIView {
   @objc public var backgroundPromptColor: UIColor!
   @objc public var backgroundPromptColorAlpha: CGFloat = 0.0
   @objc public var backgroundViewType: BackgroundTypeStyle = .circle
+  @objc public var backgroundRadius: CGFloat = -1.0 // If the value is negative, calculate the radius automatically
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
@@ -311,9 +312,15 @@ extension MaterialShowcase {
   private func addBackground() {
     switch self.backgroundViewType {
     case .circle:
-      let radius = getDefaultBackgroundRadius()
-
-      let center = targetRippleView.center//getOuterCircleCenterPoint(for: targetCopyView)
+      let radius: CGFloat
+      
+      if backgroundRadius < 0 {
+        radius = getDefaultBackgroundRadius()
+      } else {
+        radius = backgroundRadius
+      }
+      
+      let center = targetRippleView.center
       
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
       backgroundView.center = center
@@ -456,9 +463,7 @@ extension MaterialShowcase {
       }
     } else {
       if getTargetPosition(target: targetView, container: containerView) == .above {
-        
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
-        
       } else {
         yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
       }
