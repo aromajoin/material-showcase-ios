@@ -173,13 +173,13 @@ extension MaterialShowcase {
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
-    self.layoutIfNeeded()
+    layoutIfNeeded()
     
     let scale = TARGET_HOLDER_RADIUS / (backgroundView.frame.width / 2)
     let center = backgroundView.center
     
     backgroundView.transform = CGAffineTransform(scaleX: scale, y: scale) // Initial set to support animation
-    self.backgroundView.center = self.targetHolderView.center
+    backgroundView.center = targetHolderView.center
     if animated {
       UIView.animate(withDuration: aniComeInDuration, animations: {
         self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -190,7 +190,7 @@ extension MaterialShowcase {
         self.startAnimations()
       })
     } else {
-      self.alpha = self.backgroundAlpha
+      alpha = backgroundAlpha
     }
     // Handler user's action after showing.
     if let handler = handler {
@@ -311,15 +311,9 @@ extension MaterialShowcase {
   private func addBackground() {
     switch self.backgroundViewType {
     case .circle:
-      let radius: CGFloat!
-      
+      let radius = getDefaultBackgroundRadius()
+
       let center = targetRippleView.center//getOuterCircleCenterPoint(for: targetCopyView)
-      
-      if UIDevice.current.userInterfaceIdiom == .pad {
-        radius = 300.0
-      } else {
-        radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetRippleView.frame)
-      }
       
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
       backgroundView.center = center
@@ -331,6 +325,16 @@ extension MaterialShowcase {
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
     addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+  }
+  
+  private func getDefaultBackgroundRadius() -> CGFloat{
+    var radius: CGFloat = 0.0
+    if UIDevice.current.userInterfaceIdiom == .pad {
+      radius = 300.0
+    } else {
+      radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetRippleView.frame)
+    }
+    return radius
   }
   
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
@@ -453,7 +457,7 @@ extension MaterialShowcase {
     } else {
       if getTargetPosition(target: targetView, container: containerView) == .above {
         
-        yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > self.targetHolderRadius ? targetView.bounds.height / 2 : self.targetHolderRadius)
+        yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
         
       } else {
         yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
