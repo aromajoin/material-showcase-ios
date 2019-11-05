@@ -194,9 +194,7 @@ extension MaterialShowcase {
       alpha = backgroundAlpha
     }
     // Handler user's action after showing.
-    if let handler = handler {
-      handler()
-    }
+    handler?()
   }
   
 }
