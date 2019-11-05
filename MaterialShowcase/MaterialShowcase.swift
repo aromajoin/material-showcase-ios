@@ -12,7 +12,7 @@ import UIKit
   @objc optional func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
 }
 
-public class MaterialShowcase: UIView {
+open class MaterialShowcase: UIView {
   
   @objc public enum BackgroundTypeStyle: Int {
     case circle //default
