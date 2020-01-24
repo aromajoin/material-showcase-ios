@@ -169,6 +169,16 @@ extension MaterialShowcase {
     targetHolderRadius = 0
   }
   
+  
+  /// Sets a UICollectionViewCell as target
+  @objc public func setTargetView(collectionView: UICollectionView, section: Int, item: Int) {
+    let indexPath = IndexPath(item: item, section: section)
+    targetView = collectionView.cellForItem(at: indexPath)
+    // for table viewcell, we do not need target holder (circle view)
+    // therefore, set its radius = 0
+    targetHolderRadius = 0
+  }
+  
   /// Shows it over current screen after completing setup process
   @objc public func show(animated: Bool = true, completion handler: (()-> Void)?) {
     initViews()
@@ -322,7 +332,6 @@ extension MaterialShowcase {
       
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
       backgroundView.center = center
-      
       backgroundView.asCircle()
     case .full:
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height))
@@ -332,7 +341,7 @@ extension MaterialShowcase {
     addBackgroundMask(with: targetHolderRadius, in: backgroundView)
   }
   
-  private func getDefaultBackgroundRadius() -> CGFloat{
+  private func getDefaultBackgroundRadius() -> CGFloat {
     var radius: CGFloat = 0.0
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
@@ -344,6 +353,7 @@ extension MaterialShowcase {
   
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
     let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
+  
     let mutablePath = CGMutablePath()
     mutablePath.addRect(view.bounds)
     mutablePath.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: 2 * .pi, clockwise: false)
@@ -548,17 +558,20 @@ extension MaterialShowcase {
   /// Detects the position of target view relative to its container
   func getTargetPosition(target: UIView, container: UIView) -> TargetPosition {
     let center = calculateCenter(at: targetView, to: container)
-    if center.y < container.frame.height / 2{
+    if center.y < container.frame.height / 2 {
       return .above
     } else {
       return .below
     }
   }
   
+  
+  
   // Calculates the center point based on targetview
   func calculateCenter(at targetView: UIView, to containerView: UIView) -> CGPoint {
     let targetRect = targetView.convert(targetView.bounds , to: containerView)
     return targetRect.center
+    
   }
   
   // Gets all UIView from TabBarItem.

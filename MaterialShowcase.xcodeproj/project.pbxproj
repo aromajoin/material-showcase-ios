@@ -178,11 +178,11 @@
 			};
 			buildConfigurationList = CE083A131EBACFEB0077666F /* Build configuration list for PBXProject "MaterialShowcase" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = CE083A0F1EBACFEB0077666F;
 			productRefGroup = CE083A1A1EBACFEB0077666F /* Products */;
