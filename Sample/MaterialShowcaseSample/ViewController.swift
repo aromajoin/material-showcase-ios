@@ -67,6 +67,9 @@ class ViewController: UIViewController {
     showcase.show(completion: {
       print("==== completion Action 1 ====")
       // You can save showcase state here
+        showcase.skipButton = {
+            debugPrint("---hit point---")
+        }
     })
   }
   
@@ -101,6 +104,7 @@ class ViewController: UIViewController {
       // You can save showcase state here
       print("==== completion Action 2 ====")
     })
+    
   }
   
   @IBAction func showTabBar(_ sender: Any) {
