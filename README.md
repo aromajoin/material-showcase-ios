@@ -10,7 +10,7 @@
 
 
 ## Requirement
-* iOS 8.0+
+* iOS 10.0+
 * Swift 4.2+
 
 ## Installation
