@@ -39,8 +39,8 @@ extension MaterialShowcase {
     let targetCenterY = targetBounds.midY
     
     let expandedRadius = 1.1 * TARGET_HOLDER_RADIUS
-    let expandedBounds = CGRect(x: targetCenterX, y: targetCenterY, width: 0, height: 0)
-    expandedBounds.insetBy(dx: -expandedRadius, dy: -expandedRadius);
+    var expandedBounds = CGRect(x: targetCenterX, y: targetCenterY, width: 0, height: 0)
+    expandedBounds = expandedBounds.insetBy(dx: -expandedRadius, dy: -expandedRadius);
     
     let textRadius = maxDistance(from: center, to: textBounds)
     let targetRadius = maxDistance(from: center, to: expandedBounds)

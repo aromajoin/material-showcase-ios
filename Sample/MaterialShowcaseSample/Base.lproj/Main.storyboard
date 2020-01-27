@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,35 +32,35 @@
                                 </items>
                             </tabBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xO-1R-dVw">
-                                <rect key="frame" x="26" y="91" width="323" height="30"/>
+                                <rect key="frame" x="26" y="71" width="187" height="30"/>
                                 <state key="normal" title="UIButton Showcase"/>
                                 <connections>
                                     <action selector="showButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T9T-Y7-acP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jp3-uM-SZU">
-                                <rect key="frame" x="26" y="129" width="323" height="30"/>
+                                <rect key="frame" x="26" y="109" width="187" height="30"/>
                                 <state key="normal" title="UIBarButtonItem Showcase"/>
                                 <connections>
                                     <action selector="showBarButtonItem:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wff-Kp-jk0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP9-Xh-O4w">
-                                <rect key="frame" x="26" y="167" width="323" height="30"/>
+                                <rect key="frame" x="26" y="147" width="187" height="30"/>
                                 <state key="normal" title="UITabBarItem Showcase"/>
                                 <connections>
                                     <action selector="showTabBar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hI1-QG-6kI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxz-BG-r6o">
-                                <rect key="frame" x="26" y="205" width="323" height="30"/>
+                                <rect key="frame" x="26" y="185" width="187" height="30"/>
                                 <state key="normal" title="UITableView Showcase"/>
                                 <connections>
                                     <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bpG-w7-kYe"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Er-Kq-T6A">
-                                <rect key="frame" x="16" y="319" width="343" height="244"/>
+                                <rect key="frame" x="16" y="292" width="343" height="244"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="244" id="Avq-py-Wk6"/>
@@ -71,11 +70,11 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hw6-Wd-sph" id="xk7-Xh-IHh">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PVn-eS-2Wr">
-                                                    <rect key="frame" x="15" y="0.0" width="313" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="313" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -89,37 +88,34 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlo-Uq-wk3">
-                                <rect key="frame" x="327" y="579" width="16" height="22"/>
+                                <rect key="frame" x="311" y="552" width="48" height="49"/>
                                 <state key="normal" image="ic_twitter">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8CC-dB-oJX">
-                                <rect key="frame" x="323" y="243" width="36" height="30"/>
+                                <rect key="frame" x="323" y="223" width="36" height="30"/>
                                 <state key="normal" title="Right"/>
                                 <connections>
                                     <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9jX-AO-lF9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOG-Y7-rBI">
-                                <rect key="frame" x="16" y="243" width="30" height="30"/>
+                                <rect key="frame" x="16" y="223" width="30" height="30"/>
                                 <state key="normal" title="Left"/>
                                 <connections>
                                     <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wiV-7c-jm0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWR-um-41T">
-                                <rect key="frame" x="164" y="243" width="47" height="30"/>
+                                <rect key="frame" x="164" y="223" width="47" height="30"/>
                                 <state key="normal" title="Middle"/>
                                 <connections>
                                     <action selector="placementButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YAX-A9-M9i"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfM-wr-XQ9">
-                                <rect key="frame" x="106" y="575" width="173" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="173" id="Xml-BO-KYG"/>
-                                </constraints>
+                                <rect key="frame" x="164" y="561.5" width="99" height="30"/>
                                 <state key="normal" title="Show in series"/>
                                 <connections>
                                     <action selector="showInSeries:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W2m-mg-Qjj"/>
@@ -134,10 +130,10 @@
                             <constraint firstItem="8CC-dB-oJX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="B16-Gv-0Gq"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2Er-Kq-T6A" secondAttribute="leading" id="GT1-rZ-Ldh"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="top" secondItem="6xO-1R-dVw" secondAttribute="bottom" constant="8" id="JIl-QG-17M"/>
+                            <constraint firstItem="8CC-dB-oJX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bWR-um-41T" secondAttribute="trailing" constant="8" symbolic="YES" id="KuY-uE-Nmd"/>
                             <constraint firstItem="xOG-Y7-rBI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NGb-fc-oVt"/>
                             <constraint firstItem="8CC-dB-oJX" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="NdY-Cu-5dP"/>
                             <constraint firstItem="xOG-Y7-rBI" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="NrW-aB-eKx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6xO-1R-dVw" secondAttribute="trailing" constant="10" id="Osa-wg-0nU"/>
                             <constraint firstItem="Nlo-Uq-wk3" firstAttribute="top" secondItem="2Er-Kq-T6A" secondAttribute="bottom" constant="16" id="PzA-ki-8ai"/>
                             <constraint firstItem="bWR-um-41T" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="Tgb-PQ-fCz"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="centerX" secondItem="PP9-Xh-O4w" secondAttribute="centerX" id="W9s-OV-bPW"/>
@@ -146,8 +142,10 @@
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aeW-yO-8cM"/>
                             <constraint firstItem="PP9-Xh-O4w" firstAttribute="width" secondItem="jp3-uM-SZU" secondAttribute="width" id="bu7-0l-YNQ"/>
                             <constraint firstItem="Nlo-Uq-wk3" firstAttribute="leading" secondItem="kfM-wr-XQ9" secondAttribute="trailing" constant="48" id="csA-7U-ycs"/>
+                            <constraint firstItem="bWR-um-41T" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xOG-Y7-rBI" secondAttribute="trailing" constant="8" symbolic="YES" id="eeu-Fw-aVo"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="centerX" secondItem="6xO-1R-dVw" secondAttribute="centerX" id="gCn-Bl-20h"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Nlo-Uq-wk3" secondAttribute="trailing" constant="16" id="hLC-rW-qFY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Nlo-Uq-wk3" secondAttribute="trailing" id="hLC-rW-qFY"/>
+                            <constraint firstItem="kfM-wr-XQ9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="jHL-4q-hKu"/>
                             <constraint firstItem="PP9-Xh-O4w" firstAttribute="centerX" secondItem="jp3-uM-SZU" secondAttribute="centerX" id="jWn-Us-703"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="top" secondItem="Nlo-Uq-wk3" secondAttribute="bottom" constant="16" id="jdV-qk-I2e"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="width" secondItem="PP9-Xh-O4w" secondAttribute="width" id="miZ-Yb-ZGq"/>
@@ -172,13 +170,69 @@
             </objects>
             <point key="canvasLocation" x="140" y="216.34182908545728"/>
         </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="wgc-Hj-U4Z">
+            <objects>
+                <viewController id="Cks-fz-dAi" customClass="CollectionViewController" customModule="MaterialShowcaseSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F0G-sZ-Smh"/>
+                        <viewControllerLayoutGuide type="bottom" id="M4E-Br-90V"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="THx-xc-c1B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ey4-4p-rJC">
+                                <rect key="frame" x="16" y="325.5" width="343" height="333.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mrn-gp-kfS">
+                                    <size key="itemSize" width="81" height="81"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="1P4-nI-VPI" customClass="CollectionViewCell" customModule="MaterialShowcaseSample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fnp-qF-hzd">
+                                            <rect key="frame" x="0.0" y="0.0" width="81" height="81"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" red="0.92549019610000005" green="0.25098039220000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <size key="customSize" width="81" height="81"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cks-fz-dAi" id="bcl-cX-S2R"/>
+                                    <outlet property="delegate" destination="Cks-fz-dAi" id="3yl-7s-2Fc"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="M4E-Br-90V" firstAttribute="top" secondItem="ey4-4p-rJC" secondAttribute="bottom" constant="8" symbolic="YES" id="Ljc-ve-DRX"/>
+                            <constraint firstItem="ey4-4p-rJC" firstAttribute="height" secondItem="THx-xc-c1B" secondAttribute="height" multiplier="0.5" id="PsC-nh-ejP"/>
+                            <constraint firstItem="ey4-4p-rJC" firstAttribute="centerX" secondItem="THx-xc-c1B" secondAttribute="centerX" id="cLv-tN-8pD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ey4-4p-rJC" secondAttribute="trailing" id="ih7-P7-znr"/>
+                            <constraint firstItem="ey4-4p-rJC" firstAttribute="leading" secondItem="THx-xc-c1B" secondAttribute="leadingMargin" id="vKR-hO-JpO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="ey4-4p-rJC" id="Dl9-lM-WKq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YTH-xg-67L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876" y="215.44227886056973"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="xC4-sn-n1X">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Yp-6g-IHX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kWE-HK-iwg">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

@@ -43,6 +43,8 @@ open class MaterialShowcase: UIView {
   var offsetThreshold: CGFloat = 88
   
   // MARK: Private view properties
+  var closeButton : UIButton!
+  
   var containerView: UIView!
   var targetView: UIView!
   var backgroundView: UIView!
@@ -52,9 +54,13 @@ open class MaterialShowcase: UIView {
   var targetCopyView: UIView!
   var instructionView: MaterialShowcaseInstructionView!
   
+  
+  public var skipButton: (() -> Void)?
   var onTapThrough: (() -> Void)?
   
   // MARK: Public Properties
+  // setSkipImage
+  public var skipImage = "HintClose"
   
   // Background
   @objc public var backgroundAlpha: CGFloat = 1.0
@@ -169,8 +175,22 @@ extension MaterialShowcase {
     targetHolderRadius = 0
   }
   
+  
+  /// Sets a UICollectionViewCell as target
+  @objc public func setTargetView(collectionView: UICollectionView, section: Int, item: Int) {
+    let indexPath = IndexPath(item: item, section: section)
+    targetView = collectionView.cellForItem(at: indexPath)
+    // for table viewcell, we do not need target holder (circle view)
+    // therefore, set its radius = 0
+    targetHolderRadius = 0
+  }
+  
+  @objc func dismissTutorialButtonDidTouch() {
+    skipButton?()
+  }
+  
   /// Shows it over current screen after completing setup process
-  @objc public func show(animated: Bool = true, completion handler: (()-> Void)?) {
+  @objc public func show(animated: Bool = true,hasShadow: Bool = true, hasSkipButton: Bool = true, completion handler: (()-> Void)?) {
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
@@ -181,6 +201,36 @@ extension MaterialShowcase {
     
     backgroundView.transform = CGAffineTransform(scaleX: scale, y: scale) // Initial set to support animation
     backgroundView.center = targetHolderView.center
+    
+    
+    
+    
+    
+    if hasSkipButton {
+      
+      closeButton = UIButton()
+      
+      closeButton.setImage(UIImage(named: skipImage), for: .normal)
+      addSubview(closeButton)
+      closeButton.addTarget(self, action: #selector(dismissTutorialButtonDidTouch), for: .touchUpInside)
+      
+      let margins = layoutMarginsGuide
+      closeButton.translatesAutoresizingMaskIntoConstraints = false
+      closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+      closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
+      closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
+      closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
+    }
+
+    
+    if hasShadow {
+      backgroundView.layer.shadowColor = UIColor.black.cgColor
+      backgroundView.layer.shadowRadius = 5.0
+      backgroundView.layer.shadowOpacity = 0.5
+      backgroundView.layer.shadowOffset = .zero
+      backgroundView.clipsToBounds = false
+    }
+    
     if animated {
       UIView.animate(withDuration: aniComeInDuration, animations: {
         self.targetHolderView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -319,20 +369,24 @@ extension MaterialShowcase {
       }
       
       let center = targetRippleView.center
-      
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
       backgroundView.center = center
-      
       backgroundView.asCircle()
+      
+      
+      
     case .full:
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height))
     }
+    
+    
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
-    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+    
+//    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
   }
   
-  private func getDefaultBackgroundRadius() -> CGFloat{
+  private func getDefaultBackgroundRadius() -> CGFloat {
     var radius: CGFloat = 0.0
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
@@ -344,6 +398,7 @@ extension MaterialShowcase {
   
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
     let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
+  
     let mutablePath = CGMutablePath()
     mutablePath.addRect(view.bounds)
     mutablePath.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: 2 * .pi, clockwise: false)
@@ -548,17 +603,20 @@ extension MaterialShowcase {
   /// Detects the position of target view relative to its container
   func getTargetPosition(target: UIView, container: UIView) -> TargetPosition {
     let center = calculateCenter(at: targetView, to: container)
-    if center.y < container.frame.height / 2{
+    if center.y < container.frame.height / 2 {
       return .above
     } else {
       return .below
     }
   }
   
+  
+  
   // Calculates the center point based on targetview
   func calculateCenter(at targetView: UIView, to containerView: UIView) -> CGPoint {
     let targetRect = targetView.convert(targetView.bounds , to: containerView)
     return targetRect.center
+    
   }
   
   // Gets all UIView from TabBarItem.
