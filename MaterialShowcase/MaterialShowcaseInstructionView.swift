@@ -123,7 +123,7 @@ public class MaterialShowcaseInstructionView: UIView {
       UIScreen.main.bounds.width) { //superview was right side
       return (frame.width - frame.minX)/2
     }
-    return (frame.width - frame.minX)
+    return frame.width
   }
   
   /// Overrides this to add subviews. They will be drawn when calling show()
