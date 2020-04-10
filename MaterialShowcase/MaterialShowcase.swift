@@ -328,18 +328,12 @@ extension MaterialShowcase {
       addTarget(at: center)
     }
     
-    //In iPad version InstructionView was add to backgroundView
-    if UIDevice.current.userInterfaceIdiom == .pad {
-      addBackground()
-    }
+    //In iPad version InstructionView was add to backgroundView and in iPhone version InstructionView was add to self view
+    addBackground()
+
     
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
-    
-    //In iPhone version InstructionView was add to self view
-    if UIDevice.current.userInterfaceIdiom != .pad {
-      addBackground()
-    }
     
     // Disable subview interaction to let users click to general view only
     subviews.forEach({$0.isUserInteractionEnabled = false})
@@ -497,7 +491,7 @@ extension MaterialShowcase {
     var width : CGFloat
     
     if UIDevice.current.userInterfaceIdiom == .pad {
-      width = backgroundView.frame.width - xPosition
+      width = backgroundView.frame.width - 2 * xPosition
       
       if backgroundView.frame.origin.x < 0 {
         xPosition = abs(backgroundView.frame.origin.x) + xPosition
@@ -515,13 +509,21 @@ extension MaterialShowcase {
         yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
       }
     } else {
+      width = containerView.frame.size.width - (xPosition*2)
+      if backgroundView.frame.center.x - targetHolderRadius < 0 {
+        width = width - abs(backgroundView.frame.origin.x)
+      } else if (backgroundView.frame.center.x + targetHolderRadius >
+        UIScreen.main.bounds.width) {
+        width = width - abs(backgroundView.frame.origin.x)
+        xPosition = xPosition + abs(backgroundView.frame.origin.x)
+      }
+        
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
       } else {
         yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
       }
       
-      width = containerView.frame.width - (xPosition + xPosition)
     }
     
     instructionView.frame = CGRect(x: xPosition,
