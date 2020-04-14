@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8Yp-6g-IHX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,28 +32,28 @@
                                 </items>
                             </tabBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xO-1R-dVw">
-                                <rect key="frame" x="26" y="71" width="187" height="30"/>
+                                <rect key="frame" x="94" y="71" width="187" height="30"/>
                                 <state key="normal" title="UIButton Showcase"/>
                                 <connections>
                                     <action selector="showButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T9T-Y7-acP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jp3-uM-SZU">
-                                <rect key="frame" x="26" y="109" width="187" height="30"/>
+                                <rect key="frame" x="94" y="109" width="187" height="30"/>
                                 <state key="normal" title="UIBarButtonItem Showcase"/>
                                 <connections>
                                     <action selector="showBarButtonItem:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wff-Kp-jk0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PP9-Xh-O4w">
-                                <rect key="frame" x="26" y="147" width="187" height="30"/>
+                                <rect key="frame" x="94" y="147" width="187" height="30"/>
                                 <state key="normal" title="UITabBarItem Showcase"/>
                                 <connections>
                                     <action selector="showTabBar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hI1-QG-6kI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxz-BG-r6o">
-                                <rect key="frame" x="26" y="185" width="187" height="30"/>
+                                <rect key="frame" x="94" y="185" width="187" height="30"/>
                                 <state key="normal" title="UITableView Showcase"/>
                                 <connections>
                                     <action selector="showTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bpG-w7-kYe"/>
@@ -128,6 +128,7 @@
                             <constraint firstItem="bWR-um-41T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5uu-YV-RhW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Er-Kq-T6A" secondAttribute="trailing" id="AtH-1u-8rc"/>
                             <constraint firstItem="8CC-dB-oJX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="B16-Gv-0Gq"/>
+                            <constraint firstItem="6xO-1R-dVw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C6m-Zq-Adr"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2Er-Kq-T6A" secondAttribute="leading" id="GT1-rZ-Ldh"/>
                             <constraint firstItem="jp3-uM-SZU" firstAttribute="top" secondItem="6xO-1R-dVw" secondAttribute="bottom" constant="8" id="JIl-QG-17M"/>
                             <constraint firstItem="8CC-dB-oJX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bWR-um-41T" secondAttribute="trailing" constant="8" symbolic="YES" id="KuY-uE-Nmd"/>
@@ -138,7 +139,6 @@
                             <constraint firstItem="bWR-um-41T" firstAttribute="top" secondItem="Gxz-BG-r6o" secondAttribute="bottom" constant="8" id="Tgb-PQ-fCz"/>
                             <constraint firstItem="Gxz-BG-r6o" firstAttribute="centerX" secondItem="PP9-Xh-O4w" secondAttribute="centerX" id="W9s-OV-bPW"/>
                             <constraint firstItem="kfM-wr-XQ9" firstAttribute="centerY" secondItem="Nlo-Uq-wk3" secondAttribute="centerY" id="WvC-Nd-Yhx"/>
-                            <constraint firstItem="6xO-1R-dVw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="aFZ-AT-SdK"/>
                             <constraint firstItem="WBd-gk-dHj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aeW-yO-8cM"/>
                             <constraint firstItem="PP9-Xh-O4w" firstAttribute="width" secondItem="jp3-uM-SZU" secondAttribute="width" id="bu7-0l-YNQ"/>
                             <constraint firstItem="Nlo-Uq-wk3" firstAttribute="leading" secondItem="kfM-wr-XQ9" secondAttribute="trailing" constant="48" id="csA-7U-ycs"/>

@@ -59,6 +59,7 @@ class ViewController: UIViewController {
   @IBAction func showButton(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(button: button, tapThrough: true)
+    showcase.skipButton = nil
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
@@ -67,15 +68,13 @@ class ViewController: UIViewController {
     showcase.show(completion: {
       print("==== completion Action 1 ====")
       // You can save showcase state here
-        showcase.skipButton = {
-            debugPrint("---hit point---")
-        }
     })
   }
   
   @IBAction func placementButton(_ sender: UIButton) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(view: sender)
+    showcase.backgroundRadius = 1000
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTargetView = true
@@ -104,7 +103,6 @@ class ViewController: UIViewController {
       // You can save showcase state here
       print("==== completion Action 2 ====")
     })
-    
   }
   
   @IBAction func showTabBar(_ sender: Any) {
