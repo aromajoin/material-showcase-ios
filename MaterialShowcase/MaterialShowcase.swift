@@ -324,7 +324,6 @@ extension MaterialShowcase {
     //In iPad version InstructionView was add to backgroundView and in iPhone version InstructionView was add to self view
     addBackground()
     
-    
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
     
