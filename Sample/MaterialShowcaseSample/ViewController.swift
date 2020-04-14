@@ -60,6 +60,7 @@ class ViewController: UIViewController {
     let showcase = MaterialShowcase()
     showcase.setTargetView(button: button, tapThrough: true)
     showcase.skipButton = nil
+    showcase.backgroundRadius = 500
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
@@ -74,7 +75,6 @@ class ViewController: UIViewController {
   @IBAction func placementButton(_ sender: UIButton) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(view: sender)
-    showcase.backgroundRadius = 1000
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTargetView = true
