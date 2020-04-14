@@ -54,7 +54,6 @@ open class MaterialShowcase: UIView {
   var targetCopyView: UIView!
   var instructionView: MaterialShowcaseInstructionView!
   
-  
   public var skipButton: (() -> Void)?
   var onTapThrough: (() -> Void)?
   
@@ -175,7 +174,6 @@ extension MaterialShowcase {
     targetHolderRadius = 0
   }
   
-  
   /// Sets a UICollectionViewCell as target
   @objc public func setTargetView(collectionView: UICollectionView, section: Int, item: Int) {
     let indexPath = IndexPath(item: item, section: section)
@@ -190,7 +188,7 @@ extension MaterialShowcase {
   }
   
   /// Shows it over current screen after completing setup process
-  @objc public func show(animated: Bool = true,hasShadow: Bool = true, hasSkipButton: Bool = true, completion handler: (()-> Void)?) {
+  @objc public func show(animated: Bool = true,hasShadow: Bool = true, hasSkipButton: Bool = false, completion handler: (()-> Void)?) {
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
@@ -201,10 +199,6 @@ extension MaterialShowcase {
     
     backgroundView.transform = CGAffineTransform(scaleX: scale, y: scale) // Initial set to support animation
     backgroundView.center = targetHolderView.center
-    
-    
-    
-    
     
     if hasSkipButton {
       
@@ -221,7 +215,6 @@ extension MaterialShowcase {
       closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
       closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
     }
-
     
     if hasShadow {
       backgroundView.layer.shadowColor = UIColor.black.cgColor
@@ -330,7 +323,7 @@ extension MaterialShowcase {
     
     //In iPad version InstructionView was add to backgroundView and in iPhone version InstructionView was add to self view
     addBackground()
-
+    
     
     addInstructionView(at: center)
     instructionView.layoutIfNeeded()
@@ -377,7 +370,7 @@ extension MaterialShowcase {
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
     
-//    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+    //    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
   }
   
   private func getDefaultBackgroundRadius() -> CGFloat {
@@ -392,7 +385,7 @@ extension MaterialShowcase {
   
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
     let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
-  
+    
     let mutablePath = CGMutablePath()
     mutablePath.addRect(view.bounds)
     mutablePath.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: 2 * .pi, clockwise: false)
@@ -517,7 +510,7 @@ extension MaterialShowcase {
         width = width - abs(backgroundView.frame.origin.x)
         xPosition = xPosition + abs(backgroundView.frame.origin.x)
       }
-        
+      
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
       } else {
@@ -611,8 +604,6 @@ extension MaterialShowcase {
       return .below
     }
   }
-  
-  
   
   // Calculates the center point based on targetview
   func calculateCenter(at targetView: UIView, to containerView: UIView) -> CGPoint {
