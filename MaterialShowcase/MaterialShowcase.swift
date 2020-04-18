@@ -483,22 +483,38 @@ extension MaterialShowcase {
     var width : CGFloat
     
     if UIDevice.current.userInterfaceIdiom == .pad {
+      backgroundView.addSubview(instructionView)
+    } else {
+      addSubview(instructionView)
+    }
+      
+    instructionView.layoutIfNeeded()
+    
+    if UIDevice.current.userInterfaceIdiom == .pad {
       width = backgroundView.frame.width - 2 * xPosition
       
       if backgroundView.frame.origin.x < 0 {
         xPosition = abs(backgroundView.frame.origin.x) + xPosition
       } else if (backgroundView.frame.origin.x + backgroundView.frame.size.width >
         UIScreen.main.bounds.width) {
-        width = backgroundView.frame.size.width - (xPosition*2)
+        xPosition = 2 * LABEL_MARGIN
+        width = backgroundView.frame.size.width - (backgroundView.frame.maxX - UIScreen.main.bounds.width) - xPosition - LABEL_MARGIN
       }
       if xPosition + width > backgroundView.frame.size.width {
         width = width - CGFloat(xPosition/2)
       }
       
+      //Updates horizontal parameters
+      instructionView.frame = CGRect(x: xPosition,
+                                   y: instructionView.frame.origin.y,
+                                   width: width,
+                                   height: 0)
+      instructionView.layoutIfNeeded()
+      
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
       } else {
-        yPosition = TEXT_CENTER_OFFSET + LABEL_DEFAULT_HEIGHT * 2
+        yPosition = (backgroundView.frame.size.height/2) - TEXT_CENTER_OFFSET - instructionView.frame.height
       }
     } else {
       width = containerView.frame.size.width - (xPosition*2)
@@ -510,10 +526,17 @@ extension MaterialShowcase {
         xPosition = xPosition + abs(backgroundView.frame.origin.x)
       }
       
+      //Updates horizontal parameters
+      instructionView.frame = CGRect(x: xPosition,
+                                   y: instructionView.frame.origin.y,
+                                   width: width ,
+                                   height: 0)
+      instructionView.layoutIfNeeded()
+      
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
       } else {
-        yPosition = center.y - TEXT_CENTER_OFFSET - LABEL_DEFAULT_HEIGHT * 2
+        yPosition = center.y - TEXT_CENTER_OFFSET - max(instructionView.frame.height,LABEL_DEFAULT_HEIGHT * 2)
       }
       
     }
@@ -522,11 +545,6 @@ extension MaterialShowcase {
                                    y: yPosition,
                                    width: width ,
                                    height: 0)
-    if UIDevice.current.userInterfaceIdiom == .pad {
-      backgroundView.addSubview(instructionView)
-    } else {
-      addSubview(instructionView)
-    }
   }
   
   /// Handles user's tap
