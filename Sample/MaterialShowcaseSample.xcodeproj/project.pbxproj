@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,8 +14,23 @@
 		CE9F24961EC2907700444781 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE9F24941EC2907700444781 /* LaunchScreen.storyboard */; };
 		E2F545EA23DB71F8009D9B77 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F545E923DB71F8009D9B77 /* CollectionViewController.swift */; };
 		E2F545EC23DB7251009D9B77 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F545EB23DB7251009D9B77 /* CollectionViewCell.swift */; };
-		E3142E732501F9EA00CAAC0E /* MaterialShowcase in Frameworks */ = {isa = PBXBuildFile; productRef = E3142E722501F9EA00CAAC0E /* MaterialShowcase */; };
+		E3142E7B2502083600CAAC0E /* MaterialShowcase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9F249D1EC2945300444781 /* MaterialShowcase.framework */; };
+		E3142E7C2502083600CAAC0E /* MaterialShowcase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE9F249D1EC2945300444781 /* MaterialShowcase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E3142E7D2502083600CAAC0E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E3142E7C2502083600CAAC0E /* MaterialShowcase.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CE9F24881EC2907700444781 /* MaterialShowcaseSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialShowcaseSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3142E732501F9EA00CAAC0E /* MaterialShowcase in Frameworks */,
+				E3142E7B2502083600CAAC0E /* MaterialShowcase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +63,7 @@
 				CE9F249D1EC2945300444781 /* MaterialShowcase.framework */,
 				CE9F248A1EC2907700444781 /* MaterialShowcaseSample */,
 				CE9F24891EC2907700444781 /* Products */,
+				E3142E7A2502083600CAAC0E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +90,13 @@
 			path = MaterialShowcaseSample;
 			sourceTree = "<group>";
 		};
+		E3142E7A2502083600CAAC0E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -84,6 +107,7 @@
 				CE9F24841EC2907700444781 /* Sources */,
 				CE9F24851EC2907700444781 /* Frameworks */,
 				CE9F24861EC2907700444781 /* Resources */,
+				E3142E7D2502083600CAAC0E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -91,7 +115,6 @@
 			);
 			name = MaterialShowcaseSample;
 			packageProductDependencies = (
-				E3142E722501F9EA00CAAC0E /* MaterialShowcase */,
 			);
 			productName = MaterialShowcaseSample;
 			productReference = CE9F24881EC2907700444781 /* MaterialShowcaseSample.app */;
@@ -125,7 +148,6 @@
 			);
 			mainGroup = CE9F247F1EC2907700444781;
 			packageReferences = (
-				E3142E712501F9EA00CAAC0E /* XCRemoteSwiftPackageReference "material-showcase-ios" */,
 			);
 			productRefGroup = CE9F24891EC2907700444781 /* Products */;
 			projectDirPath = "";
@@ -290,8 +312,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -304,10 +325,7 @@
 				DEVELOPMENT_TEAM = 4V6HDFWSR4;
 				INFOPLIST_FILE = MaterialShowcaseSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aromajoin.MaterialShowcaseSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -321,10 +339,7 @@
 				DEVELOPMENT_TEAM = 4V6HDFWSR4;
 				INFOPLIST_FILE = MaterialShowcaseSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aromajoin.MaterialShowcaseSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -353,25 +368,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E3142E712501F9EA00CAAC0E /* XCRemoteSwiftPackageReference "material-showcase-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aromajoin/material-showcase-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.7.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E3142E722501F9EA00CAAC0E /* MaterialShowcase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E3142E712501F9EA00CAAC0E /* XCRemoteSwiftPackageReference "material-showcase-ios" */;
-			productName = MaterialShowcase;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE9F24801EC2907700444781 /* Project object */;
 }
