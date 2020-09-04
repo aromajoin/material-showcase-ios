@@ -37,6 +37,13 @@ github "aromajoin/material-showcase-ios" ~> 0.7.1
 
 Run `carthage update` to build the framework and drag the built `MaterialShowcase.framework` into your Xcode project.
 
+### Swift Package Manger
+In the XCode, please select menu option "File" => "Swift Packages" => "Add package dependency..."
+Then, select the project you want to add the package, and enter this repository URL.  
+```
+https://github.com/aromajoin/material-showcase-ios
+```
+
 ## Usage
 
 ### Objective-C
