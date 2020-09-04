@@ -1,6 +1,11 @@
 Change Log
 ==========
-Version 0.7.0 *(2019-10-29)*
+Version 0.7.2 *(2020-09-04)*
+--------------------------------
+* Fix the background radius issues
+* Refactor codes
+
+Version 0.7.1 *(2019-10-29)*
 --------------------------------
 * Allow to set the background radius
 
