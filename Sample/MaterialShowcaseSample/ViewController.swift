@@ -11,8 +11,6 @@ import MaterialShowcase
 
 class ViewController: UIViewController {
   
-  var tutorialStep = 1
-  
   @IBOutlet weak var searchItem: UIBarButtonItem!
   @IBOutlet weak var tabBar: UITabBar!
   @IBOutlet weak var button: UIButton!
@@ -26,34 +24,6 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.dataSource = self
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    let showcase1 = MaterialShowcase()
-    showcase1.setTargetView(view: button)
-    showcase1.primaryText = "Action 1"
-    showcase1.secondaryText = "Click here to go into details"
-    showcase1.shouldSetTintColor = false // It should be set to false when button uses image.
-    showcase1.backgroundPromptColor = UIColor.blue
-    showcase1.isTapRecognizerForTargetView = true
-    
-    let showcase2 = MaterialShowcase()
-    showcase2.setTargetView(barButtonItem: searchItem)
-    showcase2.primaryText = "Action 1.1"
-    showcase2.secondaryText = "Click here to go into details"
-    showcase2.isTapRecognizerForTargetView = true
-    
-    let showcase3 = MaterialShowcase()
-    showcase3.setTargetView(tableView: self.tableView, section: 0, row: 2)
-    showcase3.primaryText = "Action 3"
-    showcase3.secondaryText = "Click here to go into details"
-    showcase3.isTapRecognizerForTargetView = false
-    
-    showcase1.delegate = self
-    showcase2.delegate = self
-    showcase3.delegate = self
-    
-    sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: "eve").start()
   }
   
   @IBAction func showButton(_ sender: Any) {
@@ -127,11 +97,36 @@ class ViewController: UIViewController {
     showcase.isTapRecognizerForTargetView = false
     showcase.show(completion: nil)
   }
+  
   @IBAction func showInSeries(_ sender: UIButton) {
-    // step 1
-    showButton(self)
-    // to continue other showcases
-    tutorialStep = 2
+    let showcase1 = MaterialShowcase()
+    showcase1.setTargetView(view: button)
+    showcase1.primaryText = "Action 1"
+    showcase1.secondaryText = "Click here to go into details"
+    showcase1.shouldSetTintColor = false // It should be set to false when button uses image.
+    showcase1.backgroundPromptColor = UIColor.blue
+    showcase1.isTapRecognizerForTargetView = true
+    
+    let showcase2 = MaterialShowcase()
+    showcase2.setTargetView(barButtonItem: searchItem)
+    showcase2.primaryText = "Action 1.1"
+    showcase2.secondaryText = "Click here to go into details"
+    showcase2.isTapRecognizerForTargetView = true
+    
+    let showcase3 = MaterialShowcase()
+    showcase3.setTargetView(tableView: self.tableView, section: 0, row: 2)
+    showcase3.primaryText = "Action 3"
+    showcase3.secondaryText = "Click here to go into details"
+    showcase3.isTapRecognizerForTargetView = false
+    
+    showcase1.delegate = self
+    showcase2.delegate = self
+    showcase3.delegate = self
+    
+    // With one key, the showcase sequence only shows one time
+    // So, for this demo, it is better to create a random key
+    let oneTimeKey = UUID().uuidString
+    sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: oneTimeKey).start()
   }
 }
 
