@@ -60,12 +60,12 @@ class ViewController: UIViewController {
     let showcase = MaterialShowcase()
     showcase.setTargetView(button: button, tapThrough: true)
     showcase.skipButton = nil
-    showcase.backgroundRadius = 500
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTargetView = true
+    showcase.backgroundRadius = 400
     showcase.show(completion: {
       print("==== completion Action 1 ====")
       // You can save showcase state here
@@ -77,6 +77,7 @@ class ViewController: UIViewController {
     showcase.setTargetView(view: sender)
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
+    showcase.backgroundRadius = 200
     showcase.isTapRecognizerForTargetView = true
     showcase.show(completion: {
       print("==== completion Action 1.1 ====")
@@ -97,8 +98,7 @@ class ViewController: UIViewController {
     showcase.secondaryText = "Click here to go into long long long long long long long long long long long long long long long details"
     showcase.secondaryTextSize = 14
     showcase.isTapRecognizerForTargetView = true
-    // Delegate to handle other action after showcase is dismissed.
-    //        showcase.delegate = self
+    showcase.backgroundRadius = 300
     showcase.show(completion: {
       // You can save showcase state here
       print("==== completion Action 2 ====")
@@ -115,6 +115,7 @@ class ViewController: UIViewController {
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTargetView = true
     //        showcase.delegate = self
+    showcase.backgroundRadius = 250
     showcase.show(completion: nil)
   }
   
