@@ -16,4 +16,7 @@
    <FileRef
       location = "group:MaterialShowcase.podspec">
    </FileRef>
+   <FileRef
+      location = "group:Package.swift">
+   </FileRef>
 </Workspace>
