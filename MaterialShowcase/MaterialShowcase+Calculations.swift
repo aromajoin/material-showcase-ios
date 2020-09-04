@@ -11,11 +11,11 @@ import UIKit
 
 extension MaterialShowcase {
   
-  func isInGutter(center: CGPoint) -> Bool {
+  internal func isInGutter(center: CGPoint) -> Bool {
     return center.y < offsetThreshold || containerView.frame.height - center.y < offsetThreshold
   }
   
-  func getOuterCircleCenterPoint(for target: UIView) -> CGPoint {
+  internal func getOuterCircleCenterPoint(for target: UIView) -> CGPoint {
     if isInGutter(center: target.center) {
       return target.center
     }
@@ -34,7 +34,7 @@ extension MaterialShowcase {
     return CGPoint(x: (left + right) / 2, y: centerY)
   }
   
-  func getOuterCircleRadius(center: CGPoint, textBounds: CGRect, targetBounds: CGRect) -> CGFloat {
+  internal func getOuterCircleRadius(center: CGPoint, textBounds: CGRect, targetBounds: CGRect) -> CGFloat {
     let targetCenterX = targetBounds.midX
     let targetCenterY = targetBounds.midY
     
@@ -47,7 +47,7 @@ extension MaterialShowcase {
     return max(textRadius, targetRadius) + 40
   }
   
-  func maxDistance(from point: CGPoint, to rect: CGRect) -> CGFloat {
+  internal func maxDistance(from point: CGPoint, to rect: CGRect) -> CGFloat {
     let tl = distance(point, CGPoint(x: rect.minX, y: rect.minY))
     let tr = distance(point, CGPoint(x: rect.maxX, y: rect.minY))
     let bl = distance(point, CGPoint(x: rect.minX, y: rect.maxY))
@@ -55,7 +55,7 @@ extension MaterialShowcase {
     return max(tl, max(tr, max(bl, br)))
   }
   
-  func distance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
+  internal func distance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
     let xDist = a.x - b.x
     let yDist = a.y - b.y
     return CGFloat(sqrt((xDist * xDist) + (yDist * yDist)))
