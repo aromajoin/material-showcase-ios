@@ -74,8 +74,8 @@
 		CE083A0F1EBACFEB0077666F = {
 			isa = PBXGroup;
 			children = (
-				CE083A1B1EBACFEB0077666F /* MaterialShowcase */,
-				6C5A3CF52265F26400D7D669 /* MaterialShowcaseTests */,
+				E3142E6F2501F43B00CAAC0E /* Sources */,
+				E3142E702501F45A00CAAC0E /* Tests */,
 				CE083A1A1EBACFEB0077666F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +102,22 @@
 				356FF397226634C2000AD80C /* MaterialShowcaseSequence.swift */,
 			);
 			path = MaterialShowcase;
+			sourceTree = "<group>";
+		};
+		E3142E6F2501F43B00CAAC0E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CE083A1B1EBACFEB0077666F /* MaterialShowcase */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E3142E702501F45A00CAAC0E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6C5A3CF52265F26400D7D669 /* MaterialShowcaseTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
