@@ -321,7 +321,6 @@ extension MaterialShowcase {
       addTarget(at: center)
     }
     
-    //In iPad version InstructionView was add to backgroundView and in iPhone version InstructionView was add to self view
     addBackground()
     
     addInstructionView(at: center)
@@ -377,7 +376,7 @@ extension MaterialShowcase {
     if UIDevice.current.userInterfaceIdiom == .pad {
       radius = 300.0
     } else {
-      radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetRippleView.frame)
+      radius = 400.0
     }
     return radius
   }
