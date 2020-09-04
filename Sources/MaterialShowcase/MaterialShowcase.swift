@@ -208,12 +208,16 @@ extension MaterialShowcase {
       addSubview(closeButton)
       closeButton.addTarget(self, action: #selector(dismissTutorialButtonDidTouch), for: .touchUpInside)
       
-      let margins = layoutMarginsGuide
-      closeButton.translatesAutoresizingMaskIntoConstraints = false
-      closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
-      closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
-      closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
-      closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
+      if #available(iOS 9.0, *) {
+        let margins = layoutMarginsGuide
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+        closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
+        closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
+        closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
+      } else {
+        // Fallback on earlier versions
+      }
     }
     
     if hasShadow {
@@ -486,7 +490,7 @@ extension MaterialShowcase {
     } else {
       addSubview(instructionView)
     }
-      
+    
     instructionView.layoutIfNeeded()
     
     if UIDevice.current.userInterfaceIdiom == .pad {
@@ -505,9 +509,9 @@ extension MaterialShowcase {
       
       //Updates horizontal parameters
       instructionView.frame = CGRect(x: xPosition,
-                                   y: instructionView.frame.origin.y,
-                                   width: width,
-                                   height: 0)
+                                     y: instructionView.frame.origin.y,
+                                     width: width,
+                                     height: 0)
       instructionView.layoutIfNeeded()
       
       if getTargetPosition(target: targetView, container: containerView) == .above {
@@ -527,9 +531,9 @@ extension MaterialShowcase {
       
       //Updates horizontal parameters
       instructionView.frame = CGRect(x: xPosition,
-                                   y: instructionView.frame.origin.y,
-                                   width: width ,
-                                   height: 0)
+                                     y: instructionView.frame.origin.y,
+                                     width: width ,
+                                     height: 0)
       instructionView.layoutIfNeeded()
       
       if getTargetPosition(target: targetView, container: containerView) == .above {

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "MaterialShowcase",
+        "repositoryURL": "https://github.com/aromajoin/material-showcase-ios",
+        "state": {
+          "branch": null,
+          "revision": "d1a7b4475fe3a9e463305a77edf78c1b88ec3cac",
+          "version": "0.7.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
