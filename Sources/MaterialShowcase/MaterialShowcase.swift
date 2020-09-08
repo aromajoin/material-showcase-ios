@@ -539,7 +539,7 @@ extension MaterialShowcase {
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
       } else {
-        yPosition = center.y - TEXT_CENTER_OFFSET - max(instructionView.frame.height,LABEL_DEFAULT_HEIGHT * 2)
+        yPosition = center.y - TEXT_CENTER_OFFSET - (calculateHeight(text: primaryText, font: primaryTextFont ?? UIFont.boldSystemFont(ofSize: primaryTextSize), width: width) +  calculateHeight(text: secondaryText, font: secondaryTextFont ?? UIFont.systemFont(ofSize: secondaryTextSize), width: width))
       }
       
     }
@@ -548,6 +548,21 @@ extension MaterialShowcase {
                                    y: yPosition,
                                    width: width ,
                                    height: 0)
+  }
+  
+  
+  private func calculateHeight(text: String, font: UIFont, width: CGFloat) -> CGFloat {
+    let effectiveWidth = width - (2 * LABEL_MARGIN)
+    let fontAttributes = [NSAttributedString.Key.font: font]
+    let size = (text as NSString).size(withAttributes: fontAttributes)
+    let numLines =  size.width / effectiveWidth
+    
+    let textHeight = size.height * numLines
+    if (targetHolderRadius > textHeight) {
+      return targetHolderRadius
+    } else {
+      return textHeight
+    }
   }
   
   /// Handles user's tap
