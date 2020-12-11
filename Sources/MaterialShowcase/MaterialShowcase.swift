@@ -504,7 +504,7 @@ extension MaterialShowcase {
         width = backgroundView.frame.size.width - (backgroundView.frame.maxX - UIScreen.main.bounds.width) - xPosition - LABEL_MARGIN
       }
       if xPosition + width > backgroundView.frame.size.width {
-        width = width - CGFloat(xPosition/2)
+        width = backgroundView.frame.size.width - xPosition - (LABEL_MARGIN * 2)
       }
       
       //Updates horizontal parameters
