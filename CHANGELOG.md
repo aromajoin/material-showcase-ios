@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.7.3 *(2020-12-15)*
+--------------------------------
+* Fix the issue that the text is not correctly laid out (out of view) on iPad 
+
 Version 0.7.2 *(2020-09-04)*
 --------------------------------
 * Fix the background radius issues
