@@ -76,6 +76,7 @@ open class MaterialShowcase: UIView {
   @objc public var targetTintColor: UIColor!
   @objc public var targetHolderRadius: CGFloat = 0.0
   @objc public var targetHolderColor: UIColor!
+  @objc public var textCenterOffset: CGFloat = 0.0
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!
@@ -280,6 +281,7 @@ extension MaterialShowcase {
     // Target view
     targetTintColor = BACKGROUND_DEFAULT_COLOR
     targetHolderColor = TARGET_HOLDER_COLOR
+    textCenterOffset = TEXT_CENTER_OFFSET
     targetHolderRadius = TARGET_HOLDER_RADIUS
     // Text
     primaryText = MaterialShowcaseInstructionView.PRIMARY_DEFAULT_TEXT
@@ -515,9 +517,9 @@ extension MaterialShowcase {
       instructionView.layoutIfNeeded()
       
       if getTargetPosition(target: targetView, container: containerView) == .above {
-        yPosition = (backgroundView.frame.size.height/2) + TEXT_CENTER_OFFSET
+        yPosition = (backgroundView.frame.size.height/2) + textCenterOffset
       } else {
-        yPosition = (backgroundView.frame.size.height/2) - TEXT_CENTER_OFFSET - instructionView.frame.height
+        yPosition = (backgroundView.frame.size.height/2) - textCenterOffset - instructionView.frame.height
       }
     } else {
       width = containerView.frame.size.width - (xPosition*2)
@@ -539,7 +541,7 @@ extension MaterialShowcase {
       if getTargetPosition(target: targetView, container: containerView) == .above {
         yPosition = center.y + TARGET_PADDING +  (targetView.bounds.height / 2 > targetHolderRadius ? targetView.bounds.height / 2 : targetHolderRadius)
       } else {
-        yPosition = center.y - TEXT_CENTER_OFFSET - max(instructionView.frame.height,LABEL_DEFAULT_HEIGHT * 2)
+        yPosition = center.y - textCenterOffset - max(instructionView.frame.height,LABEL_DEFAULT_HEIGHT * 2)
       }
       
     }
