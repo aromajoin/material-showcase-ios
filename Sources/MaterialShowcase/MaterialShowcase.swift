@@ -372,7 +372,7 @@ extension MaterialShowcase {
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
     
-    //    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
   }
   
   private func getDefaultBackgroundRadius() -> CGFloat {
