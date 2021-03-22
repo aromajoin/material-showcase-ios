@@ -71,7 +71,7 @@ extension UILabel {
 extension UIView
 {
   func copyView<T: UIView>() -> T {
-    return NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! T
+    NSKeyedUnarchiver.unarchiveObject(with: NSKeyedArchiver.archivedData(withRootObject: self)) as! T
   }
   func addHeight(_ height: CGFloat) {
     self.frame = CGRect(origin: self.frame.origin, size: CGSize(width: self.frame.width, height: self.frame.height + height))
@@ -81,27 +81,19 @@ extension UIView
 extension UIView.KeyframeAnimationOptions {
   
   static var curveEaseIn: UIView.KeyframeAnimationOptions {
-    get {
-      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseIn)
-    }
+    UIView.KeyframeAnimationOptions(animationOptions: .curveEaseIn)
   }
   
   static var curveEaseOut: UIView.KeyframeAnimationOptions {
-    get {
-      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseOut)
-    }
+    UIView.KeyframeAnimationOptions(animationOptions: .curveEaseOut)
   }
   
   static var curveEaseInOut: UIView.KeyframeAnimationOptions {
-    get {
-      return UIView.KeyframeAnimationOptions(animationOptions: .curveEaseInOut)
-    }
+    UIView.KeyframeAnimationOptions(animationOptions: .curveEaseInOut)
   }
   
   static var curveLinear: UIView.KeyframeAnimationOptions {
-    get {
-      return UIView.KeyframeAnimationOptions(animationOptions: .curveLinear)
-    }
+    UIView.KeyframeAnimationOptions(animationOptions: .curveLinear)
   }
   
   init(animationOptions: UIView.AnimationOptions) {
@@ -111,9 +103,7 @@ extension UIView.KeyframeAnimationOptions {
 
 extension CGRect {
   var center: CGPoint {
-    get {
-      return CGPoint(x: midX, y: midY)
-    }
+    CGPoint(x: midX, y: midY)
   }
 }
 public enum MaterialKey : String{
