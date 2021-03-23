@@ -372,7 +372,7 @@ extension MaterialShowcase {
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
     
-    //    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
   }
   
   private func getDefaultBackgroundRadius() -> CGFloat {
@@ -427,23 +427,23 @@ extension MaterialShowcase {
   /// It helps us not to affect the original target view
   private func addTarget(at center: CGPoint) {
     targetCopyView = targetView.snapshotView(afterScreenUpdates: true)
-    
+
     if shouldSetTintColor {
       targetCopyView.setTintColor(targetTintColor, recursive: true)
-      
-      if targetCopyView is UIButton {
-        let button = targetView as! UIButton
-        let buttonCopy = targetCopyView as! UIButton
+
+      if let button = targetView as? UIButton,
+         let buttonCopy = targetCopyView as? UIButton {
+
         buttonCopy.setImage(button.image(for: .normal)?.withRenderingMode(.alwaysTemplate), for: .normal)
         buttonCopy.setTitleColor(targetTintColor, for: .normal)
         buttonCopy.isEnabled = true
-      } else if targetCopyView is UIImageView {
-        let imageView = targetView as! UIImageView
-        let imageViewCopy = targetCopyView as! UIImageView
+      } else if let imageView = targetView as? UIImageView,
+                let imageViewCopy = targetCopyView as? UIImageView {
+
         imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
       } else if let imageViewCopy = targetCopyView.subviews.first as? UIImageView,
-        let labelCopy = targetCopyView.subviews.last as? UILabel {
-        let imageView = targetView.subviews.first as! UIImageView
+        let labelCopy = targetCopyView.subviews.last as? UILabel,
+        let imageView = targetView.subviews.first as? UIImageView {
         imageViewCopy.image = imageView.image?.withRenderingMode(.alwaysTemplate)
         labelCopy.textColor = targetTintColor
       } else if let label = targetCopyView as? UILabel {
