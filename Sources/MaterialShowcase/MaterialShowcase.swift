@@ -18,6 +18,19 @@ open class MaterialShowcase: UIView {
     case circle //default
     case full//full screen
   }
+
+  @objc public enum SkipButtonStyle: Int {
+    case image
+    case text
+  }
+
+  @objc public enum SkipButtonPosition: Int {
+    case topRight
+    case topLeft
+    case bottomLeft
+    case bottomRight
+    case belowInstruction
+  }
   
   // MARK: Material design guideline constant
   let BACKGROUND_PROMPT_ALPHA: CGFloat = 0.96
@@ -26,7 +39,11 @@ open class MaterialShowcase: UIView {
   let INSTRUCTIONS_CENTER_OFFSET: CGFloat = 20
   let LABEL_MARGIN: CGFloat = 40
   let TARGET_PADDING: CGFloat = 20
-  
+  let SKIP_BUTTON_MARGIN: CGFloat = 16
+  let SKIP_BUTTON_CONTENT_INSET: CGFloat = 8
+  let SKIP_BUTTON_BORDER_WIDTH: CGFloat = 1
+  let SKIP_BUTTON_CORNER_RADIUS: CGFloat = 4
+
   // Other default properties
   let LABEL_DEFAULT_HEIGHT: CGFloat = 50
   let BACKGROUND_DEFAULT_COLOR = UIColor.fromHex(hexString: "#2196F3")
@@ -58,9 +75,20 @@ open class MaterialShowcase: UIView {
   var onTapThrough: (() -> Void)?
   
   // MARK: Public Properties
-  // setSkipImage
-  public var skipImage = "HintClose"
-  
+  // Skip Button
+  private var skipButtonType: SkipButtonStyle = .image
+  public var skipButtonPosition: SkipButtonPosition = .topRight
+  public var skipButtonImage = "HintClose" {
+    didSet {
+      skipButtonType = .image
+    }
+  }
+  public var skipButtonTitle = "" {
+    didSet {
+      skipButtonType = .text
+    }
+  }
+
   // Background
   @objc public var backgroundAlpha: CGFloat = 1.0
   @objc public var backgroundPromptColor: UIColor!
@@ -203,18 +231,43 @@ extension MaterialShowcase {
     if hasSkipButton {
       
       closeButton = UIButton()
+
+      if skipButtonType == .text, !skipButtonTitle.isEmpty {
+        closeButton.setTitle(skipButtonTitle, for: .normal)
+        closeButton.setBorderColor(primaryTextColor, width: SKIP_BUTTON_BORDER_WIDTH)
+        closeButton.setCornerRadius(SKIP_BUTTON_CORNER_RADIUS)
+        closeButton.contentEdgeInsets = UIEdgeInsets(top: SKIP_BUTTON_CONTENT_INSET, left: SKIP_BUTTON_CONTENT_INSET, bottom: SKIP_BUTTON_CONTENT_INSET, right: SKIP_BUTTON_CONTENT_INSET)
+
+      } else {
+        closeButton.setImage(UIImage(named: skipButtonImage), for: .normal)
+      }
       
-      closeButton.setImage(UIImage(named: skipImage), for: .normal)
       addSubview(closeButton)
       closeButton.addTarget(self, action: #selector(dismissTutorialButtonDidTouch), for: .touchUpInside)
       
       if #available(iOS 9.0, *) {
         let margins = layoutMarginsGuide
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
-        closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
-        closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
-        closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
+
+        switch skipButtonPosition {
+        case .topRight:
+          setupCloseButtonForEdges()
+          closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+          closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
+        case .topLeft:
+          setupCloseButtonForEdges()
+          closeButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 0).isActive = true
+          closeButton.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 8).isActive = true
+        case .bottomLeft:
+          closeButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
+          closeButton.leftAnchor.constraint(equalTo: margins.leftAnchor, constant: 8).isActive = true
+        case .bottomRight:
+          closeButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: 0).isActive = true
+          closeButton.rightAnchor.constraint(equalTo: margins.rightAnchor, constant: -8).isActive = true
+        case .belowInstruction:
+          closeButton.topAnchor.constraint(equalTo: instructionView.bottomAnchor, constant: SKIP_BUTTON_MARGIN).isActive = true
+          closeButton.leftAnchor.constraint(equalTo: instructionView.leftAnchor, constant: SKIP_BUTTON_MARGIN).isActive = true
+        }
       } else {
         // Fallback on earlier versions
       }
@@ -602,6 +655,12 @@ extension MaterialShowcase {
   
   private func recycleSubviews() {
     subviews.forEach({$0.removeFromSuperview()})
+  }
+
+  /// Set constaint width, height for `closeButton`
+  private func setupCloseButtonForEdges() {
+    closeButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.13).isActive = true
+    closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor, multiplier: 1.0/1.0).isActive = true
   }
 }
 
