@@ -128,6 +128,46 @@ class ViewController: UIViewController {
     let oneTimeKey = UUID().uuidString
     sequence.temp(showcase1).temp(showcase2).temp(showcase3).setKey(key: oneTimeKey).start()
   }
+
+  @IBAction func skipImageButton(_ sender: Any) {
+    let showcase = MaterialShowcase()
+    showcase.setTargetView(button: button, tapThrough: true)
+    showcase.skipButtonPosition = .bottomLeft
+    showcase.skipButtonImage = "HintClose"
+    showcase.primaryText = "Action 4"
+    showcase.secondaryText = "Click here to go into details"
+    showcase.shouldSetTintColor = false // It should be set to false when button uses image.
+    showcase.backgroundPromptColor = UIColor.blue
+    showcase.isTapRecognizerForTargetView = true
+    showcase.backgroundRadius = 400
+    showcase.skipButton = {
+      showcase.completeShowcase()
+    }
+    showcase.show(hasSkipButton: true) {
+      print("==== completion Action 4 ====")
+      // You can save showcase state here
+    }
+  }
+
+  @IBAction func skipTitleButton(_ sender: Any) {
+    let showcase = MaterialShowcase()
+    showcase.setTargetView(button: button, tapThrough: true)
+    showcase.skipButtonPosition = .bottomLeft
+    showcase.skipButtonTitle = "Got it"
+    showcase.primaryText = "Action 4.1"
+    showcase.secondaryText = "Click here to go into details"
+    showcase.shouldSetTintColor = false // It should be set to false when button uses image.
+    showcase.backgroundPromptColor = UIColor.blue
+    showcase.isTapRecognizerForTargetView = true
+    showcase.backgroundRadius = 400
+    showcase.skipButton = {
+      showcase.completeShowcase()
+    }
+    showcase.show(hasSkipButton: true) {
+      print("==== completion Action 4 ====")
+      // You can save showcase state here
+    }
+  }
 }
 
 extension ViewController: UITableViewDataSource {
