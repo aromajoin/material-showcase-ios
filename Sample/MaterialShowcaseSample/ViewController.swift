@@ -152,7 +152,7 @@ class ViewController: UIViewController {
   @IBAction func skipTitleButton(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(button: button, tapThrough: true)
-    showcase.skipButtonPosition = .bottomLeft
+    showcase.skipButtonPosition = .belowInstruction
     showcase.skipButtonTitle = "Got it"
     showcase.primaryText = "Action 4.1"
     showcase.secondaryText = "Click here to go into details"
