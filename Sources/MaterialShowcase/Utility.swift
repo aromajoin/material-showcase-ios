@@ -44,7 +44,11 @@ extension UIView {
   
   // Transform a view's shape into circle
   func asCircle() {
-    self.layer.cornerRadius = self.frame.width / 2;
+    setCornerRadius(self.frame.width / 2)
+  }
+
+  func setCornerRadius(_ radius: CGFloat) {
+    self.layer.cornerRadius = radius
     self.layer.masksToBounds = true
   }
   
@@ -53,6 +57,11 @@ extension UIView {
     if recursive {
       subviews.forEach({$0.setTintColor(color, recursive: true)})
     }
+  }
+
+  func setBorderColor( _ color: UIColor, width: CGFloat) {
+    self.layer.borderWidth = width
+    self.layer.borderColor = color.cgColor
   }
 }
 
