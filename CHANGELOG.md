@@ -1,5 +1,10 @@
 Change Log
 ==========
+Version 0.8.0 *(2021-03-25)*
+--------------------------------
+* Add the feature that is able to "Skip" showcase
+* Fix the tab bar showing issue
+
 Version 0.7.3 *(2020-12-15)*
 --------------------------------
 * Fix the issue that the text is not correctly laid out (out of view) on iPad 
