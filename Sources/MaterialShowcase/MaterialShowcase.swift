@@ -216,7 +216,7 @@ extension MaterialShowcase {
   }
   
   /// Shows it over current screen after completing setup process
-  @objc public func show(animated: Bool = true,hasShadow: Bool = true, hasSkipButton: Bool = false, completion handler: (()-> Void)?) {
+  @objc public func show(animated: Bool = true, hasShadow: Bool = true, hasSkipButton: Bool = false, completion handler: (()-> Void)?) {
     initViews()
     alpha = 0.0
     containerView.addSubview(self)
