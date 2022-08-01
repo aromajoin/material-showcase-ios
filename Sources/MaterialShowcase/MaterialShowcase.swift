@@ -193,6 +193,22 @@ extension MaterialShowcase {
     }
   }
   
+  @objc public func setTargetView(tabBarController: UITabBarController, itemIndex: Int, tapThrough: Bool = false) {
+    let tabBar = tabBarController.tabBar
+    
+    let tabBarItems = orderedTabBarItemViews(of: tabBar)
+    if itemIndex < tabBarItems.count {
+      targetView = tabBarItems[itemIndex]
+      targetTintColor = tabBar.tintColor
+      backgroundPromptColor = tabBar.tintColor
+      if tapThrough {
+        onTapThrough = { tabBarController.selectedIndex = itemIndex}
+      }
+    } else {
+      print ("The tab bar controller item index is out of range")
+    }
+  }
+  
   /// Sets a UITableViewCell as target
   @objc public func setTargetView(tableView: UITableView, section: Int, row: Int) {
     let indexPath = IndexPath(row: row, section: section)
