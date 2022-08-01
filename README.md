@@ -32,7 +32,7 @@ $ brew install carthage
 
 To integrate MaterialShowcase into your Xcode project using Carthage, specify it in your `Cartfile`:
 ```ogdl
-github "aromajoin/material-showcase-ios" ~> 0.8.0
+github "aromajoin/material-showcase-ios" ~> 0.9.0
 ```
 
 Run `carthage update` to build the framework and drag the built `MaterialShowcase.framework` into your Xcode project.
@@ -86,6 +86,8 @@ By default, tapping a showcase's target does not perform it's predefined action.
   showcase.setTargetView(barButtonItem: barItem, tapThrough: true)
   // UITabBar item
   showcase.setTargetView(tabBar: tabBar, itemIndex: 0, tapThrough: true)
+  // UITabBarController
+  showcase.setTargetView(tabBarController: tabBarViewController, itemIndex: 0, tapThrough: true)
 ```
 
 ### Handle showcase status
