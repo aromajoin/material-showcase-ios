@@ -1,5 +1,9 @@
 Change Log
 ==========
+Version 0.9.0 *(2022-08-01)*
+--------------------------------
+* Supported new overload for setTargetView for UITabBarController item to fix the issue #118
+
 Version 0.8.0 *(2021-03-25)*
 --------------------------------
 * Add the feature that is able to "Skip" showcase
